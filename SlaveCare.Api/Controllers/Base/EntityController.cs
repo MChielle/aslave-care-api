@@ -10,10 +10,6 @@ using System.Threading.Tasks;
 
 namespace SlaveCare.Api.Controllers.Base
 {
-#if DEBUG
-    [AllowAnonymous]
-#endif
-
     public abstract class EntityController<TAddModel, TUpdateModel, TPatchModel, TGetModel, TModel, TKey> : ApplicationControllerBase
         where TAddModel : EntityModel<TKey>, IEntityModel<TKey>, new()
         where TUpdateModel : EntityModel<TKey>, IEntityModel<TKey>, new()

@@ -59,21 +59,7 @@ namespace SlaveCare.Api.Helpers
 #if DEBUG
                     "http://localhost:60753",
 #endif
-                    "https://api.utizie.com",
-                    "https://staging-book.utizie.com",
-                    "https://book.utizie.com",
-
-                    "https://staging-backoffice.utizie.com",
-                    "https://api-staging.utizie.com",
-                    "https://backoffice.utizie.com",
-
-                    "http://api.utizie.com",
-                    "http://staging-book.utizie.com",
-                    "http://book.utizie.com",
-
-                    "http://staging-backoffice.utizie.com",
-                    "http://api-staging.utizie.com",
-                    "http://backoffice.utizie.com"
+                    
                 };
 
                 var methods = new List<string>
@@ -149,14 +135,14 @@ namespace SlaveCare.Api.Helpers
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Appointment API",
+                    Title = "SlaveCare API",
                     Description = $"API {EnvironmentHelper.GetShortEnvironmentName()}."
                 });
 
                 c.SwaggerDoc("v1.1", new OpenApiInfo
                 {
                     Version = "v1.1",
-                    Title = "Appointment API",
+                    Title = "SlaveCare API",
                     Description = $"API {EnvironmentHelper.GetShortEnvironmentName()}."
                 });
 

@@ -12,7 +12,7 @@ namespace SlaveCare.Api.Controllers.Base
         {
             try
             {
-                return Ok(new { Message = "Appointment API is online!" });
+                return Ok(new { Message = "SlaveCare API is online!" });
             }
             catch (Exception ex)
             {

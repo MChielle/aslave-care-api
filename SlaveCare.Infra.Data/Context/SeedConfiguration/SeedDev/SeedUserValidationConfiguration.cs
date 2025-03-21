@@ -10,9 +10,8 @@ namespace SlaveCare.Infra.Data.Context.SeedConfiguration.SeedDev
         public void Configure(EntityTypeBuilder<UserValidation> builder)
         {
             builder.HasData(ConstantSeederUserValidation.MasterUserValidations());
-            builder.HasData(ConstantSeederUserValidation.CustomerUserValidations());
-            builder.HasData(ConstantSeederUserValidation.EmployeeUserValidations());
             builder.HasData(ConstantSeederUserValidation.ManagerUserValidations());
+            builder.HasData(ConstantSeederUserValidation.EmployeeUserValidations());
         }
     }
 }

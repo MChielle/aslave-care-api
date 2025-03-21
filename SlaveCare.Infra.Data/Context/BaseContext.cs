@@ -49,7 +49,7 @@ namespace SlaveCare.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new SeedUserConfiguration());
             modelBuilder.ApplyConfiguration(new SeedUserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new SeedUserValidationConfiguration());
-
+            modelBuilder.ApplyConfiguration(new SeedEmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new SeedManagerConfiguration());
 
             #endregion Seeder Test
