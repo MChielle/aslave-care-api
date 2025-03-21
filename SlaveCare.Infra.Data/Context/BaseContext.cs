@@ -1,5 +1,4 @@
-﻿using Appointment.Domain.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using SlaveCare.Domain.Entities;
 using SlaveCare.Infra.Data.Context.SeedConfiguration;
 using SlaveCare.Infra.Data.Context.SeedConfiguration.SeedDev;

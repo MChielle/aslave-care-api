@@ -1,6 +1,4 @@
-﻿using Appointment.Domain.Interfaces.Services.v1;
-using Appointment.Domain.Models.v1.Employee;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SlaveCare.Api.Controllers.Base;
 using SlaveCare.Domain.Interfaces.Services.v1;
 using SlaveCare.Domain.Models.v1.Employee;
@@ -8,7 +6,6 @@ using SlaveCare.Domain.Responses;
 using SlaveCare.Domain.Responses.Interfaces;
 using SlaveCare.Domain.Responses.Messages;
 using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;

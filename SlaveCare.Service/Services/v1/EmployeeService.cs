@@ -1,8 +1,4 @@
-﻿using Appointment.Domain.Entities;
-using Appointment.Domain.Interfaces.Repositories.v1;
-using Appointment.Domain.Interfaces.Services.v1;
-using Appointment.Domain.Models.v1.Employee;
-using SlaveCare.Domain.Constants;
+﻿using SlaveCare.Domain.Constants;
 using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Entities.Enums;
 using SlaveCare.Domain.Enums;
@@ -18,7 +14,6 @@ using SlaveCare.Integration.Amazon.S3.Interfaces;
 using SlaveCare.Service.ServiceContext;
 using SlaveCare.Service.Services.Base;
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 

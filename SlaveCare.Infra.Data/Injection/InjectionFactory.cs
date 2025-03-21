@@ -1,8 +1,4 @@
-﻿using Appointment.Domain.Interfaces.Repositories.v1;
-using Appointment.Domain.Interfaces.Services.v1;
-using Appointment.Infra.Data.Repositories.v1;
-using Appointment.Service.Services.v1;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
