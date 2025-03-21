@@ -11,6 +11,6 @@ namespace SlaveCare.Integration.SmsMessage.HttpSms.Interfaces
 
         Task<IResponseBase> SendMessage(HttpSmsSendMessageModel model);
 
-        Task<IResponseBase> UpsertPhones(HttpSmsUpsertPhonesModel model);
+        Task<IResponseBase> AddOrUpdatePhones(HttpSmsUpsertPhonesModel model);
     }
 }

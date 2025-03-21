@@ -30,17 +30,24 @@
           <Function>
           </Function>
         </Literal>
+		  <Literal Editable="true">
+			  <ID>Project</ID>
+			  <ToolTip>Project name</ToolTip>
+			  <Default>Project</Default>
+			  <Function>
+			  </Function>
+		  </Literal>
       </Declarations>
       <Code Language="csharp">
-		<![CDATA[using Appointment.Domain.Entities;
-using Appointment.Domain.Interfaces.Repositories;
-using Appointment.Domain.Interfaces.Services;
-using Appointment.Domain.Models.v1;
-using Appointment.Service.ServiceContext;
-using Appointment.Service.Services.Base;
+		<![CDATA[using $Project$.Domain.Entities;
+using $Project$.Domain.Interfaces.Repositories;
+using $Project$.Domain.Interfaces.Services;
+using $Project$.Domain.Models.v1;
+using $Project$.Service.ServiceContext;
+using $Project$.Service.Services.Base;
 
 
-namespace Appointment.Service.Services
+namespace $Project$.Service.Services
 {
     public class $Entity$Service : ServiceBase<$Entity$AddModel, $Entity$UpdateModel, $Entity$GetModel, $Entity$Model, $Entity$, $Key$>, I$Entity$Service
     {

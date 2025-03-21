@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SlaveCare.Api.Controllers.Base;
-using SlaveCare.Domain.Entities.Enums;
 using SlaveCare.Domain.Interfaces.Services.v1.Authentication;
 using SlaveCare.Domain.Models.v1.SignIn;
 using SlaveCare.Domain.Responses;

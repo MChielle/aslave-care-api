@@ -118,6 +118,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IS3FileService, S3FileService>();
             _services.AddScoped<IServiceContext, ServiceContext>();
             _services.AddScoped<IManagerService, ManagerService>();
+            _services.AddScoped<IEmployeeService, EmployeeService>();
             _services.AddScoped<INotificationService, NotificationService>();
             _services.AddScoped<IUserValidationService, UserValidationService>();
 
@@ -131,6 +132,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IRoleRepository, RoleRepository>();
             _services.AddScoped<IRepositoryContext, RepositoryContext>();
             _services.AddScoped<IManagerRepository, ManagerRepository>();
+            _services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             _services.AddScoped<IUserValidationRepository, UserValidationRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));

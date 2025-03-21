@@ -1,28 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SlaveCare.Api.Controllers.Base;
 using SlaveCare.Domain.Interfaces.Services.v1;
-using SlaveCare.Domain.Models.v1.Manager;
+using SlaveCare.Domain.Models.v1.Employee;
 using SlaveCare.Domain.Responses;
 using SlaveCare.Domain.Responses.Interfaces;
 using SlaveCare.Domain.Responses.Messages;
 using System;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SlaveCare.Api.Controllers.v1
 {
-    public class ManagerController : EntityController<ManagerAddModel, ManagerUpdateModel, ManagerPatchModel, ManagerGetModel, ManagerModel, Guid>
+    public class EmployeeController : EntityController<EmployeeAddModel, EmployeeUpdateModel, EmployeePatchModel, EmployeeGetModel, EmployeeModel, Guid>
     {
-        private readonly IManagerService _service;
+        private readonly IEmployeeService _service;
 
-        public ManagerController(IManagerService service)
+        public EmployeeController(IEmployeeService service)
             : base(service)
         {
             _service = service;
         }
 
         /// <summary>
-        /// [Authenticated] Replace Manager data by DELETED text by User Id.
+        /// [Authenticated] Replace Employee data by DELETED text by User Id.
         /// </summary>
         /// <param name="userId"></param>
         [HttpDelete("User/{userId}/SoftDelete")]
@@ -35,6 +36,23 @@ namespace SlaveCare.Api.Controllers.v1
         public async Task<IResponseBase> SoftDeleteByUserId(Guid userId)
         {
             return await _service.SoftDeleteByUserId(userId);
+        }
+
+        /// <summary>
+        /// [Authenticated] Employee Controller - Employee id from token to Get Employee.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("Token")]
+        [ProducesResponseType(typeof(OkResponse<EmployeeGetWithoutSensitiveDataModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetByTokenAsync(CancellationToken cancellationToken)
+        {
+            return await _service.GetByTokenAsync(Request.Headers["Authorization"], cancellationToken);
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]

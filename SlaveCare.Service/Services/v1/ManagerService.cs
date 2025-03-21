@@ -1,8 +1,8 @@
 ﻿using SlaveCare.Domain.Constants;
 using SlaveCare.Domain.Entities;
+using SlaveCare.Domain.Entities.Enums;
 using SlaveCare.Domain.Enums;
 using SlaveCare.Domain.Interfaces.Repositories.v1;
-using SlaveCare.Domain.Interfaces.Services.Core;
 using SlaveCare.Domain.Interfaces.Services.v1;
 using SlaveCare.Domain.Interfaces.Services.v1.Authentication;
 using SlaveCare.Domain.Models.v1.Manager;
@@ -36,7 +36,7 @@ namespace SlaveCare.Service.Services.v1
 
         public override async Task<IResponseBase> AddAsync(ManagerAddModel model)
         {
-            var response = await _signUpService.SignUpEmailAsync(model.SignUp);
+            var response = await _signUpService.SignUpEmailAsync(model.SignUp, UserType.Manager);
             if (!response.IsSuccess) return response;
             var user = ((OkResponse<UserModel>)response).Data;
             model.UserId = user.Id;

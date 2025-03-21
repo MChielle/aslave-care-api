@@ -1,5 +1,4 @@
-﻿using SlaveCare.Domain.Entities.Enums;
-using SlaveCare.Domain.Models.v1.SignIn;
+﻿using SlaveCare.Domain.Models.v1.SignIn;
 using SlaveCare.Domain.Responses.Interfaces;
 using System.Threading.Tasks;
 

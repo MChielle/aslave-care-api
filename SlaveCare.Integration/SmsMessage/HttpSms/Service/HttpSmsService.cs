@@ -66,7 +66,7 @@ namespace SlaveCare.Integration.SmsMessage.HttpSms.Service
             return await GetHttpSmsResponse<HttpSmsOkGetPhonesResponse>(response.StatusCode, content);
         }
 
-        public async Task<IResponseBase> UpsertPhones(HttpSmsUpsertPhonesModel model)
+        public async Task<IResponseBase> AddOrUpdatePhones(HttpSmsUpsertPhonesModel model)
         {
             var uri = CombineUrlPath(_httpSmsConfiguration.BaseUrl, "Phones");
 
