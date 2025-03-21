@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Appointment.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using SlaveCare.Domain.Entities;
 using SlaveCare.Infra.Data.Context.SeedConfiguration;
 using SlaveCare.Infra.Data.Context.SeedConfiguration.SeedDev;
@@ -13,6 +14,7 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<UserValidation> UserValidations { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Manager> Managers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)

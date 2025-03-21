@@ -1,25 +1,32 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-  <CodeSnippet Format="1.0.0">
-    <Header>
-      <Title>valdUpdateClass</Title>
-      <Shortcut>valdUpdateClass</Shortcut>
-      <Description>Code snippet to create an validator</Description>
-      <Author>Matheus Chielle</Author>
-    </Header>
-    <Snippet>
-      <Declarations>
-        <Literal Editable="true">
-          <ID>Entity</ID>
-          <ToolTip>Entity name</ToolTip>
-          <Default>Entity</Default>
-          <Function>
-          </Function>
-        </Literal>
-      </Declarations>
-      <Code Language="csharp">
-        <![CDATA[using Appointment.Api.Validators.Base;
-using Appointment.Domain.Models.v1.$Entity$;
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>valdUpdateClass</Title>
+			<Shortcut>valdUpdateClass</Shortcut>
+			<Description>Code snippet to create an validator</Description>
+			<Author>Matheus Chielle</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="true">
+					<ID>Entity</ID>
+					<ToolTip>Entity name</ToolTip>
+					<Default>Entity</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Project</ID>
+					<ToolTip>Project name</ToolTip>
+					<Default>Project</Default>
+					<Function>
+					</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[using $Project$.Api.Validators.Base;
+using $Project$.Domain.Models.v1.$Entity$;
 
 namespace Delivery.Api.Validators.Base.v1
 {
@@ -30,7 +37,7 @@ namespace Delivery.Api.Validators.Base.v1
         }
     }
 }$end$]]>
-      </Code>
-    </Snippet>
-  </CodeSnippet>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
 </CodeSnippets>

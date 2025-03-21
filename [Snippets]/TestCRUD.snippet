@@ -36,17 +36,24 @@
           <Function>
           </Function>
         </Literal>
+		  <Literal Editable="true">
+			  <ID>Project</ID>
+			  <ToolTip>Project name</ToolTip>
+			  <Default>Project</Default>
+			  <Function>
+			  </Function>
+		  </Literal>
       </Declarations>
       <Code Language="csharp" Delimiter="$">
-        <![CDATA[using Appointment.Domain.Interfaces.Repositories;
-using Appointment.Infra.Data.Context;
-using Appointment.Infra.Data.Repositories;
+        <![CDATA[using $Project$.Domain.Interfaces.Repositories;
+using $Project$.Infra.Data.Context;
+using $Project$.Infra.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Appointment.Api.UnitTests.Repositiories
+namespace $Project$.Api.UnitTests.Repositiories
 {
     public class $Entity$RepositoryTest
     {
@@ -147,7 +154,7 @@ namespace Appointment.Api.UnitTests.Repositiories
             DbContextOptions<BaseContext> options;
             var builder = new DbContextOptionsBuilder<BaseContext>();
             var databaseRoot = new InMemoryDatabaseRoot();
-            builder.UseInMemoryDatabase("appointment_test", databaseRoot);
+            builder.UseInMemoryDatabase("$Project$_test", databaseRoot);
             options = builder.Options;
             var context = new BaseContext(options);
             context.Database.EnsureDeleted();

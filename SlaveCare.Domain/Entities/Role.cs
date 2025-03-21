@@ -10,7 +10,6 @@ namespace SlaveCare.Domain.Entities
     {
         [MaxLength(PropertyLength.GenericName)]
         public string Name { get; set; }
-
         public Enums.UserType UserType { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
     }

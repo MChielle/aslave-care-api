@@ -29,22 +29,20 @@ namespace SlaveCare.Service.Services.v1.Authentication
             _notificationService = pushNotificationService;
         }
 
-        public async Task<IResponseBase> SignUpEmailAsync(SignUpEmailModel signUpEmailModel)
+        public async Task<IResponseBase> SignUpEmailAsync(SignUpEmailModel signUpEmailModel, UserType userType)
         {
-            //switch (userType)
-            //{
-            //    case UserType.Master:
-            //        throw new NotImplementedException();
+            switch (userType)
+            {
+                case UserType.Employee:
+                case UserType.Manager:
+                    return await SignUpAsync(signUpEmailModel, userType);
 
-            //    case UserType.Manager:
-            return await SignUpManagerAsync(signUpEmailModel);
-
-            //    default:
-            //        throw new NotImplementedException();
-            //}
+                default:
+                    throw new NotImplementedException();
+            }
         }
 
-        private async Task<IResponseBase> SignUpManagerAsync(SignUpEmailModel signUpEmailModel)
+        private async Task<IResponseBase> SignUpAsync(SignUpEmailModel signUpEmailModel, UserType userType)
         {
             var response = await _userService.GetByEmailAsync(signUpEmailModel.Email);
             if (response.IsSuccess) return new UnauthorizedResponse();
@@ -56,7 +54,7 @@ namespace SlaveCare.Service.Services.v1.Authentication
                 EmailValidated = true,
                 CreationDate = DateTime.UtcNow
             };
-            return await _userService.AddUserWithRoleAsync(newUser, UserType.Manager);
+            return await _userService.AddUserWithRoleAsync(newUser, userType);
         }
     }
 }
