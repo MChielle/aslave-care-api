@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>seedConf</Title>
+      <Shortcut>seedConf</Shortcut>
+      <Description>Code snippet to create a seed configuration for an entity</Description>
+      <Author>Matheus Chielle</Author>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Project</ID>
+          <ToolTip>Project name</ToolTip>
+          <Default>Project</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Entity</ID>
+          <ToolTip>Entity name</ToolTip>
+          <Default>Entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>entity</ID>
+          <ToolTip>Entity name in lowercase</ToolTip>
+          <Default>entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>ENTITY</ID>
+          <ToolTip>Entity name in uppercase</ToolTip>
+          <Default>ENTITY</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[using $Project$.Domain.Entities;
+using $Project$.Domain.Helpers;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+
+namespace $Project$.Infra.Data.Context.SeedConfiguration
+{
+    public class $Entity$SeedConfiguration : IEntityTypeConfiguration<$Entity$>
+    {
+        public void Configure(EntityTypeBuilder<$Entity$> builder)
+        {
+            var $entity$ = new $Entity$
+            {
+                Id = Guid.Parse(Constants.DEFAULT_$ENTITY$_ID),
+                CreationDate = TimeZoneHelper.UTCNOW
+            };
+
+            builder.HasData($entity$);
+        }
+    }
+}$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

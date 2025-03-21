@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>TestCrud</Title>
+      <Author>Luís Ignacio</Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>testcrud</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Entity</ID>
+          <ToolTip>Nome da Entity</ToolTip>
+          <Default>Entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Entities</ID>
+          <ToolTip>Nome da lista de Entities</ToolTip>
+          <Default>Entities</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>entity</ID>
+          <ToolTip>Nome da entity</ToolTip>
+          <Default>entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp" Delimiter="$">
+        <![CDATA[using Appointment.Domain.Interfaces.Repositories;
+using Appointment.Infra.Data.Context;
+using Appointment.Infra.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using System.Threading.Tasks;
+using Xunit;
+
+namespace Appointment.Api.UnitTests.Repositiories
+{
+    public class $Entity$RepositoryTest
+    {
+        #region Create
+
+        [Fact]
+        public async Task PersistNew$Entity$ToDatabase()
+        {
+            var repositoryMock = GetInMemory$Entity$Repository();
+            var $entity$ = FixtureHelper.BuildDefault$Entity$();
+
+            var persisted$Entity$ = await repositoryMock.AddOrUpdateAsync($entity$);
+
+            Assert.Equal($entity$, persisted$Entity$);
+        }
+
+        #endregion Create
+
+        #region Read
+
+        [Fact]
+        public async Task GetAll$Entity$sFromDatabase()
+        {
+            var repositoryMock = GetInMemory$Entity$Repository();
+            var $entity$1 = FixtureHelper.BuildDefault$Entity$();
+            var $entity$2 = FixtureHelper.BuildDefault$Entity$();
+            await repositoryMock.AddOrUpdateAsync($entity$1);
+            await repositoryMock.AddOrUpdateAsync($entity$2);
+
+            var $Entities$ = await repositoryMock.GetAllAsync();
+
+            Assert.NotEmpty($Entities$);
+            Assert.Contains($entity$1, $Entities$);
+            Assert.Contains($entity$2, $Entities$);
+        }
+
+        [Fact]
+        public async Task GetSpecific$Entity$FromDatabase()
+        {
+            var repositoryMock = GetInMemory$Entity$Repository();
+            var $entity$1 = FixtureHelper.BuildDefault$Entity$();
+            var $entity$2 = FixtureHelper.BuildDefault$Entity$();
+            await repositoryMock.AddOrUpdateAsync($entity$1);
+            await repositoryMock.AddOrUpdateAsync($entity$2);
+
+            var desired$Entity$ = $entity$1;
+
+            var persisted$Entity$ = await repositoryMock.GetByIdAsync(desired$Entity$.Id);
+
+            Assert.Equal(desired$Entity$, persisted$Entity$);
+            Assert.Equal(desired$Entity$.Id, persisted$Entity$.Id);
+        }
+
+        #endregion Read
+
+        #region Update
+
+        [Fact]
+        public async Task Update$Entity$InDatabase()
+        {
+            var repositoryMock = GetInMemory$Entity$Repository();
+            var $entity$ = FixtureHelper.BuildDefault$Entity$();
+
+            var saved$Entity$ = await repositoryMock.AddOrUpdateAsync($entity$);
+            var newName = "New $Entity$ Name";
+            saved$Entity$.Name = newName;
+            await repositoryMock.AddOrUpdateAsync(saved$Entity$);
+
+            var updated$Entity$ = await repositoryMock.GetByIdAsync(saved$Entity$.Id);
+
+            Assert.Equal(updated$Entity$.Name, newName);
+        }
+
+        #endregion Update
+
+        #region Delete
+
+        [Fact]
+        public async Task Delete$Entity$FromDatabase()
+        {
+            var repositoryMock = GetInMemory$Entity$Repository();
+            var $entity$1 = FixtureHelper.BuildDefault$Entity$();
+            var $entity$2 = FixtureHelper.BuildDefault$Entity$();
+            await repositoryMock.AddOrUpdateAsync($entity$1);
+            await repositoryMock.AddOrUpdateAsync($entity$2);
+
+            repositoryMock.Delete($entity$1.Id);
+            var $Entities$ = await repositoryMock.GetAllAsync();
+
+            Assert.DoesNotContain($entity$1, $Entities$);
+            Assert.Contains($entity$2, $Entities$);
+        }
+
+        #endregion Delete
+
+        private I$Entity$Repository GetInMemory$Entity$Repository()
+        {
+            DbContextOptions<BaseContext> options;
+            var builder = new DbContextOptionsBuilder<BaseContext>();
+            var databaseRoot = new InMemoryDatabaseRoot();
+            builder.UseInMemoryDatabase("appointment_test", databaseRoot);
+            options = builder.Options;
+            var context = new BaseContext(options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            return new $Entity$Repository(context);
+        }
+    }
+}]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

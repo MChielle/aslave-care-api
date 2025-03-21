@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>repoInter</Title>
+      <Shortcut>repoInter</Shortcut>
+      <Description>Code snippet to create an entity' repository interface</Description>
+      <Author>Matheus Chielle</Author>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Entity</ID>
+          <ToolTip>Nome da Entity</ToolTip>
+          <Default>Entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Key</ID>
+          <ToolTip>Tipo da Key</ToolTip>
+          <Default>Key</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[using Appointment.Domain.Entities;
+using System;
+
+namespace Appointment.Domain.Interfaces.Repositories
+{
+    public interface I$Entity$Repository : IRepositoryBase<$Entity$, $Key$>
+    {
+    }
+}$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

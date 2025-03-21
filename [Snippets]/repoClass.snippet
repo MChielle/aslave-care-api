@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>repoClass</Title>
+      <Shortcut>repoClass</Shortcut>
+      <Description>Code snippet to create an implementation of an entity' repository</Description>
+      <Author>Matheus Chielle</Author>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Entity</ID>
+          <ToolTip>Entity name</ToolTip>
+          <Default>Entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Context</ID>
+          <ToolTip>Name of the context</ToolTip>
+          <Default>Context</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Key</ID>
+          <ToolTip>Entity key type</ToolTip>
+          <Default>Key</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[using Appointment.Domain.Entities;
+using Appointment.Domain.Interfaces.Repositories;
+using Appointment.Infra.Data.Context;
+using Appointment.Infra.Data.Context.RepositoryContext;
+using Appointment.Infra.Data.Repositories.Base;
+using System;
+
+namespace Appointment.Infra.Data.Repositories
+{
+    public class $Entity$Repository : RepositoryBase<$Context$Context, $Entity$, $Key$>, I$Entity$Repository
+    {
+        public $Entity$Repository($Context$Context context, IRepositoryContext repositoryContext)
+            : base(context, repositoryContext)
+        {
+        }
+    }
+}$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

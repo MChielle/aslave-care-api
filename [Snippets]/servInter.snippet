@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>servInter</Title>
+      <Shortcut>servInter</Shortcut>
+      <Description>Code snippet to create an entity's service interface</Description>
+      <Author>Matheus Chielle</Author>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Entity</ID>
+          <ToolTip>Nome da Entity</ToolTip>
+          <Default>Entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Key</ID>
+          <ToolTip>Tipo da Key</ToolTip>
+          <Default>Key</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[using Appointment.Domain.Interfaces.Services.Base;
+using Appointment.Domain.Models.v1;
+
+namespace Appointment.Domain.Interfaces.Services
+{
+    public interface I$Entity$Service : IServiceBase<$Entity$AddModel, $Entity$UpdateModel, $Entity$GetModel, $Entity$Model, $Key$>
+    {
+    }
+}$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
