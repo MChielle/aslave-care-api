@@ -1,10 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Appointment.Domain.Entities;
+using Appointment.Domain.Interfaces.Repositories.v1;
+using Microsoft.EntityFrameworkCore;
 using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Interfaces.Repositories.v1;
 using SlaveCare.Infra.Data.Context;
 using SlaveCare.Infra.Data.Context.RepositoryContext;
 using SlaveCare.Infra.Data.Repositories.Core;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;

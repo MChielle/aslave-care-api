@@ -1,4 +1,5 @@
-﻿using SlaveCare.Domain.Entities.Constants;
+﻿using SlaveCare.Domain.Entities;
+using SlaveCare.Domain.Entities.Constants;
 using SlaveCare.Domain.Entities.Core;
 using System;
 using System.ComponentModel.DataAnnotations;

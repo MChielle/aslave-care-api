@@ -1,4 +1,5 @@
-﻿using SlaveCare.Domain.Interfaces.Services.Core;
+﻿using Appointment.Domain.Models.v1.Employee;
+using SlaveCare.Domain.Interfaces.Services.Core;
 using SlaveCare.Domain.Models.v1.Employee;
 using SlaveCare.Domain.Responses.Interfaces;
 using System;
