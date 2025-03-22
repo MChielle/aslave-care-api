@@ -53,13 +53,8 @@ namespace SlaveCare.Api.Helpers
             {
                 var urls = new List<string>
                 {
+                    "https://localhost:4200",
                     "http://localhost:4200",
-                    "https://localhost:5001",
-                    "http://localhost:5000",
-#if DEBUG
-                    "http://localhost:60753",
-#endif
-                    
                 };
 
                 var methods = new List<string>

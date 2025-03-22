@@ -17,7 +17,7 @@ namespace SlaveCare.Api.IntegrationTests.Configuration
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<TestDataSeeder>();
-            services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("Appointment.Api")));
+            services.AddMvc().AddApplicationPart(Assembly.Load(new AssemblyName("SlaveCare.Api")));
 
             base.ConfigureServices(services);
         }

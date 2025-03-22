@@ -5,16 +5,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using SlaveCare.Domain.Constants;
 using SlaveCare.Domain.Extensions;
+using SlaveCare.Domain.Interfaces.Repositories;
 using SlaveCare.Domain.Interfaces.Repositories.v1;
+using SlaveCare.Domain.Interfaces.Services;
 using SlaveCare.Domain.Interfaces.Services.v1;
 using SlaveCare.Domain.Interfaces.Services.v1.Authentication;
 using SlaveCare.Domain.Interfaces.Services.v1.Notification;
 using SlaveCare.Infra.Data.Context;
 using SlaveCare.Infra.Data.Context.RepositoryContext;
+using SlaveCare.Infra.Data.Repositories;
 using SlaveCare.Infra.Data.Repositories.v1;
 using SlaveCare.Integration.Amazon.S3.Interfaces;
 using SlaveCare.Integration.Amazon.S3.Services;
 using SlaveCare.Service.ServiceContext;
+using SlaveCare.Service.Services;
 using SlaveCare.Service.Services.v1;
 using SlaveCare.Service.Services.v1.Authentication;
 using SlaveCare.Service.Services.v1.Notification;
@@ -121,6 +125,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IEmployeeService, EmployeeService>();
             _services.AddScoped<INotificationService, NotificationService>();
             _services.AddScoped<IUserValidationService, UserValidationService>();
+            _services.AddScoped<ISupplierService, SupplierService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Other Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -134,6 +139,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IManagerRepository, ManagerRepository>();
             _services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             _services.AddScoped<IUserValidationRepository, UserValidationRepository>();
+            _services.AddScoped<ISupplierRepository, SupplierRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 

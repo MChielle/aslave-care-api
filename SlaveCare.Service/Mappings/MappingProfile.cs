@@ -1,11 +1,14 @@
 ﻿using AutoMapper;
 using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Helpers;
+using SlaveCare.Domain.Models.v1.Employee;
 using SlaveCare.Domain.Models.v1.Manager;
 using SlaveCare.Domain.Models.v1.Role;
+using SlaveCare.Domain.Models.v1.Supplier;
 using SlaveCare.Domain.Models.v1.User;
 using SlaveCare.Domain.Models.v1.UserRole;
 using SlaveCare.Domain.Models.v1.UserValidation;
+using System;
 using System.Text;
 
 namespace SlaveCare.Service.Mappings
@@ -17,8 +20,29 @@ namespace SlaveCare.Service.Mappings
             UserMappings();
             RoleMappings();
             ManagerMappings();
+            EmployeeMappings();
             UserRoleMappings();
             UserValidationMappings();
+            SupplierMappings();
+        }
+
+        private void SupplierMappings()
+        {
+            CreateMap<Supplier, SupplierModel>().ReverseMap();
+            CreateMap<Supplier, SupplierAddModel>().ReverseMap();
+            CreateMap<Supplier, SupplierGetModel>().ReverseMap();
+            CreateMap<Supplier, SupplierPatchModel>().ReverseMap();
+            CreateMap<Supplier, SupplierUpdateModel>().ReverseMap();
+        }
+
+        private void EmployeeMappings()
+        {
+            CreateMap<Employee, EmployeeModel>().ReverseMap();
+            CreateMap<Employee, EmployeeAddModel>().ReverseMap();
+            CreateMap<Employee, EmployeeGetModel>().ReverseMap();
+            CreateMap<Employee, EmployeePatchModel>().ReverseMap();
+            CreateMap<Employee, EmployeeUpdateModel>().ReverseMap();
+            CreateMap<Employee, EmployeeGetWithoutSensitiveDataModel>().ReverseMap();
         }
 
         private void ManagerMappings()

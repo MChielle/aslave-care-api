@@ -43,7 +43,7 @@
 using $Project$.Domain.Interfaces.Repositories;
 using $Project$.Infra.Data.Context;
 using $Project$.Infra.Data.Context.RepositoryContext;
-using $Project$.Infra.Data.Repositories.Base;
+using $Project$.Infra.Data.Repositories.Core;
 using System;
 
 namespace $Project$.Infra.Data.Repositories
@@ -53,6 +53,11 @@ namespace $Project$.Infra.Data.Repositories
         public $Entity$Repository($Context$Context context, IRepositoryContext repositoryContext)
             : base(context, repositoryContext)
         {
+        }
+		
+		public override async Task<$Entity$> GetCompleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        {
+            return await GetByIdAsync(id, cancellationToken);
         }
     }
 }$end$]]>

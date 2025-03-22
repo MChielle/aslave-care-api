@@ -26,7 +26,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// [Authenticated] Replace Employee data by DELETED text by User Id.
         /// </summary>
         /// <param name="userId"></param>
-        [HttpDelete("User/{userId}/SoftDelete")]
+        [HttpDelete("User/{userId}/soft-delete")]
         [ProducesResponseType(typeof(OkResponse<DefaultMessageResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -43,7 +43,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        [HttpGet("Token")]
+        [HttpGet("token")]
         [ProducesResponseType(typeof(OkResponse<EmployeeGetWithoutSensitiveDataModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]

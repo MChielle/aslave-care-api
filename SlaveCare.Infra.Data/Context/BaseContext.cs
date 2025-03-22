@@ -14,6 +14,7 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)
