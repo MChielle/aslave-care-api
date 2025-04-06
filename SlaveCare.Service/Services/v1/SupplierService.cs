@@ -15,33 +15,33 @@ namespace SlaveCare.Service.Services
 {
     public class SupplierService : ServiceBase<SupplierAddModel, SupplierUpdateModel, SupplierPatchModel, SupplierGetModel, SupplierModel, Supplier, Guid>, ISupplierService
     {
-        private readonly ISupplierRepository _supplierRepository;
+        private readonly ISupplierRepository _repository;
 
-        public SupplierService(ISupplierRepository supplierRepository, IServiceContext serviceContext)
-            : base(supplierRepository, serviceContext)
+        public SupplierService(ISupplierRepository repository, IServiceContext serviceContext)
+            : base(repository, serviceContext)
         {
-            _supplierRepository = supplierRepository;
+            _repository = repository;
         }
 
         public async Task<IResponseBase> GetByEmailAsync(string email, CancellationToken cancellation = default)
         {
-            var supplier = await _supplierRepository.GetByEmailAsync(email, cancellation);
-            if (supplier == null) return new NoContentResponse();
-            return new OkResponse<SupplierGetModel>(Mapper.Map<SupplierGetModel>(supplier));
+            var entity = await _repository.GetByEmailAsync(email, cancellation);
+            if (entity == null) return new NoContentResponse();
+            return new OkResponse<SupplierGetModel>(Mapper.Map<SupplierGetModel>(entity));
         }
 
         public async Task<IResponseBase> GetByParameters(SupplierGetByParametersModel parameters, CancellationToken cancellation = default)
         {
-            var supplier = await _supplierRepository.GetByParameters(parameters, cancellation);
-            if (supplier == null) return new NoContentResponse();
-            return new OkResponse<IList<SupplierGetModel>>(Mapper.Map<IList<SupplierGetModel>>(supplier));
+            var entity = await _repository.GetByParameters(parameters, cancellation);
+            if (entity == null) return new NoContentResponse();
+            return new OkResponse<IList<SupplierGetModel>>(Mapper.Map<IList<SupplierGetModel>>(entity));
         }
 
         public async Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default)
         {
-            var suppliers = await _supplierRepository.GetToListAsync(cancellation);
-            if (suppliers == null) return new NoContentResponse();
-            return new OkResponse<IList<SupplierGetModel>>(Mapper.Map<IList<SupplierGetModel>>(suppliers));
+            var entities = await _repository.GetToListAsync(cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<IList<SupplierGetModel>>(Mapper.Map<IList<SupplierGetModel>>(entities));
         }
     }
 }

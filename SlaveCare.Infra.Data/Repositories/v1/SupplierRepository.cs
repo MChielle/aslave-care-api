@@ -39,10 +39,10 @@ namespace SlaveCare.Infra.Data.Repositories
             return await _context.Suppliers
                 .AsNoTracking()
                 .Where(x => x.DeletionDate.Equals(null))
-                .ToListAsync();
+                .ToListAsync(cancellation);
         }
 
-        public async Task<List<Supplier>> GetByParameters(SupplierGetByParametersModel parameters, object cancellation)
+        public async Task<List<Supplier>> GetByParameters(SupplierGetByParametersModel parameters, CancellationToken cancellation = default)
         {
             return await _context.Suppliers
                 .AsNoTracking()
@@ -51,7 +51,7 @@ namespace SlaveCare.Infra.Data.Repositories
                 .Where(x => string.IsNullOrEmpty(parameters.PhoneNumber) ? true : x.PhoneNumber == parameters.PhoneNumber)
                 .Where(x => string.IsNullOrEmpty(parameters.Email) ? true : x.Email == parameters.Email)
                 .Where(x => !parameters.Disable.HasValue ? true : x.Disable == parameters.Disable )
-                .ToListAsync();
+                .ToListAsync(cancellation);
         }
     }
 }

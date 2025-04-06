@@ -25,10 +25,10 @@ namespace SlaveCare.Service.Services.v1
         private readonly ISignUpService _signUpService;
         private readonly IUserService _userService;
 
-        public ManagerService(IManagerRepository ManagerRepository, IServiceContext serviceContext, IS3FileService s3FileService, ISignUpService signUpService, IUserService userService)
-            : base(ManagerRepository, serviceContext)
+        public ManagerService(IManagerRepository repository, IServiceContext serviceContext, IS3FileService s3FileService, ISignUpService signUpService, IUserService userService)
+            : base(repository, serviceContext)
         {
-            _repository = ManagerRepository;
+            _repository = repository;
             _s3FileService = s3FileService;
             _signUpService = signUpService;
             _userService = userService;

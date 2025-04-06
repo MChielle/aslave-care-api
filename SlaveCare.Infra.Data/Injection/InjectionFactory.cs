@@ -107,6 +107,13 @@ namespace SlaveCare.Infra.Data.Injection
             #region services
 
             _services.AddScoped<IUserService, UserService>();
+            _services.AddScoped<IManagerService, ManagerService>();
+            _services.AddScoped<IEmployeeService, EmployeeService>();
+            _services.AddScoped<INotificationService, NotificationService>();
+            _services.AddScoped<IUserValidationService, UserValidationService>();
+            _services.AddScoped<IRoleService, RoleService>();
+            _services.AddScoped<ISupplierService, SupplierService>();
+            _services.AddScoped<IStockService, StockService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -115,17 +122,11 @@ namespace SlaveCare.Infra.Data.Injection
             #region other services
 
             _services.AddScoped<IJwtService, JwtService>();
-            _services.AddScoped<IRoleService, RoleService>();
             _services.AddScoped<IOAuthService, OAuthService>();
             _services.AddScoped<ISignInService, SignInService>();
             _services.AddScoped<ISignUpService, SignUpService>();
             _services.AddScoped<IS3FileService, S3FileService>();
             _services.AddScoped<IServiceContext, ServiceContext>();
-            _services.AddScoped<IManagerService, ManagerService>();
-            _services.AddScoped<IEmployeeService, EmployeeService>();
-            _services.AddScoped<INotificationService, NotificationService>();
-            _services.AddScoped<IUserValidationService, UserValidationService>();
-            _services.AddScoped<ISupplierService, SupplierService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Other Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -140,6 +141,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             _services.AddScoped<IUserValidationRepository, UserValidationRepository>();
             _services.AddScoped<ISupplierRepository, SupplierRepository>();
+            _services.AddScoped<IStockRepository, StockRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 

@@ -27,10 +27,10 @@ namespace SlaveCare.Service.Services.v1
         private readonly IUserService _userService;
         private readonly IJwtService _jwtService;
 
-        public EmployeeService(IEmployeeRepository employeeRepository, IServiceContext serviceContext, IS3FileService s3FileService, ISignUpService signUpService, IUserService userService, IJwtService jwtService)
-            : base(employeeRepository, serviceContext)
+        public EmployeeService(IEmployeeRepository repository, IServiceContext serviceContext, IS3FileService s3FileService, ISignUpService signUpService, IUserService userService, IJwtService jwtService)
+            : base(repository, serviceContext)
         {
-            _repository = employeeRepository;
+            _repository = repository;
             _s3FileService = s3FileService;
             _signUpService = signUpService;
             _userService = userService;
