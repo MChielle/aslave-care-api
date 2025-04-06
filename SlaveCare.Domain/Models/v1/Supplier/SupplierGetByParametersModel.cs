@@ -1,16 +1,16 @@
-﻿using SlaveCare.Domain.Models.Core;
-using System;
+﻿using System;
 
 namespace SlaveCare.Domain.Models.v1.Supplier
 {
-    public class SupplierPatchModel : EntityModel<Guid>
+    public class SupplierGetByParametersModel
     {
+        public Guid? Id { get; set; }
         public string Name { get; set; }
 
         public string PhoneNumber { get; set; }
 
         public string Email { get; set; }
 
-        public bool Disable { get; set; }
+        public bool? Disable { get; set; }
     }
 }

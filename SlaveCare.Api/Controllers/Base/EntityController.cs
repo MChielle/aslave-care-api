@@ -111,7 +111,6 @@ namespace SlaveCare.Api.Controllers.Base
         /// [Authenticated] Controller Base Delete generic model by id.
         /// </summary>
         /// <param name="id">From Url</param>
-        [Authorize(Roles = $"{UserType.Master}")]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]

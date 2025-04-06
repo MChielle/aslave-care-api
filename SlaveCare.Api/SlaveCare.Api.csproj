@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Validators\Supplier\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

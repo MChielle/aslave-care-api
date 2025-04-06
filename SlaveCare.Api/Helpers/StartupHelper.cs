@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -49,30 +50,17 @@ namespace SlaveCare.Api.Helpers
     {
         public static void UseCors(IApplicationBuilder app)
         {
-            app.UseCors(builder =>
+            app.UseCors(options =>
             {
                 var urls = new List<string>
                 {
-                    "https://localhost:4200",
                     "http://localhost:4200",
                 };
 
-                var methods = new List<string>
-                {
-                    "GET",
-                    "DELETE",
-                    "POST",
-                    "PUT",
-                    "PATCH",
-                    "OPTIONS",
-                    "HEAD"
-                };
-
-                builder.WithOrigins(urls.ToArray())
+                options.WithOrigins(urls.ToArray())
                        .AllowCredentials()
-                       .WithMethods(methods.ToArray())
-                       .AllowAnyHeader()
-                       .SetPreflightMaxAge(TimeSpan.FromSeconds(3600));
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
             });
         }
 

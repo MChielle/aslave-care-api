@@ -15,5 +15,7 @@ namespace SlaveCare.Domain.Entities
 
         [MaxLength(PropertyLength.Email)]
         public string Email { get; set; }
+
+        public bool Disable { get; set; }
     }
 }
