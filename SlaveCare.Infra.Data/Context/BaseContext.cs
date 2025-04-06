@@ -15,6 +15,7 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)

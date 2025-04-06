@@ -4,6 +4,7 @@ using SlaveCare.Domain.Helpers;
 using SlaveCare.Domain.Models.v1.Employee;
 using SlaveCare.Domain.Models.v1.Manager;
 using SlaveCare.Domain.Models.v1.Role;
+using SlaveCare.Domain.Models.v1.Stock;
 using SlaveCare.Domain.Models.v1.Supplier;
 using SlaveCare.Domain.Models.v1.User;
 using SlaveCare.Domain.Models.v1.UserRole;
@@ -24,6 +25,16 @@ namespace SlaveCare.Service.Mappings
             UserRoleMappings();
             UserValidationMappings();
             SupplierMappings();
+            StockMappings();
+        }
+
+        private void StockMappings()
+        {
+            CreateMap<Stock, StockModel>().ReverseMap();
+            CreateMap<Stock, StockAddModel>().ReverseMap();
+            CreateMap<Stock, StockGetModel>().ReverseMap();
+            CreateMap<Stock, StockPatchModel>().ReverseMap();
+            CreateMap<Stock, StockUpdateModel>().ReverseMap();
         }
 
         private void SupplierMappings()

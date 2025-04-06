@@ -11,7 +11,7 @@ namespace SlaveCare.Domain.Interfaces.Repositories
     public interface ISupplierRepository : IRepositoryBase<Supplier, Guid>
     {
         Task<Supplier> GetByEmailAsync(string email, CancellationToken cancellation = default);
-        Task<List<Supplier>> GetByParameters(SupplierGetByParametersModel parameters, object cancellation);
+        Task<List<Supplier>> GetByParameters(SupplierGetByParametersModel parameters, CancellationToken cancellation = default);
         Task<List<Supplier>> GetToListAsync(CancellationToken cancellation = default);
     }
 }
