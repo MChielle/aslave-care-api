@@ -4,7 +4,7 @@ using System;
 
 namespace SlaveCare.Domain.Models.v1.Entry
 {
-    public class EntryPatchModel : EntityModel<Guid>
+    public class RegistryInPatchModel : EntityModel<Guid>
     {
         public Guid SupplierId { get; set; }
         public bool Donation { get; set; }

@@ -1,6 +1,7 @@
 ﻿using SlaveCare.Domain.Entities.Constants;
 using SlaveCare.Domain.Entities.Core;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,5 +19,8 @@ namespace SlaveCare.Domain.Entities
         public decimal Quantity { get; set; }
 
         public bool Disable { get; set; }
+
+        public List<RegistryInStock> StockRegistryIns { get; set; }
+
     }
 }

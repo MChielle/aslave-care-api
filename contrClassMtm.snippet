@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>contrClassMtm</Title>
+			<Shortcut>contrClassMtm</Shortcut>
+			<Description>Code snippet to create an controller many to many</Description>
+			<Author>Matheus Chielle</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="true">
+					<ID>Entity</ID>
+					<ToolTip>Entity name</ToolTip>
+					<Default>Entity</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Project</ID>
+					<ToolTip>Project name</ToolTip>
+					<Default>Project</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Version</ID>
+					<ToolTip>Version number</ToolTip>
+					<Default>Version</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Key</ID>
+					<ToolTip>Key type</ToolTip>
+					<Default>Key</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Strong</ID>
+					<ToolTip>Strong Entity</ToolTip>
+					<Default>Strong</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Weak</ID>
+					<ToolTip>Weak Entity</ToolTip>
+					<Default>Weak</Default>
+					<Function>
+					</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[using Microsoft.AspNetCore.Mvc;
+using $Project$.Api.Controllers.Base;
+using $Project$.Domain.Responses.Interfaces;
+using $Project$.Domain.Responses;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
+using System.Threading;
+using System;
+using $Project$.Domain.Models.v$Version$.$Entity$;
+
+namespace $Project$.Api.Controllers.v$Version$
+{
+    public class $Entity$Controller : EntityMtMController<$Entity$Get$Strong$Model, $Entity$Get$Weak$Model, $Entity$PatchModel, $Entity$Model, $Key$, $Key$>
+    {
+        private readonly I$Entity$Service _service;
+
+        public $Entity$Controller(I$Entity$Service service) : base(service)
+        {
+            _service = service;
+        }
+
+        [HttpGet("$Strong$/{$Strong$Id}/$Weak$/{$Weak$Id}")]
+        [ProducesResponseType(typeof(OkResponse<$Entity$Model>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public override async Task<IResponseBase> GetByIdsAsync($Key$ $Strong$Id, $Key$ $Weak$Id, CancellationToken cancellationToken)
+        {
+            return await base.GetByIdsAsync($Strong$Id, $Weak$Id, cancellationToken);
+        }
+
+        [HttpGet("$Strong$/{$Strong$Id}")]
+        [ProducesResponseType(typeof(OkResponse<$Entity$Get$Weak$Model>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public override async Task<IResponseBase> GetStrong($Key$ $Strong$Id, CancellationToken cancellationToken)
+        {
+            return await base.GetStrong($Strong$Id, cancellationToken);
+        }
+
+        [HttpGet("$Weak$/{$Weak$Id}")]
+        [ProducesResponseType(typeof(OkResponse<$Entity$Get$Strong$Model>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public override async Task<IResponseBase> GetWeak($Key$ $Weak$Id, CancellationToken cancellationToken)
+        {
+            return await base.GetWeak($Weak$Id, cancellationToken);
+        }
+
+        [HttpPatch("$Strong$/{$Strong$Id}")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<$Entity$Model>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public override async Task<IResponseBase> Patch($Key$ $Strong$Id, [FromBody] IEnumerable<$Entity$PatchModel> model)
+        {
+            return await _service.AddOrDeleteAsync($Strong$Id, model);
+        }
+
+        [HttpPost("$Strong$/{$Strong$Id}")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<$Entity$Model>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> Post($Key$ $Strong$Id, [FromBody] $Entity$PatchModel model)
+        {
+            return await _service.AddAsync($Strong$Id, model);
+        }
+    }
+}
+$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

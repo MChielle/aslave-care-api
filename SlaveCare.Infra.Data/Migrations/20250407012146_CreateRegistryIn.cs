@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SlaveCare.Infra.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateEntry : Migration
+    public partial class CreateRegistryIn : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Entries",
+                name: "RegistryIns",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "char(36)", nullable: false, collation: "ascii_general_ci"),
@@ -27,9 +27,9 @@ namespace SlaveCare.Infra.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Entries", x => x.Id);
+                    table.PrimaryKey("PK_RegistryIns", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Entries_Suppliers_SupplierId",
+                        name: "FK_RegistryIns_Suppliers_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Suppliers",
                         principalColumn: "Id");
@@ -37,8 +37,8 @@ namespace SlaveCare.Infra.Data.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Entries_SupplierId",
-                table: "Entries",
+                name: "IX_RegistryIns_SupplierId",
+                table: "RegistryIns",
                 column: "SupplierId");
         }
 
@@ -46,7 +46,7 @@ namespace SlaveCare.Infra.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Entries");
+                name: "RegistryIns");
         }
     }
 }

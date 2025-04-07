@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace SlaveCare.Infra.Data.Repositories
 {
-    public class EntryRepository : RepositoryBase<BaseContext, Entry, Guid>, IEntryRepository
+    public class RegistryInRepository : RepositoryBase<BaseContext, RegistryIn, Guid>, IRegistryInRepository
     {
-        public EntryRepository(BaseContext context, IRepositoryContext repositoryContext)
+        public RegistryInRepository(BaseContext context, IRepositoryContext repositoryContext)
             : base(context, repositoryContext)
         {
         }
 
-        public override async Task<Entry> GetCompleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public override async Task<RegistryIn> GetCompleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await GetByIdAsync(id, cancellationToken);
         }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>servInterMtm</Title>
+			<Shortcut>servInterMtm</Shortcut>
+			<Description>Code snippet to create an entity's service interface many to many</Description>
+			<Author>Matheus Chielle</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="true">
+					<ID>Entity</ID>
+					<ToolTip>Nome da Entity</ToolTip>
+					<Default>Entity</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Key</ID>
+					<ToolTip>Tipo da Key</ToolTip>
+					<Default>Key</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Project</ID>
+					<ToolTip>Project name</ToolTip>
+					<Default>Project</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Version</ID>
+					<ToolTip>Version number</ToolTip>
+					<Default>Version</Default>
+					<Function>
+					</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[using $Project$.Domain.Interfaces.Services.Core;
+using $Project$.Domain.Models.v$Version$.$Entity$;
+using System;
+
+public interface I$Entity$Service : IMtMServiceBase<$Entity$GetStockModel, $Entity$GetRegistryInModel, $Entity$PatchModel, $Entity$Model, $Key$, $Key$>
+{
+}$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

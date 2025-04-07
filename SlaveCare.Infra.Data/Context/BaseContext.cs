@@ -16,7 +16,8 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-        public DbSet<Entry> Entries { get; set; }
+        public DbSet<RegistryIn> RegistryIns { get; set; }
+        public DbSet<RegistryInStock> RegistryInStocks { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)
@@ -37,6 +38,8 @@ namespace SlaveCare.Infra.Data.Context
                 relationship.DeleteBehavior = DeleteBehavior.NoAction;
 
             modelBuilder.Entity<UserRole>().HasKey(x => new { x.UserId, x.RoleId });
+
+            modelBuilder.Entity<RegistryInStock>().HasKey(x => new { x.RegistryInId, x.StockId });
 
             OnModelCreatingPartial(modelBuilder);
 

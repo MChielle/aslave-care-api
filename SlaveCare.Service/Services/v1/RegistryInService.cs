@@ -8,9 +8,9 @@ using System;
 
 namespace SlaveCare.Service.Services
 {
-    public class EntryService : ServiceBase<EntryAddModel, EntryUpdateModel, EntryPatchModel, EntryGetModel, EntryModel, Entry, Guid>, IEntryService
+    public class RegistryInService : ServiceBase<RegistryInAddModel, RegistryInUpdateModel, RegistryInPatchModel, RegistryInGetModel, RegistryInModel, RegistryIn, Guid>, IRegistryInService
     {
-        public EntryService(IEntryRepository repository, IServiceContext serviceContext)
+        public RegistryInService(IRegistryInRepository repository, IServiceContext serviceContext)
             : base(repository, serviceContext)
         {
         }

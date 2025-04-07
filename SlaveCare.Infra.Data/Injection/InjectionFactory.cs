@@ -114,7 +114,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IRoleService, RoleService>();
             _services.AddScoped<ISupplierService, SupplierService>();
             _services.AddScoped<IStockService, StockService>();
-            _services.AddScoped<IEntryService, EntryService>();
+            _services.AddScoped<IRegistryInService, RegistryInService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -143,7 +143,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IUserValidationRepository, UserValidationRepository>();
             _services.AddScoped<ISupplierRepository, SupplierRepository>();
             _services.AddScoped<IStockRepository, StockRepository>();
-            _services.AddScoped<IEntryRepository, EntryRepository>();
+            _services.AddScoped<IRegistryInRepository, RegistryInRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 

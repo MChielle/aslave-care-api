@@ -4,7 +4,7 @@ using System;
 
 namespace SlaveCare.Domain.Models.v1.Entry
 {
-    public class EntryModel : EntityModel<Guid>
+    public class RegistryInModel : EntityModel<Guid>
     {
         public Guid SupplierId { get; set; }
         public SupplierModel Supplier { get; set; }

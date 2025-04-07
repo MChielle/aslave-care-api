@@ -11,8 +11,8 @@ using SlaveCare.Infra.Data.Context;
 namespace SlaveCare.Infra.Data.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    [Migration("20250407010144_CreateEntry")]
-    partial class CreateEntry
+    [Migration("20250407012146_CreateRegistryIn")]
+    partial class CreateRegistryIn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,40 +77,6 @@ namespace SlaveCare.Infra.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SlaveCare.Domain.Entities.Entry", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
-                    b.Property<bool>("Donation")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("SupplierId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SupplierId");
-
-                    b.ToTable("Entries");
-                });
-
             modelBuilder.Entity("SlaveCare.Domain.Entities.Manager", b =>
                 {
                     b.Property<Guid>("Id")
@@ -155,6 +121,40 @@ namespace SlaveCare.Infra.Data.Migrations
                             Name = "Matheus",
                             UserId = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9be")
                         });
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegistryIn", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("longtext");
+
+                    b.Property<bool>("Donation")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("SupplierId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("RegistryIns");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.Role", b =>
@@ -460,17 +460,6 @@ namespace SlaveCare.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SlaveCare.Domain.Entities.Entry", b =>
-                {
-                    b.HasOne("SlaveCare.Domain.Entities.Supplier", "Supplier")
-                        .WithMany()
-                        .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Supplier");
-                });
-
             modelBuilder.Entity("SlaveCare.Domain.Entities.Manager", b =>
                 {
                     b.HasOne("SlaveCare.Domain.Entities.User", "User")
@@ -480,6 +469,17 @@ namespace SlaveCare.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegistryIn", b =>
+                {
+                    b.HasOne("SlaveCare.Domain.Entities.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.User", b =>

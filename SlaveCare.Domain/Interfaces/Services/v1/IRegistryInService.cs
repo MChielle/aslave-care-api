@@ -4,7 +4,7 @@ using System;
 
 namespace SlaveCare.Domain.Interfaces.Services
 {
-    public interface IEntryService : IServiceBase<EntryAddModel, EntryUpdateModel, EntryPatchModel, EntryGetModel, EntryModel, Guid>
+    public interface IRegistryInService : IServiceBase<RegistryInAddModel, RegistryInUpdateModel, RegistryInPatchModel, RegistryInGetModel, RegistryInModel, Guid>
     {
     }
 }

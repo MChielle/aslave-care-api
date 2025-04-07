@@ -3,7 +3,7 @@ using System;
 
 namespace SlaveCare.Domain.Models.v1.Entry
 {
-    public class EntryUpdateModel : EntityModel<Guid>
+    public class RegistryInUpdateModel : EntityModel<Guid>
     {
         public Guid SupplierId { get; set; }
         public bool Donation { get; set; }
