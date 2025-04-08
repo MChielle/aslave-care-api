@@ -1,6 +1,6 @@
 ﻿using SlaveCare.Domain.Interfaces.Services.Core;
-using SlaveCare.Domain.Models.v1.Entry;
 using System;
+using SlaveCare.Domain.Models.v1.RegistryIn;
 
 namespace SlaveCare.Domain.Interfaces.Services
 {

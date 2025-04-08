@@ -115,6 +115,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<ISupplierService, SupplierService>();
             _services.AddScoped<IStockService, StockService>();
             _services.AddScoped<IRegistryInService, RegistryInService>();
+            _services.AddScoped<IRegistryInStockService, RegistryInStockService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -144,6 +145,7 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<ISupplierRepository, SupplierRepository>();
             _services.AddScoped<IStockRepository, StockRepository>();
             _services.AddScoped<IRegistryInRepository, RegistryInRepository>();
+            _services.AddScoped<IRegistryInStockRepository, RegistryInStockRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 

@@ -24,11 +24,6 @@ namespace SlaveCare.Api.Controllers.v1
         /// [Authenticated] Stock Controller route to get stock by any parameter.
         /// </summary>
         [HttpGet("get-by-parameters")]
-        [ProducesResponseType(typeof(OkResponse<StockGetModel>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
-        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> GetByParams([FromQuery] StockGetByParametersModel parameters)
         {
             return await _service.GetByParameters(parameters);

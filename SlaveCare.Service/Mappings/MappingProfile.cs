@@ -2,8 +2,9 @@
 using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Helpers;
 using SlaveCare.Domain.Models.v1.Employee;
-using SlaveCare.Domain.Models.v1.Entry;
 using SlaveCare.Domain.Models.v1.Manager;
+using SlaveCare.Domain.Models.v1.RegistryIn;
+using SlaveCare.Domain.Models.v1.RegistryInStock;
 using SlaveCare.Domain.Models.v1.Role;
 using SlaveCare.Domain.Models.v1.Stock;
 using SlaveCare.Domain.Models.v1.Supplier;
@@ -27,6 +28,15 @@ namespace SlaveCare.Service.Mappings
             SupplierMappings();
             StockMappings();
             RegistryInMappings();
+            RegistryInStockMappings();
+        }
+
+        private void RegistryInStockMappings()
+        {
+            CreateMap<RegistryInStock, RegistryInStockGetRegistryInModel>().ReverseMap();
+            CreateMap<RegistryInStock, RegistryInStockGetStockModel>().ReverseMap();
+            CreateMap<RegistryInStock, RegistryInStockPatchModel>().ReverseMap();
+            CreateMap<RegistryInStock, RegistryInStockModel>().ReverseMap();
         }
 
         private void RegistryInMappings()

@@ -20,16 +20,17 @@ namespace SlaveCare.Infra.Data.Repositories
         {
         }
 
-        public async Task<List<Stock>> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellation = default)
+        //TODO: verificar solução para injeção de parâmetros de forma genérica, pesquisar possibilidade de fazer include dinâmico.
+        public async Task<List<Stock>> GetByParameters(StockGetByParametersModel parameters,  CancellationToken cancellation = default)
         {
             return await _context.Stocks
-                            .AsNoTracking()
-                            .Where(x => !parameters.Id.HasValue ? true : x.Id == parameters.Id)
-                            .Where(x => string.IsNullOrEmpty(parameters.Name) ? true : x.Name == parameters.Name)
-                            .Where(x => string.IsNullOrEmpty(parameters.Description) ? true : x.Description == parameters.Description)
-                            .Where(x => !parameters.Disable.HasValue ? true : x.Disable == parameters.Disable)
-                            .Where(x => !parameters.Quantity.HasValue ? true : x.Quantity == parameters.Quantity)
-                            .ToListAsync(cancellation);
+                .AsNoTracking()
+                .Where(x => !parameters.Id.HasValue ? true : x.Id == parameters.Id)
+                .Where(x => string.IsNullOrEmpty(parameters.Name) ? true : x.Name == parameters.Name)
+                .Where(x => string.IsNullOrEmpty(parameters.Description) ? true : x.Description == parameters.Description)
+                .Where(x => !parameters.Disable.HasValue ? true : x.Disable == parameters.Disable)
+                .Where(x => !parameters.Quantity.HasValue ? true : x.Quantity == parameters.Quantity)
+                .ToListAsync(cancellation);
         }
 
         public override async Task<Stock> GetCompleteByIdAsync(Guid id, CancellationToken cancellationToken = default)

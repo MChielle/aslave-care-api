@@ -9,9 +9,9 @@ namespace SlaveCare.Domain.Entities
         public Guid SupplierId { get; set; }
         public Supplier Supplier { get; set; }
         public bool Donation { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime ApplyDate { get; set; }
         public string Description { get; set; }
-        //TODO: adicionar propriedade para controlar se o saldo foi aplicado.
-        public List<RegistryInStock> StockRegistryIns { get; set; }
+        public bool Applied { get; set; }
+        public List<RegistryInStock> RegistryInStocks { get; set; }
     }
 }

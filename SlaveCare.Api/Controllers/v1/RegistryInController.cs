@@ -1,7 +1,7 @@
 ﻿using SlaveCare.Api.Controllers.Base;
 using SlaveCare.Domain.Interfaces.Services;
-using SlaveCare.Domain.Models.v1.Entry;
 using System;
+using SlaveCare.Domain.Models.v1.RegistryIn;
 
 namespace SlaveCare.Api.Controllers.v1
 {
