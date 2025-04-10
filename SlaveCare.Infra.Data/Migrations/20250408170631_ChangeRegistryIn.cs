@@ -16,7 +16,7 @@ namespace SlaveCare.Infra.Data.Migrations
                 newName: "ApplyDate");
 
             migrationBuilder.AddColumn<bool>(
-                name: "Applied",
+                name: "Apply",
                 table: "RegistryIns",
                 type: "tinyint(1)",
                 nullable: false,
@@ -27,7 +27,7 @@ namespace SlaveCare.Infra.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Applied",
+                name: "Apply",
                 table: "RegistryIns");
 
             migrationBuilder.RenameColumn(

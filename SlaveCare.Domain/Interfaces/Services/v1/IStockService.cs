@@ -5,6 +5,8 @@ using SlaveCare.Domain.Responses.Interfaces;
 using System;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections.Generic;
+using SlaveCare.Domain.Models.v1.RegistryInStock;
 
 namespace SlaveCare.Domain.Interfaces.Services
 {
@@ -12,5 +14,6 @@ namespace SlaveCare.Domain.Interfaces.Services
     {
         Task<IResponseBase> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellationToken = default);
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
+        Task UpdateStockQuantity(List<RegistryInStockPatchModel> registryInStocks, bool apply);
     }
 }

@@ -11,8 +11,8 @@ using SlaveCare.Infra.Data.Context;
 namespace SlaveCare.Infra.Data.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    [Migration("20250408162450_ChangeRegistryIn")]
-    partial class ChangeRegistryIn
+    [Migration("20250410185626_ChangeRegistryInTableName")]
+    partial class ChangeRegistryInTableName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,7 +129,7 @@ namespace SlaveCare.Infra.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<bool>("Applied")
+                    b.Property<bool>("Apply")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<DateTime>("ApplyDate")
@@ -157,7 +157,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("RegistryIns");
+                    b.ToTable("RegistriesIn");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.RegistryInStock", b =>

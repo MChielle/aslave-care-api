@@ -16,7 +16,7 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-        public DbSet<RegistryIn> RegistryIns { get; set; }
+        public DbSet<RegistryIn> RegistriesIn { get; set; }
         public DbSet<RegistryInStock> RegistryInStocks { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)

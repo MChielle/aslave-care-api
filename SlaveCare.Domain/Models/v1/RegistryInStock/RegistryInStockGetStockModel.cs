@@ -8,5 +8,7 @@ namespace SlaveCare.Domain.Models.v1.RegistryInStock
     {
         public Guid StockId { get; set; }
         public StockGetModel Stock { get; set; }
+        public decimal Quantity { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SlaveCare.Infra.Data.Context;
 
@@ -10,9 +11,11 @@ using SlaveCare.Infra.Data.Context;
 namespace SlaveCare.Infra.Data.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    partial class BaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250408170631_ChangeRegistryIn")]
+    partial class ChangeRegistryIn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +62,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
 
                     b.HasData(
                         new
@@ -107,7 +110,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Managers", (string)null);
+                    b.ToTable("Managers");
 
                     b.HasData(
                         new
@@ -154,7 +157,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("RegistriesIn", (string)null);
+                    b.ToTable("RegistryIns");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.RegistryInStock", b =>
@@ -175,7 +178,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasIndex("StockId");
 
-                    b.ToTable("RegistryInStocks", (string)null);
+                    b.ToTable("RegistryInStocks");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.Role", b =>
@@ -202,7 +205,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
 
                     b.HasData(
                         new
@@ -259,7 +262,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stocks", (string)null);
+                    b.ToTable("Stocks");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.Supplier", b =>
@@ -294,7 +297,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Suppliers", (string)null);
+                    b.ToTable("Suppliers");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.User", b =>
@@ -346,7 +349,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasIndex("UserValidationId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
 
                     b.HasData(
                         new
@@ -393,7 +396,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
 
                     b.HasData(
                         new
@@ -444,7 +447,7 @@ namespace SlaveCare.Infra.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserValidations", (string)null);
+                    b.ToTable("UserValidations");
 
                     b.HasData(
                         new
