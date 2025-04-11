@@ -28,8 +28,23 @@ namespace SlaveCare.Infra.Data.Repositories
         {
             return await _context.RegistriesIn
                 .AsNoTracking()
+                .Include(x => x.Supplier)
                 .Where(x => x.DeletionDate.Equals(null))
                 .ToListAsync(cancellation);
+        }
+
+        public async override Task<RegistryIn> AddAsync(RegistryIn entity)
+        {
+            var lastNumber = await _context.RegistriesIn.OrderByDescending(x => x.Number).FirstOrDefaultAsync();
+            entity.Number = lastNumber == null ? 0: lastNumber.Number++;
+            if(entity.Apply) entity.ApplyDate = DateTime.UtcNow;
+            return await base.AddAsync(entity);
+        }
+
+        public async override Task<RegistryIn> UpdateAsync(RegistryIn entity)
+        {
+            if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
+            return await base.UpdateAsync(entity);
         }
     }
 }

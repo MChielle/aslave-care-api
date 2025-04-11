@@ -1,16 +1,15 @@
 ﻿using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Interfaces.Repositories;
 using SlaveCare.Domain.Interfaces.Services;
+using SlaveCare.Domain.Models.v1.RegistryIn;
+using SlaveCare.Domain.Responses;
+using SlaveCare.Domain.Responses.Interfaces;
 using SlaveCare.Service.ServiceContext;
 using SlaveCare.Service.Services.Base;
 using System;
-using SlaveCare.Domain.Models.v1.RegistryIn;
-using System.Threading.Tasks;
-using SlaveCare.Domain.Responses.Interfaces;
-using SlaveCare.Domain.Models.v1.Stock;
-using SlaveCare.Domain.Responses;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SlaveCare.Service.Services
 {
@@ -18,6 +17,7 @@ namespace SlaveCare.Service.Services
     {
         private readonly IStockService _stockService;
         private readonly IRegistryInRepository _repository;
+
         public RegistryInService(IRegistryInRepository repository, IServiceContext serviceContext, IStockService stockService)
             : base(repository, serviceContext)
         {
@@ -25,10 +25,10 @@ namespace SlaveCare.Service.Services
             _repository = repository;
         }
 
-        public async override Task<IResponseBase> AddAsync(RegistryInAddModel model)
+        public override async Task<IResponseBase> AddAsync(RegistryInAddModel model)
         {
             var response = await base.AddAsync(model);
-            if (model.Apply) 
+            if (model.Apply)
                 await _stockService.UpdateStockQuantity(model.RegistryInStocks, model.Apply);
 
             return response;
