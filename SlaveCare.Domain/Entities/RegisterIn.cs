@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SlaveCare.Domain.Entities
 {
-    public class RegistryIn : Entity<Guid>
+    public class RegisterIn : Entity<Guid>
     {
         public int Number { get; set; }
         public Guid SupplierId { get; set; }
@@ -15,6 +15,6 @@ namespace SlaveCare.Domain.Entities
         public DateTime ApplyDate { get; set; }
         public string Description { get; set; }
         public bool Apply { get; set; }
-        public List<RegistryInStock> RegistryInStocks { get; set; }
+        public List<RegisterInStock> RegisterInStocks { get; set; }
     }
 }

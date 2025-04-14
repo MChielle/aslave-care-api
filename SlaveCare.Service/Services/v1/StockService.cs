@@ -1,7 +1,4 @@
 ﻿using SlaveCare.Domain.Entities;
-using SlaveCare.Domain.Interfaces.Repositories;
-using SlaveCare.Domain.Interfaces.Services;
-using SlaveCare.Domain.Models.v1.RegistryInStock;
 using SlaveCare.Domain.Models.v1.Stock;
 using SlaveCare.Domain.Responses;
 using SlaveCare.Domain.Responses.Interfaces;
@@ -11,8 +8,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using SlaveCare.Domain.Interfaces.Repositories.v1;
+using SlaveCare.Domain.Interfaces.Services.v1;
+using SlaveCare.Domain.Models.v1.RegisterInStock;
 
-namespace SlaveCare.Service.Services
+namespace SlaveCare.Service.Services.v1
 {
     public class StockService : ServiceBase<StockAddModel, StockUpdateModel, StockPatchModel, StockGetModel, StockModel, Stock, Guid>, IStockService
     {
@@ -38,9 +38,9 @@ namespace SlaveCare.Service.Services
             return new OkResponse<IList<StockGetModel>>(Mapper.Map<IList<StockGetModel>>(entities));
         }
 
-        public async Task UpdateStockQuantity(List<RegistryInStockPatchModel> registryInStocks, bool apply)
+        public async Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
         {
-            foreach (var stockToUpdate in registryInStocks)
+            foreach (var stockToUpdate in registerInStocks)
             {
                 var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
 

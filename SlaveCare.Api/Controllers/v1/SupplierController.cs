@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SlaveCare.Api.Controllers.Base;
-using SlaveCare.Domain.Interfaces.Services;
 using SlaveCare.Domain.Models.v1.SignIn;
 using SlaveCare.Domain.Models.v1.Supplier;
 using SlaveCare.Domain.Responses.Interfaces;
@@ -10,6 +9,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using SlaveCare.Domain.Interfaces.Services.v1;
 
 namespace SlaveCare.Api.Controllers.v1
 {

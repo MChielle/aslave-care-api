@@ -16,8 +16,8 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Supplier> Suppliers { get; set; }
         public DbSet<Stock> Stocks { get; set; }
-        public DbSet<RegistryIn> RegistriesIn { get; set; }
-        public DbSet<RegistryInStock> RegistryInStocks { get; set; }
+        public DbSet<RegisterIn> RegistersIn { get; set; }
+        public DbSet<RegisterInStock> RegisterInStocks { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)
@@ -39,7 +39,7 @@ namespace SlaveCare.Infra.Data.Context
 
             modelBuilder.Entity<UserRole>().HasKey(x => new { x.UserId, x.RoleId });
 
-            modelBuilder.Entity<RegistryInStock>().HasKey(x => new { x.RegistryInId, x.StockId });
+            modelBuilder.Entity<RegisterInStock>().HasKey(x => new { x.RegisterInId, x.StockId });
 
             OnModelCreatingPartial(modelBuilder);
 

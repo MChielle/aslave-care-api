@@ -1,6 +1,4 @@
 ﻿using SlaveCare.Domain.Entities;
-using SlaveCare.Domain.Interfaces.Repositories;
-using SlaveCare.Domain.Interfaces.Services;
 using SlaveCare.Domain.Models.v1.Supplier;
 using SlaveCare.Service.ServiceContext;
 using SlaveCare.Service.Services.Base;
@@ -10,8 +8,10 @@ using System.Threading;
 using SlaveCare.Domain.Responses.Interfaces;
 using SlaveCare.Domain.Responses;
 using System.Collections.Generic;
+using SlaveCare.Domain.Interfaces.Repositories.v1;
+using SlaveCare.Domain.Interfaces.Services.v1;
 
-namespace SlaveCare.Service.Services
+namespace SlaveCare.Service.Services.v1
 {
     public class SupplierService : ServiceBase<SupplierAddModel, SupplierUpdateModel, SupplierPatchModel, SupplierGetModel, SupplierModel, Supplier, Guid>, ISupplierService
     {

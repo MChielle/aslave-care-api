@@ -1,13 +1,13 @@
 ﻿using SlaveCare.Domain.Interfaces.Services.Core;
 using System;
-using SlaveCare.Domain.Models.v1.RegistryIn;
 using System.Threading.Tasks;
 using SlaveCare.Domain.Responses.Interfaces;
 using System.Threading;
+using SlaveCare.Domain.Models.v1.RegisterIn;
 
-namespace SlaveCare.Domain.Interfaces.Services
+namespace SlaveCare.Domain.Interfaces.Services.v1
 {
-    public interface IRegistryInService : IServiceBase<RegistryInAddModel, RegistryInUpdateModel, RegistryInPatchModel, RegistryInGetModel, RegistryInModel, Guid>
+    public interface IRegisterInService : IServiceBase<RegisterInAddModel, RegisterInUpdateModel, RegisterInPatchModel, RegisterInGetModel, RegisterInModel, Guid>
     {
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
     }

@@ -3,8 +3,6 @@ using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Helpers;
 using SlaveCare.Domain.Models.v1.Employee;
 using SlaveCare.Domain.Models.v1.Manager;
-using SlaveCare.Domain.Models.v1.RegistryIn;
-using SlaveCare.Domain.Models.v1.RegistryInStock;
 using SlaveCare.Domain.Models.v1.Role;
 using SlaveCare.Domain.Models.v1.Stock;
 using SlaveCare.Domain.Models.v1.Supplier;
@@ -12,6 +10,8 @@ using SlaveCare.Domain.Models.v1.User;
 using SlaveCare.Domain.Models.v1.UserRole;
 using SlaveCare.Domain.Models.v1.UserValidation;
 using System.Text;
+using SlaveCare.Domain.Models.v1.RegisterIn;
+using SlaveCare.Domain.Models.v1.RegisterInStock;
 
 namespace SlaveCare.Service.Mappings
 {
@@ -27,25 +27,25 @@ namespace SlaveCare.Service.Mappings
             UserValidationMappings();
             SupplierMappings();
             StockMappings();
-            RegistryInMappings();
-            RegistryInStockMappings();
+            RegisterInMappings();
+            RegisterInStockMappings();
         }
 
-        private void RegistryInStockMappings()
+        private void RegisterInStockMappings()
         {
-            CreateMap<RegistryInStock, RegistryInStockGetRegistryInModel>().ReverseMap();
-            CreateMap<RegistryInStock, RegistryInStockGetStockModel>().ReverseMap();
-            CreateMap<RegistryInStock, RegistryInStockPatchModel>().ReverseMap();
-            CreateMap<RegistryInStock, RegistryInStockModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockGetRegisterInModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockGetStockModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockPatchModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockModel>().ReverseMap();
         }
 
-        private void RegistryInMappings()
+        private void RegisterInMappings()
         {
-            CreateMap<RegistryIn, RegistryInModel>().ReverseMap();
-            CreateMap<RegistryIn, RegistryInAddModel>().ReverseMap();
-            CreateMap<RegistryIn, RegistryInGetModel>().ReverseMap();
-            CreateMap<RegistryIn, RegistryInPatchModel>().ReverseMap();
-            CreateMap<RegistryIn, RegistryInUpdateModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInAddModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInGetModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInPatchModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInUpdateModel>().ReverseMap();
         }
 
         private void StockMappings()

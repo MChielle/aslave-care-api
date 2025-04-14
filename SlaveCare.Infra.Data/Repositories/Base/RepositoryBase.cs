@@ -13,7 +13,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SlaveCare.Infra.Data.Repositories.Core
+namespace SlaveCare.Infra.Data.Repositories.Base
 {
     public abstract class RepositoryBase<TContext, TEntity, TKey> : IRepositoryBase<TEntity, TKey>, IDisposable
         where TEntity : Entity<TKey>, IEntity<TKey>, new()

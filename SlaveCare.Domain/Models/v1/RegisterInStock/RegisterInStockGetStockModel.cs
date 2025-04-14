@@ -2,9 +2,9 @@
 using SlaveCare.Domain.Models.v1.Stock;
 using System;
 
-namespace SlaveCare.Domain.Models.v1.RegistryInStock
+namespace SlaveCare.Domain.Models.v1.RegisterInStock
 {
-    public class RegistryInStockGetStockModel : MtMEntityModel
+    public class RegisterInStockGetStockModel : MtMEntityModel
     {
         public Guid StockId { get; set; }
         public StockGetModel Stock { get; set; }

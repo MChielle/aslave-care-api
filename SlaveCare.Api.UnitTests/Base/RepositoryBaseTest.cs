@@ -5,9 +5,9 @@ using SlaveCare.Api.UnitTests.Helpers;
 using SlaveCare.Domain.Entities.Core;
 using SlaveCare.Infra.Data.Context;
 using SlaveCare.Infra.Data.Context.RepositoryContext;
-using SlaveCare.Infra.Data.Repositories.Core;
 using System;
 using System.Reflection;
+using SlaveCare.Infra.Data.Repositories.Base;
 
 namespace SlaveCare.Api.UnitTests.Base
 {

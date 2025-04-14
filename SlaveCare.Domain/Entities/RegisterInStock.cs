@@ -5,10 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SlaveCare.Domain.Entities
 {
-    public class RegistryInStock : EntityMtM
+    public class RegisterInStock : EntityMtM
     {
-        public Guid RegistryInId { get; set; }
-        public RegistryIn RegistryIn { get; set; }
+        public Guid RegisterInId { get; set; }
+        public RegisterIn RegisterIn { get; set; }
         public Guid StockId { get; set; }
         public Stock Stock { get; set; }
         
@@ -21,14 +21,14 @@ namespace SlaveCare.Domain.Entities
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            if (!(obj is RegistryInStock)) return false;
-            var ps = obj as RegistryInStock;
-            return (this.RegistryInId == ps.StockId) && (this.RegistryInId == ps.StockId);
+            if (!(obj is RegisterInStock)) return false;
+            var ps = obj as RegisterInStock;
+            return (this.RegisterInId == ps.StockId) && (this.RegisterInId == ps.StockId);
         }
 
         public override int GetHashCode()
         {
-            return this.RegistryInId.GetHashCode() + this.StockId.GetHashCode() + 765;
+            return this.RegisterInId.GetHashCode() + this.StockId.GetHashCode() + 765;
         }
     }
 }

@@ -1,1 +1,1 @@
-dotnet run SlaveCare.Api.csproj
+dotnet run --property:Configuration=Debug --urls "https://localhost:5001"

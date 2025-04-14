@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SlaveCare.Domain.Interfaces.Repositories
+namespace SlaveCare.Domain.Interfaces.Repositories.v1
 {
     public interface ISupplierRepository : IRepositoryBase<Supplier, Guid>
     {

@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SlaveCare.Domain.Entities;
-using SlaveCare.Domain.Interfaces.Repositories;
 using SlaveCare.Domain.Models.v1.Supplier;
 using SlaveCare.Infra.Data.Context;
 using SlaveCare.Infra.Data.Context.RepositoryContext;
-using SlaveCare.Infra.Data.Repositories.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,8 +10,10 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SlaveCare.Domain.Interfaces.Repositories.v1;
+using SlaveCare.Infra.Data.Repositories.Base;
 
-namespace SlaveCare.Infra.Data.Repositories
+namespace SlaveCare.Infra.Data.Repositories.v1
 {
     public class SupplierRepository : RepositoryBase<BaseContext, Supplier, Guid>, ISupplierRepository
     {

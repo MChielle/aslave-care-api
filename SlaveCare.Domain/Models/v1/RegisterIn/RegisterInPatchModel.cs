@@ -1,16 +1,16 @@
 ﻿using SlaveCare.Domain.Models.Core;
-using SlaveCare.Domain.Models.v1.RegistryInStock;
 using System;
 using System.Collections.Generic;
+using SlaveCare.Domain.Models.v1.RegisterInStock;
 
-namespace SlaveCare.Domain.Models.v1.RegistryIn
+namespace SlaveCare.Domain.Models.v1.RegisterIn
 {
-    public class RegistryInPatchModel : EntityModel<Guid>
+    public class RegisterInPatchModel : EntityModel<Guid>
     {
         public Guid SupplierId { get; set; }
         public bool Donation { get; set; }
         public string Description { get; set; }
         public bool Applied { get; set; }
-        public List<RegistryInStockGetStockModel> RegistryInStocks { get; set; }
+        public List<RegisterInStockGetStockModel> RegisterInStocks { get; set; }
     }
 }

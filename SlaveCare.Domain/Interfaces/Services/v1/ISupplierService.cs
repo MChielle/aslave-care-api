@@ -5,7 +5,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SlaveCare.Domain.Interfaces.Services
+namespace SlaveCare.Domain.Interfaces.Services.v1
 {
     public interface ISupplierService : IServiceBase<SupplierAddModel, SupplierUpdateModel, SupplierPatchModel, SupplierGetModel, SupplierModel, Guid>
     {

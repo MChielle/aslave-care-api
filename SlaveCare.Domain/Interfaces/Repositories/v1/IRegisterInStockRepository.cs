@@ -4,7 +4,7 @@ using System;
 
 namespace SlaveCare.Domain.Interfaces.Repositories.v1
 {
-    public interface IRegistryInStockRepository : IMtMRepositoryBase<RegistryInStock, Guid, Guid>
+    public interface IRegisterInStockRepository : IMtMRepositoryBase<RegisterInStock, Guid, Guid>
     {
     }
 }

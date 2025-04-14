@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using SlaveCare.Domain.Models.v1.Stock;
 
-namespace SlaveCare.Domain.Interfaces.Repositories
+namespace SlaveCare.Domain.Interfaces.Repositories.v1
 {
     public interface IStockRepository : IRepositoryBase<Stock, Guid>
     {
