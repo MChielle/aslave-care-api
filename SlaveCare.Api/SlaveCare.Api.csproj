@@ -20,8 +20,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Validators\Supplier\**" />
+    <Content Remove="Validators\Supplier\**" />
+    <EmbeddedResource Remove="Validators\Supplier\**" />
+    <None Remove="Validators\Supplier\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Validators\Supplier\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

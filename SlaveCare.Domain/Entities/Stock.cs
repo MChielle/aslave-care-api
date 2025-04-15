@@ -21,6 +21,7 @@ namespace SlaveCare.Domain.Entities
         public bool Disable { get; set; }
 
         public List<RegisterInStock> RegisterInStocks { get; set; }
+        public List<RegisterOutStock> RegisterOutStocks { get; set; }
 
     }
 }

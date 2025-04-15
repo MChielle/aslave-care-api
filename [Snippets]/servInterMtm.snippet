@@ -37,13 +37,27 @@
 					<Function>
 					</Function>
 				</Literal>
+				<Literal Editable="true">
+					<ID>Strong</ID>
+					<ToolTip>Strong Entity</ToolTip>
+					<Default>Strong</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Weak</ID>
+					<ToolTip>Weak Entity</ToolTip>
+					<Default>Weak</Default>
+					<Function>
+					</Function>
+				</Literal>
 			</Declarations>
 			<Code Language="csharp">
 				<![CDATA[using $Project$.Domain.Interfaces.Services.Core;
 using $Project$.Domain.Models.v$Version$.$Entity$;
 using System;
 
-public interface I$Entity$Service : IMtMServiceBase<$Entity$GetStockModel, $Entity$GetRegistryInModel, $Entity$PatchModel, $Entity$Model, $Key$, $Key$>
+public interface I$Entity$Service : IMtMServiceBase<$Entity$Get$Strong$Model, $Entity$Get$Weak$Model, $Entity$PatchModel, $Entity$Model, $Key$, $Key$>
 {
 }$end$]]>
 			</Code>

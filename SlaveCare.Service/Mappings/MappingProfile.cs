@@ -12,6 +12,9 @@ using SlaveCare.Domain.Models.v1.UserValidation;
 using System.Text;
 using SlaveCare.Domain.Models.v1.RegisterIn;
 using SlaveCare.Domain.Models.v1.RegisterInStock;
+using System;
+using SlaveCare.Domain.Models.v1.RegisterOut;
+using SlaveCare.Domain.Models.v1.RegisterOutStocke;
 
 namespace SlaveCare.Service.Mappings
 {
@@ -29,6 +32,25 @@ namespace SlaveCare.Service.Mappings
             StockMappings();
             RegisterInMappings();
             RegisterInStockMappings();
+            RegisterOutMappings();
+            RegisterOutStockMappings();
+        }
+
+        private void RegisterOutStockMappings()
+        {
+            CreateMap<RegisterOutStock, RegisterOutStockGetRegisterOutModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockGetStockModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockPatchModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockModel>().ReverseMap();
+        }
+
+        private void RegisterOutMappings()
+        {
+            CreateMap<RegisterOut, RegisterOutModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutAddModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutGetModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutPatchModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutUpdateModel>().ReverseMap();
         }
 
         private void RegisterInStockMappings()

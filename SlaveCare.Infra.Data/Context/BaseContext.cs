@@ -2,6 +2,7 @@
 using SlaveCare.Domain.Entities;
 using SlaveCare.Infra.Data.Context.SeedConfiguration;
 using SlaveCare.Infra.Data.Context.SeedConfiguration.SeedDev;
+using System;
 using System.Linq;
 
 namespace SlaveCare.Infra.Data.Context
@@ -18,6 +19,8 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<Stock> Stocks { get; set; }
         public DbSet<RegisterIn> RegistersIn { get; set; }
         public DbSet<RegisterInStock> RegisterInStocks { get; set; }
+        public DbSet<RegisterOut> RegistersOut { get; set; }
+        public DbSet<RegisterOutStock> RegisterOutStocks { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)
@@ -40,6 +43,8 @@ namespace SlaveCare.Infra.Data.Context
             modelBuilder.Entity<UserRole>().HasKey(x => new { x.UserId, x.RoleId });
 
             modelBuilder.Entity<RegisterInStock>().HasKey(x => new { x.RegisterInId, x.StockId });
+
+            modelBuilder.Entity<RegisterOutStock>().HasKey(x => new { x.RegisterOutId, x.StockId });
 
             OnModelCreatingPartial(modelBuilder);
 

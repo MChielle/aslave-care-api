@@ -74,10 +74,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace $Project$.Infra.Data.Repositories.v$Version$
 {
-    public class $Entity$Repository : MtMRepository$Context$<$Context$Context, $Entity$, $Key$, $Key$>, I$Entity$Repository
+    public class $Entity$Repository : MtMRepositoryBase<$Context$Context, $Entity$, $Key$, $Key$>, I$Entity$Repository
     {
         public $Entity$Repository($Context$Context context, IRepositoryContext repositoryContext)
-            : $Context$(context, repositoryContext)
+            : base(context, repositoryContext)
         {
         }
 
