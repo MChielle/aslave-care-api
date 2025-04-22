@@ -21,26 +21,26 @@ namespace SlaveCare.Api.Controllers.v1
             _service = service;
         }
 
-        [HttpGet("RegisterOut/{RegisterOutId}/Stock/{StockId}")]
+        [HttpGet("RegisterOut/{registerOutId}/Stock/{stockId}")]
         [ProducesResponseType(typeof(OkResponse<RegisterOutStockModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public override async Task<IResponseBase> GetByIdsAsync(Guid RegisterOutId, Guid StockId, CancellationToken cancellationToken)
+        public override async Task<IResponseBase> GetByIdsAsync(Guid registerOutId, Guid stockId, CancellationToken cancellationToken)
         {
-            return await base.GetByIdsAsync(RegisterOutId, StockId, cancellationToken);
+            return await base.GetByIdsAsync(registerOutId, stockId, cancellationToken);
         }
 
-        [HttpGet("RegisterOut/{RegisterOutId}")]
+        [HttpGet("RegisterOut/{registerOutId}")]
         [ProducesResponseType(typeof(OkResponse<RegisterOutStockGetStockModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public override async Task<IResponseBase> GetStrong(Guid RegisterOutId, CancellationToken cancellationToken)
+        public override async Task<IResponseBase> GetStrong(Guid registerOutId, CancellationToken cancellationToken)
         {
-            return await base.GetStrong(RegisterOutId, cancellationToken);
+            return await base.GetStrong(registerOutId, cancellationToken);
         }
 
         [HttpGet("Stock/{StockId}")]

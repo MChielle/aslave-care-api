@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using SlaveCare.Domain.Interfaces.Repositories.v1;
 using SlaveCare.Domain.Interfaces.Services.v1;
 using SlaveCare.Domain.Models.v1.RegisterInStock;
+using SlaveCare.Domain.Models.v1.RegisterOutStocke;
 
 namespace SlaveCare.Service.Services.v1
 {
@@ -48,6 +49,21 @@ namespace SlaveCare.Service.Services.v1
                     stock.Quantity += stockToUpdate.Quantity;
                 else
                     stock.Quantity -= stockToUpdate.Quantity;
+
+                await _repository.UpdateAsync(stock);
+            }
+        }
+
+        public async Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
+        {
+            foreach (var stockToUpdate in registerOutStocks)
+            {
+                var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
+
+                if (apply)
+                    stock.Quantity -= stockToUpdate.Quantity;
+                else
+                    stock.Quantity += stockToUpdate.Quantity;
 
                 await _repository.UpdateAsync(stock);
             }

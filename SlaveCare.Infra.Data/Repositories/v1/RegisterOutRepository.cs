@@ -36,7 +36,7 @@ namespace SlaveCare.Infra.Data.Repositories
         {
             return await _context.RegistersOut
                 .AsNoTracking()
-                .Where(x => x.Equals(null))
+                .Where(x => x.DeletionDate.Equals(null))
                 .ToListAsync(cancellation);
         }
     }

@@ -1,1 +1,0 @@
-dotnet run --project C:\Users\mathe\source\repos\SlaveCare\slave-care-api\Slave-Care-Api.sln

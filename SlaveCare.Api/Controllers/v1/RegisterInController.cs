@@ -34,5 +34,16 @@ namespace SlaveCare.Api.Controllers.v1
         {
             return await _service.GetToListAsync(cancellation);
         }
+
+        [HttpGet("{id}/to-update")]
+        [ProducesResponseType(typeof(OkResponse<RegisterInGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)
+        {
+            return await _service.GetByIdToUpdateAsync(id, cancellation);
+        }
     }
 }

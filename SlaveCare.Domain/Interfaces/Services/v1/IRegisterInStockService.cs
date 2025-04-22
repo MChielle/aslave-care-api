@@ -6,5 +6,5 @@ using SlaveCare.Domain.Models.v1.RegisterInStock;
 
 public interface IRegisterInStockService : IMtMServiceBase<RegisterInStockGetRegisterInModel, RegisterInStockGetStockModel, RegisterInStockPatchModel, RegisterInStockModel, Guid, Guid>
 {
-    Task<IResponseBase> AddAsync(Guid RegisterInId, RegisterInStockPatchModel model);
+    Task<IResponseBase> AddAsync(Guid registerInId, RegisterInStockPatchModel model);
 }

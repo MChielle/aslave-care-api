@@ -20,60 +20,60 @@ namespace SlaveCare.Api.Controllers.v1
             _service = service;
         }
 
-        [HttpGet("RegisterIn/{RegisterInId}/Stock/{StockId}")]
+        [HttpGet("RegisterIn/{registerInId}/Stock/{stockId}")]
         [ProducesResponseType(typeof(OkResponse<RegisterInStockModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public override async Task<IResponseBase> GetByIdsAsync(Guid RegisterInId, Guid StockId, CancellationToken cancellationToken)
+        public override async Task<IResponseBase> GetByIdsAsync(Guid registerInId, Guid stockId, CancellationToken cancellationToken)
         {
-            return await base.GetByIdsAsync(RegisterInId, StockId, cancellationToken);
+            return await base.GetByIdsAsync(registerInId, stockId, cancellationToken);
         }
 
-        [HttpGet("RegisterIn/{RegisterInId}")]
+        [HttpGet("RegisterIn/{registerInId}")]
         [ProducesResponseType(typeof(OkResponse<RegisterInStockGetStockModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public override async Task<IResponseBase> GetStrong(Guid RegisterInId, CancellationToken cancellationToken)
+        public override async Task<IResponseBase> GetStrong(Guid registerInId, CancellationToken cancellationToken)
         {
-            return await base.GetStrong(RegisterInId, cancellationToken);
+            return await base.GetStrong(registerInId, cancellationToken);
         }
 
-        [HttpGet("Stock/{StockId}")]
+        [HttpGet("Stock/{stockId}")]
         [ProducesResponseType(typeof(OkResponse<RegisterInStockGetRegisterInModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public override async Task<IResponseBase> GetWeak(Guid StockId, CancellationToken cancellationToken)
+        public override async Task<IResponseBase> GetWeak(Guid stockId, CancellationToken cancellationToken)
         {
-            return await base.GetWeak(StockId, cancellationToken);
+            return await base.GetWeak(stockId, cancellationToken);
         }
 
-        [HttpPatch("RegisterIn/{RegisterInId}")]
+        [HttpPatch("RegisterIn/{registerInId}")]
         [ProducesResponseType(typeof(OkResponse<IEnumerable<RegisterInStockModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public override async Task<IResponseBase> Patch(Guid RegisterInId, [FromBody] IEnumerable<RegisterInStockPatchModel> model)
+        public override async Task<IResponseBase> Patch(Guid registerInId, [FromBody] IEnumerable<RegisterInStockPatchModel> model)
         {
-            return await _service.AddOrDeleteAsync(RegisterInId, model);
+            return await _service.AddOrDeleteAsync(registerInId, model);
         }
 
-        [HttpPost("RegisterIn/{RegisterInId}")]
+        [HttpPost("RegisterIn/{registerInId}")]
         [ProducesResponseType(typeof(OkResponse<IEnumerable<RegisterInStockModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IResponseBase> Post(Guid RegisterInId, [FromBody] RegisterInStockPatchModel model)
+        public async Task<IResponseBase> Post(Guid registerInId, [FromBody] RegisterInStockPatchModel model)
         {
-            return await _service.AddAsync(RegisterInId, model);
+            return await _service.AddAsync(registerInId, model);
         }
     }
 }

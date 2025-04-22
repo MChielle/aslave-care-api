@@ -40,5 +40,12 @@ namespace SlaveCare.Service.Services.v1
             if (entities == null) return new NoContentResponse();
             return new OkResponse<IList<RegisterInGetModel>>(Mapper.Map<IList<RegisterInGetModel>>(entities));
         }
+
+        public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)
+        {
+            var entities = await _repository.GetByIdToUpdateAsync(id, cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<RegisterInGetModel>(Mapper.Map<RegisterInGetModel>(entities));
+        }
     }
 }

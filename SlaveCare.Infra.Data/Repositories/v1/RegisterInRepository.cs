@@ -46,5 +46,15 @@ namespace SlaveCare.Infra.Data.Repositories.v1
             if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             return await base.UpdateAsync(entity);
         }
+
+        public async Task<RegisterIn> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)
+        {
+            return await _context.RegistersIn
+                .Include(x => x.Supplier)
+                .Include(x => x.RegisterInStocks)
+                    .ThenInclude(x => x.Stock)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(x => x.Id.Equals(id));
+        }
     }
 }

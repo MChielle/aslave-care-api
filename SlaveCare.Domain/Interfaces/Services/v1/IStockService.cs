@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using System.Collections.Generic;
 using SlaveCare.Domain.Models.v1.RegisterInStock;
+using SlaveCare.Domain.Models.v1.RegisterOutStocke;
 
 namespace SlaveCare.Domain.Interfaces.Services.v1
 {
@@ -15,5 +16,6 @@ namespace SlaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellationToken = default);
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
         Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply);
+        Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerInStocks, bool apply);
     }
 }
