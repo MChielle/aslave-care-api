@@ -2,6 +2,7 @@
 using SlaveCare.Domain.Constants;
 using SlaveCare.Domain.Entities.Core;
 using SlaveCare.Domain.Exceptions;
+using SlaveCare.Domain.Interfaces.Behavior;
 using SlaveCare.Domain.Interfaces.Repositories.Core;
 using SlaveCare.Infra.Data.Context;
 using SlaveCare.Infra.Data.Context.RepositoryContext;
@@ -12,7 +13,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SlaveCare.Infra.Data.Repositories.Core
+namespace SlaveCare.Infra.Data.Repositories.Base
 {
     public abstract class RepositoryBase<TContext, TEntity, TKey> : IRepositoryBase<TEntity, TKey>, IDisposable
         where TEntity : Entity<TKey>, IEntity<TKey>, new()
@@ -159,38 +160,76 @@ namespace SlaveCare.Infra.Data.Repositories.Core
             return entity;
         }
 
-        public void Delete(TEntity entity)
+        public virtual void Delete(TEntity entity)
         {
-            _context.Set<TEntity>().Remove(entity);
+            if (entity is IPhysicallyDeletable)
+                _context.Set<TEntity>().Remove(entity);
+            else
+            {
+                entity = _context.Set<TEntity>().Where(x => x.Id.Equals(entity.Id)).FirstOrDefault();
+                if (entity == null) return;
+                entity.DeletionDate = DateTime.UtcNow;
+                _context.Set<TEntity>().Update(entity);
+            }
+
             _context.SaveChanges();
         }
 
-        public void Delete(IEnumerable<TEntity> entities)
+        public virtual void Delete(IEnumerable<TEntity> entities)
         {
-            entities.ToList().ForEach(x => Delete(x));
-        }
+            var trackedEntities = new List<TEntity>();
 
-        public async Task<bool?> Delete(TKey id)
-        {
-            var entity = await GetByIdAsync(id);
-
-            Delete(entity);
-
-            return entity != null;
-        }
-
-        public void Delete(IEnumerable<TKey> ids)
-        {
-            TEntity entity = null;
-
-            ids.ToList().ForEach((id) =>
+            if (entities.FirstOrDefault() is IPhysicallyDeletable)
+                _context.Set<TEntity>().RemoveRange(entities);
+            else
             {
-                Task.Run(async () =>
+                entities.ToList().ForEach(e =>
                 {
-                    entity = await GetByIdAsync(id);
-                    Delete(entity);
-                }).Wait();
+                    var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(e.Id)).FirstOrDefault();
+                    if (entity == null) return;
+                    entity.DeletionDate = DateTime.UtcNow;
+                    trackedEntities.Add(entity);
+                });
+
+                if (!trackedEntities.Any()) _context.Set<TEntity>().UpdateRange(trackedEntities);
+            }
+
+            _context.SaveChanges();
+        }
+
+        public virtual void Delete(TKey id)
+        {
+            var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(id)).FirstOrDefault();
+            if (entity == null) return;
+            entity.DeletionDate = DateTime.UtcNow;
+
+            if (entity is IPhysicallyDeletable)
+                _context.Set<TEntity>().Remove(entity);
+            else
+                _context.Set<TEntity>().Update(entity);
+
+            _context.SaveChanges();
+        }
+
+        public virtual void Delete(IEnumerable<TKey> ids)
+        {
+            var trackedEntities = new List<TEntity>();
+            ids.ToList().ForEach(id =>
+            {
+                var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(id)).FirstOrDefault();
+                if (entity == null) return;
+                entity.DeletionDate = DateTime.UtcNow;
+                trackedEntities.Add(entity);
             });
+
+            if (!trackedEntities.Any()) return;
+
+            if (trackedEntities.FirstOrDefault() is IPhysicallyDeletable)
+                _context.Set<TEntity>().RemoveRange(trackedEntities);
+            else
+                _context.Set<TEntity>().UpdateRange(trackedEntities);
+
+            _context.SaveChanges();
         }
 
         public Task<bool> HasAny(TKey id)

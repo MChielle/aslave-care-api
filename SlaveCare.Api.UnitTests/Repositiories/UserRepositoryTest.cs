@@ -120,7 +120,7 @@ namespace SlaveCare.Api.UnitTests.Repositiories
             user1 = await _repository.AddOrUpdateAsync(user1);
             user2 = await _repository.AddOrUpdateAsync(user2);
 
-            await _repository.Delete(user1.Id);
+            _repository.Delete(user1.Id);
             var users = await _repository.GetAllPagedAsync();
 
             Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));

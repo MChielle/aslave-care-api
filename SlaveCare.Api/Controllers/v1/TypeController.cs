@@ -12,7 +12,7 @@ namespace SlaveCare.Api.Controllers.v1
     [Produces("application/json")]
     public class TypeController : ControllerBase
     {
-        [HttpGet("SocialMediaType")]
+        [HttpGet("social-media-type")]
         public IResponseBase GetSocialMediaType()
         {
             return new OkResponse<object>(EnumExtensions.EnumToObject<SocialMediaType>());

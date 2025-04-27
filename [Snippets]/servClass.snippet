@@ -1,55 +1,70 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-  <CodeSnippet Format="1.0.0">
-    <Header>
-      <Title>servClass</Title>
-      <Shortcut>servClass</Shortcut>
-      <Description>Code snippet to create an implementation of an entity's service</Description>
-      <Author>Matheus Chielle</Author>
-    </Header>
-    <Snippet>
-      <Declarations>
-        <Literal Editable="true">
-          <ID>Entity</ID>
-          <ToolTip>Entity name</ToolTip>
-          <Default>Entity</Default>
-          <Function>
-          </Function>
-        </Literal>
-        <Literal Editable="true">
-          <ID>Key</ID>
-          <ToolTip>Entity key type</ToolTip>
-          <Default>Key</Default>
-          <Function>
-          </Function>
-        </Literal>
-        <Literal Editable="true">
-          <ID>entity</ID>
-          <ToolTip>Lowercase entity name</ToolTip>
-          <Default>entity</Default>
-          <Function>
-          </Function>
-        </Literal>
-      </Declarations>
-      <Code Language="csharp">
-		<![CDATA[using Appointment.Domain.Entities;
-using Appointment.Domain.Interfaces.Repositories;
-using Appointment.Domain.Interfaces.Services;
-using Appointment.Domain.Models.v1;
-using Appointment.Service.ServiceContext;
-using Appointment.Service.Services.Base;
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>servClass</Title>
+			<Shortcut>servClass</Shortcut>
+			<Description>Code snippet to create an implementation of an entity's service</Description>
+			<Author>Matheus Chielle</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="true">
+					<ID>Entity</ID>
+					<ToolTip>Entity name</ToolTip>
+					<Default>Entity</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Key</ID>
+					<ToolTip>Entity key type</ToolTip>
+					<Default>Key</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>entity</ID>
+					<ToolTip>Lowercase entity name</ToolTip>
+					<Default>entity</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Project</ID>
+					<ToolTip>Project name</ToolTip>
+					<Default>Project</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Version</ID>
+					<ToolTip>Version number</ToolTip>
+					<Default>Version</Default>
+					<Function>
+					</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[using $Project$.Domain.Entities;
+using $Project$.Domain.Interfaces.Repositories;
+using $Project$.Domain.Interfaces.Services;
+using $Project$.Domain.Models.v$Version$.$Entity$;
+using $Project$.Service.ServiceContext;
+using $Project$.Service.Services.Base;
+using System;
 
-
-namespace Appointment.Service.Services
+namespace $Project$.Service.Services
 {
-    public class $Entity$Service : ServiceBase<$Entity$AddModel, $Entity$UpdateModel, $Entity$GetModel, $Entity$Model, $Entity$, $Key$>, I$Entity$Service
+    public class $Entity$Service : ServiceBase<$Entity$AddModel, $Entity$UpdateModel, $Entity$PatchModel, $Entity$GetModel, $Entity$Model, $Entity$, $Key$>, I$Entity$Service
     {
         public $Entity$Service(I$Entity$Repository repository, IServiceContext serviceContext)
             : base(repository, serviceContext)
         {
         }
     }
-}$end$]]></Code>
-    </Snippet>
-  </CodeSnippet>
+}$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
 </CodeSnippets>

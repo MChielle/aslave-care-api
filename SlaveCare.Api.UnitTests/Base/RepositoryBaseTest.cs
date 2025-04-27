@@ -5,9 +5,9 @@ using SlaveCare.Api.UnitTests.Helpers;
 using SlaveCare.Domain.Entities.Core;
 using SlaveCare.Infra.Data.Context;
 using SlaveCare.Infra.Data.Context.RepositoryContext;
-using SlaveCare.Infra.Data.Repositories.Core;
 using System;
 using System.Reflection;
+using SlaveCare.Infra.Data.Repositories.Base;
 
 namespace SlaveCare.Api.UnitTests.Base
 {
@@ -16,7 +16,7 @@ namespace SlaveCare.Api.UnitTests.Base
         where TEntity : Entity<TKey>, IEntity<TKey>, new()
     {
         public TRepository _repository;
-        private BaseContext appointmentContext;
+        private BaseContext baseContext;
         private readonly Mock<IRepositoryContext> repositoryContextMock;
 
         //private readonly IMapper mapper;
@@ -49,18 +49,18 @@ namespace SlaveCare.Api.UnitTests.Base
             var builder = new DbContextOptionsBuilder<BaseContext>();
             var databaseRoot = new InMemoryDatabaseRoot();
 
-            builder.UseInMemoryDatabase("appointment_test", databaseRoot);
+            builder.UseInMemoryDatabase("slavecare_test", databaseRoot);
             builder.EnableServiceProviderCaching(false);
 
             options = builder.Options;
-            appointmentContext = new BaseContext(options);
+            baseContext = new BaseContext(options);
 
-            appointmentContext.Database.EnsureDeleted();
-            appointmentContext.Database.EnsureCreated();
+            baseContext.Database.EnsureDeleted();
+            baseContext.Database.EnsureCreated();
 
             var ctors = typeof(TRepository).GetConstructors(BindingFlags.Public | BindingFlags.Instance);
 
-            _repository = ctors[0].Invoke(new object[] { appointmentContext, repositoryContextMock.Object }) as TRepository;
+            _repository = ctors[0].Invoke(new object[] { baseContext, repositoryContextMock.Object }) as TRepository;
         }
 
         public TRepositoryInstance CreateRepositoryInstance<TRepositoryInstance, TRepositoryEntity>()
@@ -69,7 +69,7 @@ namespace SlaveCare.Api.UnitTests.Base
         {
             var ctors = typeof(TRepositoryInstance).GetConstructors(BindingFlags.Public | BindingFlags.Instance);
 
-            return ctors[0].Invoke(new object[] { appointmentContext, repositoryContextMock.Object }) as TRepositoryInstance;
+            return ctors[0].Invoke(new object[] { baseContext, repositoryContextMock.Object }) as TRepositoryInstance;
         }
     }
 }

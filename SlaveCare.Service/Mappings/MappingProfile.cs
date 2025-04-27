@@ -1,12 +1,20 @@
 ﻿using AutoMapper;
 using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Helpers;
+using SlaveCare.Domain.Models.v1.Employee;
 using SlaveCare.Domain.Models.v1.Manager;
 using SlaveCare.Domain.Models.v1.Role;
+using SlaveCare.Domain.Models.v1.Stock;
+using SlaveCare.Domain.Models.v1.Supplier;
 using SlaveCare.Domain.Models.v1.User;
 using SlaveCare.Domain.Models.v1.UserRole;
 using SlaveCare.Domain.Models.v1.UserValidation;
 using System.Text;
+using SlaveCare.Domain.Models.v1.RegisterIn;
+using SlaveCare.Domain.Models.v1.RegisterInStock;
+using System;
+using SlaveCare.Domain.Models.v1.RegisterOut;
+using SlaveCare.Domain.Models.v1.RegisterOutStocke;
 
 namespace SlaveCare.Service.Mappings
 {
@@ -17,8 +25,77 @@ namespace SlaveCare.Service.Mappings
             UserMappings();
             RoleMappings();
             ManagerMappings();
+            EmployeeMappings();
             UserRoleMappings();
             UserValidationMappings();
+            SupplierMappings();
+            StockMappings();
+            RegisterInMappings();
+            RegisterInStockMappings();
+            RegisterOutMappings();
+            RegisterOutStockMappings();
+        }
+
+        private void RegisterOutStockMappings()
+        {
+            CreateMap<RegisterOutStock, RegisterOutStockGetRegisterOutModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockGetStockModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockPatchModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockModel>().ReverseMap();
+        }
+
+        private void RegisterOutMappings()
+        {
+            CreateMap<RegisterOut, RegisterOutModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutAddModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutGetModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutPatchModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutUpdateModel>().ReverseMap();
+        }
+
+        private void RegisterInStockMappings()
+        {
+            CreateMap<RegisterInStock, RegisterInStockGetRegisterInModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockGetStockModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockPatchModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockModel>().ReverseMap();
+        }
+
+        private void RegisterInMappings()
+        {
+            CreateMap<RegisterIn, RegisterInModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInAddModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInGetModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInPatchModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInUpdateModel>().ReverseMap();
+        }
+
+        private void StockMappings()
+        {
+            CreateMap<Stock, StockModel>().ReverseMap();
+            CreateMap<Stock, StockAddModel>().ReverseMap();
+            CreateMap<Stock, StockGetModel>().ReverseMap();
+            CreateMap<Stock, StockPatchModel>().ReverseMap();
+            CreateMap<Stock, StockUpdateModel>().ReverseMap();
+        }
+
+        private void SupplierMappings()
+        {
+            CreateMap<Supplier, SupplierModel>().ReverseMap();
+            CreateMap<Supplier, SupplierAddModel>().ReverseMap();
+            CreateMap<Supplier, SupplierGetModel>().ReverseMap();
+            CreateMap<Supplier, SupplierPatchModel>().ReverseMap();
+            CreateMap<Supplier, SupplierUpdateModel>().ReverseMap();
+        }
+
+        private void EmployeeMappings()
+        {
+            CreateMap<Employee, EmployeeModel>().ReverseMap();
+            CreateMap<Employee, EmployeeAddModel>().ReverseMap();
+            CreateMap<Employee, EmployeeGetModel>().ReverseMap();
+            CreateMap<Employee, EmployeePatchModel>().ReverseMap();
+            CreateMap<Employee, EmployeeUpdateModel>().ReverseMap();
+            CreateMap<Employee, EmployeeGetWithoutSensitiveDataModel>().ReverseMap();
         }
 
         private void ManagerMappings()

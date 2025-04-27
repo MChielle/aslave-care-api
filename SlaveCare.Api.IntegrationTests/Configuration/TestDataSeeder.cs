@@ -1,5 +1,4 @@
-﻿
-using SlaveCare.Infra.Data.Context;
+﻿using SlaveCare.Infra.Data.Context;
 using System;
 
 namespace SlaveCare.Api.IntegrationTests.Configuration

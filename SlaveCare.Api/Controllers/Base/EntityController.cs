@@ -10,9 +10,6 @@ using System.Threading.Tasks;
 
 namespace SlaveCare.Api.Controllers.Base
 {
-#if DEBUG
-    [AllowAnonymous]
-#endif
     public abstract class EntityController<TAddModel, TUpdateModel, TPatchModel, TGetModel, TModel, TKey> : ApplicationControllerBase
         where TAddModel : EntityModel<TKey>, IEntityModel<TKey>, new()
         where TUpdateModel : EntityModel<TKey>, IEntityModel<TKey>, new()
@@ -114,7 +111,6 @@ namespace SlaveCare.Api.Controllers.Base
         /// [Authenticated] Controller Base Delete generic model by id.
         /// </summary>
         /// <param name="id">From Url</param>
-        [Authorize(Roles = $"{UserType.Master}")]
         [ApiExplorerSettings(IgnoreApi = true)]
         [HttpDelete("{id}")]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]

@@ -1,5 +1,4 @@
-﻿
-using SlaveCare.Domain.Responses.Base;
+﻿using SlaveCare.Domain.Responses.Base;
 
 namespace SlaveCare.Domain.Responses
 {

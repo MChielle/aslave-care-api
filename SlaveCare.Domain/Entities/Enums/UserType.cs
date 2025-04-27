@@ -4,10 +4,13 @@ namespace SlaveCare.Domain.Entities.Enums
 {
     public enum UserType
     {
-        [Description(SlaveCare.Domain.Entities.Constants.UserType.Master)]
+        [Description(Constants.UserType.Master)]
         Master = 0,
 
-        [Description(SlaveCare.Domain.Entities.Constants.UserType.Manager)]
+        [Description(Constants.UserType.Manager)]
         Manager = 1,
+
+        [Description(Constants.UserType.Employee)]
+        Employee = 2,
     }
 }

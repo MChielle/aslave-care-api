@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace SlaveCare.Api.Controllers.Integration.v1
 {
-    #if DEBUG
+#if DEBUG
     [AllowAnonymous]
 #endif
+
     public class HttpSmsController : ApplicationControllerBase
     {
         private readonly IHttpSmsService _httpSmsService;
@@ -32,9 +33,9 @@ namespace SlaveCare.Api.Controllers.Integration.v1
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpsertPhones([FromBody] HttpSmsUpsertPhonesModel upsertPhonesModel)
+        public async Task<IActionResult> AddOrUpdatePhones([FromBody] HttpSmsUpsertPhonesModel addOrUpdatePhones)
         {
-            return Ok(await _httpSmsService.UpsertPhones(upsertPhonesModel));
+            return Ok(await _httpSmsService.AddOrUpdatePhones(addOrUpdatePhones));
         }
     }
 }

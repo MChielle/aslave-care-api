@@ -9,11 +9,6 @@ using System.Threading.Tasks;
 
 namespace SlaveCare.Api.Controllers.Base
 {
-#if DEBUG
-
-    [AllowAnonymous]
-#endif
-
     public class EntityMtMController<TStrongEntityMtMModel, TWeakEntityMtMModel, TEntityMtMPatchModel, TEntityMtMModel, TStrongKey, TWeakKey> : ApplicationControllerBase
         where TStrongEntityMtMModel : MtMEntityModel, IMtMEntityModel, new()
         where TWeakEntityMtMModel : MtMEntityModel, IMtMEntityModel, new()
@@ -55,7 +50,7 @@ namespace SlaveCare.Api.Controllers.Base
             return await _service.GetByWeakIdAsync(wId, cancellationToken);
         }
 
-        [ApiExplorerSettings(IgnoreApi = true)]
+        //[ApiExplorerSettings(IgnoreApi = true)]
         [HttpPut]
         public virtual async Task<IResponseBase> Put([FromBody] IEnumerable<TEntityMtMModel> models)
         {

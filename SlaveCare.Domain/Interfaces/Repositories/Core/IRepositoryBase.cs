@@ -27,7 +27,7 @@ namespace SlaveCare.Domain.Interfaces.Repositories.Core
 
         void Delete(IEnumerable<TEntity> entities);
 
-        Task<bool?> Delete(TKey id);
+        void Delete(TKey id);
 
         void Delete(IEnumerable<TKey> ids);
 

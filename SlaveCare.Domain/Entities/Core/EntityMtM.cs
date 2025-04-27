@@ -1,4 +1,6 @@
-﻿namespace SlaveCare.Domain.Entities.Core
+﻿using System;
+
+namespace SlaveCare.Domain.Entities.Core
 {
     public abstract class EntityMtM : IMtMEntity
     {

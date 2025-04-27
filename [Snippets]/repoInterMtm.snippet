@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>repoInterMtm</Title>
+      <Shortcut>repoInterMtm</Shortcut>
+      <Description>Code snippet to create an entity's repository interface many to many</Description>
+      <Author>Matheus Chielle</Author>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>Entity</ID>
+          <ToolTip>Nome da Entity</ToolTip>
+          <Default>Entity</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Key</ID>
+          <ToolTip>Tipo da Key</ToolTip>
+          <Default>Key</Default>
+          <Function>
+          </Function>
+        </Literal>
+		<Literal Editable="true">
+			<ID>Project</ID>
+			<ToolTip>Project name</ToolTip>
+			<Default>Project</Default>
+			<Function>
+			</Function>
+		</Literal>
+		<Literal Editable="true">
+			<ID>Version</ID>
+			<ToolTip>Version number</ToolTip>
+			<Default>Version</Default>
+			<Function>
+			</Function>
+		</Literal>
+      </Declarations>
+      <Code Language="csharp">
+        <![CDATA[using $Project$.Domain.Entities;
+using $Project$.Domain.Interfaces.Repositories.Core;
+using System;
+
+namespace $Project$.Domain.Interfaces.Services.v$Version$
+{
+    public interface I$Entity$Repository : IMtMRepositoryBase<$Entity$, $Key$, $Key$>
+    {
+    }
+}$end$]]>
+      </Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

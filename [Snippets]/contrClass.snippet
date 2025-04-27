@@ -1,73 +1,94 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
-  <CodeSnippet Format="1.0.0">
-    <Header>
-      <Title>contrClass</Title>
-      <Shortcut>contrClass</Shortcut>
-      <Description>Code snippet to create an controller</Description>
-      <Author>Matheus Chielle</Author>
-    </Header>
-    <Snippet>
-      <Declarations>
-        <Literal Editable="true">
-          <ID>Entity</ID>
-          <ToolTip>Entity name</ToolTip>
-          <Default>Entity</Default>
-          <Function>
-          </Function>
-        </Literal>
-      </Declarations>
-      <Code Language="csharp">
-        <![CDATA[using Appointment.Api.v1.Controllers.Base;
-using Appointment.Domain.Interfaces.Services;
-using Appointment.Domain.Models.v1;
-using Appointment.Domain.Responses;
-using Appointment.Domain.Responses.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>contrClass</Title>
+			<Shortcut>contrClass</Shortcut>
+			<Description>Code snippet to create an controller</Description>
+			<Author>Matheus Chielle</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="true">
+					<ID>Entity</ID>
+					<ToolTip>Entity name</ToolTip>
+					<Default>Entity</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Project</ID>
+					<ToolTip>Project name</ToolTip>
+					<Default>Project</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Version</ID>
+					<ToolTip>Version number</ToolTip>
+					<Default>Version</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Key</ID>
+					<ToolTip>Key type</ToolTip>
+					<Default>Key</Default>
+					<Function>
+					</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[using Microsoft.AspNetCore.Mvc;
+using $Project$.Api.Controllers.Base;
+using $Project$.Domain.Interfaces.Services;
+using $Project$.Domain.Models.v$Version$.$Entity$;
+using $Project$.Domain.Responses;
+using $Project$.Domain.Responses.Interfaces;
 using System;
 using System.Threading.Tasks;
 
-namespace Appointment.Api.Controllers.v1
+namespace $Project$.Api.Controllers.v$Version$
 {
-    public class $Entity$Controller : EntityController<$Entity$AddModel, $Entity$UpdateModel, $Entity$GetModel, $Entity$Model, Guid>
+    public class $Entity$Controller : EntityController<$Entity$AddModel, $Entity$UpdateModel, $Entity$PatchModel, $Entity$GetModel, $Entity$Model, $Key$>
     {
         public $Entity$Controller(I$Entity$Service service)
             : base(service)
         {
         }
-		
-        public async override Task<IResponseBase> Get(int? page, int? pageSize)
+
+        public override async Task<IResponseBase> Get(int? page, int? pageSize)
         {
             return await Task.Run(() => { return new UnauthorizedResponse(); });
         }
 
-        public async override Task<IResponseBase> Get(Guid id)
+        public override async Task<IResponseBase> Get($Key$ id)
         {
             return await Task.Run(() => { return new UnauthorizedResponse(); });
         }
 
-        public async override Task<IResponseBase> Post([FromBody] UserAddModel model)
+        public override async Task<IResponseBase> Post([FromBody] $Entity$AddModel model)
         {
             return await Task.Run(() => { return new UnauthorizedResponse(); });
         }
 
-        public async override Task<IResponseBase> Put(Guid id, [FromBody] UserUpdateModel model)
+        public override async Task<IResponseBase> Put($Key$ id, [FromBody] $Entity$UpdateModel model)
         {
             return await Task.Run(() => { return new UnauthorizedResponse(); });
         }
 
-        public async override Task<IResponseBase> Patch(Guid id, [FromBody] UserUpdateModel model)
+        public override async Task<IResponseBase> Patch($Key$ id, [FromBody] $Entity$PatchModel model)
         {
             return await Task.Run(() => { return new UnauthorizedResponse(); });
         }
 
-        public override IResponseBase Delete(Guid id)
+        public override IResponseBase Delete($Key$ id)
         {
             return new UnauthorizedResponse();
         }
     }
 }$end$]]>
-      </Code>
-    </Snippet>
-  </CodeSnippet>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
 </CodeSnippets>

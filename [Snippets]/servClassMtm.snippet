@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets  xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>servClassMtm</Title>
+			<Shortcut>servClassMtm</Shortcut>
+			<Description>Code snippet to create an entity's service class many to many</Description>
+			<Author>Matheus Chielle</Author>
+		</Header>
+		<Snippet>
+			<Declarations>
+				<Literal Editable="true">
+					<ID>Entity</ID>
+					<ToolTip>Nome da Entity</ToolTip>
+					<Default>Entity</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Key</ID>
+					<ToolTip>Tipo da Key</ToolTip>
+					<Default>Key</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Project</ID>
+					<ToolTip>Project name</ToolTip>
+					<Default>Project</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Version</ID>
+					<ToolTip>Version number</ToolTip>
+					<Default>Version</Default>
+					<Function>
+					</Function>
+				</Literal>
+                <Literal Editable="true">
+					<ID>Strong</ID>
+					<ToolTip>Strong Entity</ToolTip>
+					<Default>Strong</Default>
+					<Function>
+					</Function>
+				</Literal>
+				<Literal Editable="true">
+					<ID>Weak</ID>
+					<ToolTip>Weak Entity</ToolTip>
+					<Default>Weak</Default>
+					<Function>
+					</Function>
+				</Literal>
+			</Declarations>
+			<Code Language="csharp">
+				<![CDATA[using $Project$.Domain.Responses.Interfaces;
+using $Project$.Domain.Responses;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using $Project$.Service.ServiceContext;
+using $Project$.Service.Services.Base;
+using $Project$.Domain.Entities;
+using $Project$.Domain.Interfaces.Repositories.v$Version$;
+using $Project$.Domain.Constants;
+using $Project$.Domain.Models.v$Version$.$Entity$;
+
+namespace $Project$.Service.Services.v$Version$
+{
+    public class $Entity$Service : MtMServiceBase<$Entity$Get$Strong$Model, $Entity$Get$Weak$Model, $Entity$PatchModel, $Entity$Model, $Entity$, $Key$, $Key$>, I$Entity$Service
+    {
+        private readonly I$Entity$Repository _$Entity$Repository;
+
+        public $Entity$Service(I$Entity$Repository $Entity$Repository, IServiceContext serviceContext) : base($Entity$Repository, serviceContext)
+        {
+            _$Entity$Repository = $Entity$Repository;
+        }
+
+        public override async Task<IResponseBase> GetByIdsAsync($Key$ $Strong$Id, $Key$ $Weak$Id, CancellationToken cancellationToken = default)
+        {
+            var response = await _$Entity$Repository.GetByIdsAsync($Strong$Id, $Weak$Id, cancellationToken);
+            if (response == null) return new NoContentResponse();
+            return new OkResponse<$Entity$Model>(Mapper.Map<$Entity$Model>(response));
+        }
+
+        public override async Task<IResponseBase> GetByStrongIdAsync($Key$ $Strong$Id, CancellationToken cancellationToken = default)
+        {
+            var response = await _$Entity$Repository.GetByStrongIdAsync($Strong$Id, cancellationToken);
+            if (response == null) return new NoContentResponse();
+            return new OkResponse<IEnumerable<$Entity$Get$Weak$Model>>(Mapper.Map<IEnumerable<$Entity$Get$Weak$Model>>(response));
+        }
+
+        public override async Task<IResponseBase> GetByWeakIdAsync($Key$ $Weak$Id, CancellationToken cancellationToken = default)
+        {
+            var response = await _$Entity$Repository.GetByWeakIdAsync($Weak$Id, cancellationToken);
+            if (response == null) return new NoContentResponse();
+            return new OkResponse<IEnumerable<$Entity$Get$Weak$Model>>(Mapper.Map<IEnumerable<$Entity$Get$Weak$Model>>(response));
+        }
+
+        public override async Task<IResponseBase> UpdateAsync(IEnumerable<$Entity$Model> $Entity$Models)
+        {
+            var result = await _$Entity$Repository.UpdateAsync(Mapper.Map<IEnumerable<$Entity$>>($Entity$Models));
+            if (result == null) return new NoContentResponse();
+            return new OkResponse<IEnumerable<$Entity$Model>>(Mapper.Map<IEnumerable<$Entity$Model>>(result));
+        }
+
+        public override Task<IResponseBase> AddOrDeleteAsync($Key$ $Strong$Id, IEnumerable<$Entity$PatchModel> models)
+        {
+            models.ToList().ForEach(model => model.$Strong$Id = $Strong$Id);
+            return base.AddOrDeleteAsync($Strong$Id, models);
+        }
+
+        public async Task<IResponseBase> AddAsync($Key$ $Strong$Id, $Entity$PatchModel model)
+        {
+            model.$Strong$Id = $Strong$Id;
+            var $Entity$s = await _$Entity$Repository.GetByStrongIdAsync($Strong$Id);
+            if ($Entity$s.Any(x => x.$Strong$Id == model.$Strong$Id && x.$Weak$Id == model.$Weak$Id)) return new ConflictResponse(ConstantMessages.CRUD_CONFLICT);
+            var models = Mapper.Map<List<$Entity$PatchModel>>($Entity$s);
+            models.Add(model);
+            return await base.AddOrDeleteAsync($Strong$Id, models);
+        }
+    }
+}$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

@@ -6,15 +6,18 @@ using Microsoft.Extensions.Logging;
 using SlaveCare.Domain.Constants;
 using SlaveCare.Domain.Extensions;
 using SlaveCare.Domain.Interfaces.Repositories.v1;
+using SlaveCare.Domain.Interfaces.Services;
 using SlaveCare.Domain.Interfaces.Services.v1;
 using SlaveCare.Domain.Interfaces.Services.v1.Authentication;
 using SlaveCare.Domain.Interfaces.Services.v1.Notification;
 using SlaveCare.Infra.Data.Context;
 using SlaveCare.Infra.Data.Context.RepositoryContext;
+using SlaveCare.Infra.Data.Repositories;
 using SlaveCare.Infra.Data.Repositories.v1;
 using SlaveCare.Integration.Amazon.S3.Interfaces;
 using SlaveCare.Integration.Amazon.S3.Services;
 using SlaveCare.Service.ServiceContext;
+using SlaveCare.Service.Services;
 using SlaveCare.Service.Services.v1;
 using SlaveCare.Service.Services.v1.Authentication;
 using SlaveCare.Service.Services.v1.Notification;
@@ -55,19 +58,18 @@ namespace SlaveCare.Infra.Data.Injection
                 _logger.LogInformation(string.Concat($"Configure Connection String (ConfigureDbContext)".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), (string.IsNullOrEmpty(_connectionString) ? "ERROR" : "Executed")));
 
                 _services.AddDbContext<BaseContext>(options =>
-                    options.UseMySql(_connectionString,
-                        ServerVersion.AutoDetect(_connectionString),
-                        mySqlOptionsAction =>
-                        {
-                            mySqlOptionsAction.EnableRetryOnFailure(
-                                maxRetryCount: 5,
-                                maxRetryDelay: TimeSpan.FromSeconds(15),
-                                errorNumbersToAdd: null);
-
+                    options.UseNpgsql(
+                    _connectionString,
+                    postgresOptionsAction =>
+                    {
+                        postgresOptionsAction.EnableRetryOnFailure(maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(15),
+                            errorCodesToAdd: null);
 #if DEBUG
-                            options.EnableSensitiveDataLogging();
+                        options.EnableSensitiveDataLogging();
 #endif
-                        }));
+                    }
+                ));
             }
         }
 
@@ -82,16 +84,18 @@ namespace SlaveCare.Infra.Data.Injection
             _logger.LogInformation(string.Concat($"Configure Connection String (CreateDbContext)".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), (string.IsNullOrEmpty(_connectionString) ? "ERROR" : "Executed")));
 
             var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
-            optionsBuilder.UseMySql(_connectionString,
-                        ServerVersion.AutoDetect(_connectionString),
-                        mySqlOptionsAction =>
-                        {
-                            mySqlOptionsAction.EnableRetryOnFailure(
-                                maxRetryCount: 5,
-                                maxRetryDelay: TimeSpan.FromSeconds(15),
-                                errorNumbersToAdd: null);
-                        }
-                    );
+            optionsBuilder.UseNpgsql(
+                _connectionString += "CommandTimeout=600;",
+                postgresOptionsAction =>
+                {
+                    postgresOptionsAction.EnableRetryOnFailure(maxRetryCount: 5,
+                                                            maxRetryDelay: TimeSpan.FromSeconds(15),
+                                                            errorCodesToAdd: null);
+#if DEBUG
+                    optionsBuilder.EnableSensitiveDataLogging();
+#endif
+                }
+            );
 
             optionsBuilder.EnableSensitiveDataLogging(true);
 
@@ -103,6 +107,17 @@ namespace SlaveCare.Infra.Data.Injection
             #region services
 
             _services.AddScoped<IUserService, UserService>();
+            _services.AddScoped<IManagerService, ManagerService>();
+            _services.AddScoped<IEmployeeService, EmployeeService>();
+            _services.AddScoped<INotificationService, NotificationService>();
+            _services.AddScoped<IUserValidationService, UserValidationService>();
+            _services.AddScoped<IRoleService, RoleService>();
+            _services.AddScoped<ISupplierService, SupplierService>();
+            _services.AddScoped<IStockService, StockService>();
+            _services.AddScoped<IRegisterInService, RegisterInService>();
+            _services.AddScoped<IRegisterInStockService, RegisterInStockService>();
+            _services.AddScoped<IRegisterOutService, RegisterOutService>();
+            _services.AddScoped<IRegisterOutStockService, RegisterOutStockService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -111,15 +126,11 @@ namespace SlaveCare.Infra.Data.Injection
             #region other services
 
             _services.AddScoped<IJwtService, JwtService>();
-            _services.AddScoped<IRoleService, RoleService>();
             _services.AddScoped<IOAuthService, OAuthService>();
             _services.AddScoped<ISignInService, SignInService>();
             _services.AddScoped<ISignUpService, SignUpService>();
             _services.AddScoped<IS3FileService, S3FileService>();
             _services.AddScoped<IServiceContext, ServiceContext>();
-            _services.AddScoped<IManagerService, ManagerService>();
-            _services.AddScoped<INotificationService, NotificationService>();
-            _services.AddScoped<IUserValidationService, UserValidationService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Other Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -131,7 +142,14 @@ namespace SlaveCare.Infra.Data.Injection
             _services.AddScoped<IRoleRepository, RoleRepository>();
             _services.AddScoped<IRepositoryContext, RepositoryContext>();
             _services.AddScoped<IManagerRepository, ManagerRepository>();
+            _services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             _services.AddScoped<IUserValidationRepository, UserValidationRepository>();
+            _services.AddScoped<ISupplierRepository, SupplierRepository>();
+            _services.AddScoped<IStockRepository, StockRepository>();
+            _services.AddScoped<IRegisterInRepository, RegisterInRepository>();
+            _services.AddScoped<IRegisterInStockRepository, RegisterInStockRepository>();
+            _services.AddScoped<IRegisterOutRepository, RegisterOutRepository>();
+            _services.AddScoped<IRegisterOutStockRepository, RegisterOutStockRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 

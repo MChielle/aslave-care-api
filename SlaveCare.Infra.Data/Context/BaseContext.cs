@@ -2,6 +2,7 @@
 using SlaveCare.Domain.Entities;
 using SlaveCare.Infra.Data.Context.SeedConfiguration;
 using SlaveCare.Infra.Data.Context.SeedConfiguration.SeedDev;
+using System;
 using System.Linq;
 
 namespace SlaveCare.Infra.Data.Context
@@ -13,6 +14,13 @@ namespace SlaveCare.Infra.Data.Context
         public DbSet<UserValidation> UserValidations { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Manager> Managers { get; set; }
+        public DbSet<Employee> Employees { get; set; }
+        public DbSet<Supplier> Suppliers { get; set; }
+        public DbSet<Stock> Stocks { get; set; }
+        public DbSet<RegisterIn> RegistersIn { get; set; }
+        public DbSet<RegisterInStock> RegisterInStocks { get; set; }
+        public DbSet<RegisterOut> RegistersOut { get; set; }
+        public DbSet<RegisterOutStock> RegisterOutStocks { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)
@@ -34,6 +42,10 @@ namespace SlaveCare.Infra.Data.Context
 
             modelBuilder.Entity<UserRole>().HasKey(x => new { x.UserId, x.RoleId });
 
+            modelBuilder.Entity<RegisterInStock>().HasKey(x => new { x.RegisterInId, x.StockId });
+
+            modelBuilder.Entity<RegisterOutStock>().HasKey(x => new { x.RegisterOutId, x.StockId });
+
             OnModelCreatingPartial(modelBuilder);
 
             SeedDatabase(modelBuilder);
@@ -48,7 +60,7 @@ namespace SlaveCare.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new SeedUserConfiguration());
             modelBuilder.ApplyConfiguration(new SeedUserRoleConfiguration());
             modelBuilder.ApplyConfiguration(new SeedUserValidationConfiguration());
-
+            modelBuilder.ApplyConfiguration(new SeedEmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new SeedManagerConfiguration());
 
             #endregion Seeder Test

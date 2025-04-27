@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
@@ -49,49 +50,17 @@ namespace SlaveCare.Api.Helpers
     {
         public static void UseCors(IApplicationBuilder app)
         {
-            app.UseCors(builder =>
+            app.UseCors(options =>
             {
                 var urls = new List<string>
                 {
                     "http://localhost:4200",
-                    "https://localhost:5001",
-                    "http://localhost:5000",
-#if DEBUG
-                    "http://localhost:60753",
-#endif
-                    "https://api.utizie.com",
-                    "https://staging-book.utizie.com",
-                    "https://book.utizie.com",
-
-                    "https://staging-backoffice.utizie.com",
-                    "https://api-staging.utizie.com",
-                    "https://backoffice.utizie.com",
-
-                    "http://api.utizie.com",
-                    "http://staging-book.utizie.com",
-                    "http://book.utizie.com",
-
-                    "http://staging-backoffice.utizie.com",
-                    "http://api-staging.utizie.com",
-                    "http://backoffice.utizie.com"
                 };
 
-                var methods = new List<string>
-                {
-                    "GET",
-                    "DELETE",
-                    "POST",
-                    "PUT",
-                    "PATCH",
-                    "OPTIONS",
-                    "HEAD"
-                };
-
-                builder.WithOrigins(urls.ToArray())
+                options.WithOrigins(urls.ToArray())
                        .AllowCredentials()
-                       .WithMethods(methods.ToArray())
-                       .AllowAnyHeader()
-                       .SetPreflightMaxAge(TimeSpan.FromSeconds(3600));
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
             });
         }
 
@@ -149,14 +118,14 @@ namespace SlaveCare.Api.Helpers
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Appointment API",
+                    Title = "SlaveCare API",
                     Description = $"API {EnvironmentHelper.GetShortEnvironmentName()}."
                 });
 
                 c.SwaggerDoc("v1.1", new OpenApiInfo
                 {
                     Version = "v1.1",
-                    Title = "Appointment API",
+                    Title = "SlaveCare API",
                     Description = $"API {EnvironmentHelper.GetShortEnvironmentName()}."
                 });
 
@@ -209,7 +178,7 @@ namespace SlaveCare.Api.Helpers
                     .AddNewtonsoftJson(option =>
                     {
                         option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                        option.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+                        option.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                         option.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss'Z'";
                         option.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     });

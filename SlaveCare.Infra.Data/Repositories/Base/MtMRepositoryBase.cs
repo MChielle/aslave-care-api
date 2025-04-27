@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SlaveCare.Infra.Data.Repositories.Core
+namespace SlaveCare.Infra.Data.Repositories.Base
 {
     public abstract class MtMRepositoryBase<TContext, TEntityMtM, TStrongKey, TWeakKey> : IMtMRepositoryBase<TEntityMtM, TStrongKey, TWeakKey>
         where TEntityMtM : EntityMtM, IMtMEntity, new()

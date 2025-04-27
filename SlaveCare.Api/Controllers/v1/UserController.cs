@@ -25,7 +25,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// [Authenticated] Replace User data by DELETED text filtering by id.
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete("{id}/SoftDelete")]
+        [HttpDelete("{id}/soft-delete")]
         [ProducesResponseType(typeof(OkResponse<DefaultMessageResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -41,7 +41,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// [Authenticated] Replace User data by DELETED text filtering by email.
         /// </summary>
         /// <param name="email"></param>
-        [HttpDelete("{email}/SoftDeleteByEmail")]
+        [HttpDelete("{email}/soft-delete-by-email")]
         [ProducesResponseType(typeof(OkResponse<DefaultMessageResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -57,7 +57,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// [Authenticated] Replace User data by DELETED text filtering by phoneNumber.
         /// </summary>
         /// <param name="phoneNumber"></param>
-        [HttpDelete("{phoneNumber}/SoftDeleteByPhoneNumber")]
+        [HttpDelete("{phoneNumber}/soft-delete-by-phone-number")]
         [ProducesResponseType(typeof(OkResponse<DefaultMessageResponse>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -109,13 +109,13 @@ namespace SlaveCare.Api.Controllers.v1
             return await Task.Run(() => { return new UnauthorizedResponse(); });
         }
 
-        [HttpPost("CheckPhoneNumber/{phoneNumber}/Token")]
+        [HttpPost("check-phone-number/{phoneNumber}/token")]
         public async Task<IResponseBase> CheckPhoneNumber(string phoneNumber)
         {
             return await _userService.CheckPhoneNumberByToken(Request.Headers["Authorization"], phoneNumber);
         }
 
-        [HttpPost("ValidatePhoneNumber/{phoneNumber}/confirmationcode/{confirmationCode}/Token")]
+        [HttpPost("validate-phone-number/{phoneNumber}/confirmation-code/{confirmationCode}/token")]
         public async Task<IResponseBase> ValidatePhoneNumber(string phoneNumber, string confirmationCode)
         {
             return await _userService.ValidateAndUpdatePhoneNumberByToken(Request.Headers["Authorization"], phoneNumber, confirmationCode);

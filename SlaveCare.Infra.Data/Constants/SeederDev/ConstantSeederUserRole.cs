@@ -14,11 +14,6 @@ namespace SlaveCare.Infra.Data.Constants.SeederDev
                 {
                     UserId = ConstantSeederUser.MasterUsers()[0].Id,
                     RoleId = ConstantSeederRole.Roles.First(x => x.Type == UserType.Master).Id
-                },
-                new()
-                {
-                    UserId = ConstantSeederUser.MasterUsers()[1].Id,
-                    RoleId = ConstantSeederRole.Roles.First(x => x.Type == UserType.Master).Id
                 }
             };
 
@@ -29,13 +24,17 @@ namespace SlaveCare.Infra.Data.Constants.SeederDev
                 {
                     UserId = ConstantSeederUser.ManagerUsers()[0].Id,
                     RoleId = ConstantSeederRole.Roles.First(x => x.Type == UserType.Manager).Id
-                },
-
-                new()
-                {
-                    UserId = ConstantSeederUser.ManagerUsers()[1].Id,
-                    RoleId = ConstantSeederRole.Roles.First(x => x.Type == UserType.Manager).Id
                 }
+            };
+
+        internal static List<UserRole> EmployeeUserRoles() =>
+            new()
+            {
+                        new()
+                        {
+                            UserId = ConstantSeederUser.EmployeeUsers()[0].Id,
+                            RoleId = ConstantSeederRole.Roles.First(x => x.Type == UserType.Employee).Id
+                        }
             };
     }
 }

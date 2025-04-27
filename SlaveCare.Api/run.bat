@@ -1,0 +1,1 @@
+dotnet run --property:Configuration=Debug --urls "https://localhost:5001"

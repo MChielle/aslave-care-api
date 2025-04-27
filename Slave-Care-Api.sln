@@ -16,11 +16,16 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Snippets]", "[Snippets]", "{BF353BC2-6B8B-43CB-BB9A-22874587C5AF}"
 	ProjectSection(SolutionItems) = preProject
 		[Snippets]\contrClass.snippet = [Snippets]\contrClass.snippet
+		[Snippets]\contrClassMtm.snippet = [Snippets]\contrClassMtm.snippet
 		[Snippets]\repoClass.snippet = [Snippets]\repoClass.snippet
+		[Snippets]\repoClassMtm.snippet = [Snippets]\repoClassMtm.snippet
 		[Snippets]\repoInter.snippet = [Snippets]\repoInter.snippet
+		[Snippets]\repoInterMtm.snippet = [Snippets]\repoInterMtm.snippet
 		[Snippets]\seedConf.snippet = [Snippets]\seedConf.snippet
 		[Snippets]\servClass.snippet = [Snippets]\servClass.snippet
+		[Snippets]\servClassMtm.snippet = [Snippets]\servClassMtm.snippet
 		[Snippets]\servInter.snippet = [Snippets]\servInter.snippet
+		[Snippets]\servInterMtm.snippet = [Snippets]\servInterMtm.snippet
 		[Snippets]\TestCRUD.snippet = [Snippets]\TestCRUD.snippet
 		[Snippets]\valdAddClass.snippet = [Snippets]\valdAddClass.snippet
 		[Snippets]\valdClass.snippet = [Snippets]\valdClass.snippet
@@ -37,6 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[CI]", "[CI]", "{E59C00AA-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Docker]", "[Docker]", "{A81D7808-73E3-4CF5-8CF4-7A0D6144CE05}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
 		docker-slave-care-api.sh = docker-slave-care-api.sh
 		Dockerfile = Dockerfile
 	EndProjectSection

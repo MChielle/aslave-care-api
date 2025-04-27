@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 
 namespace SlaveCare.Infra.Data.Context.RepositoryContext
 {

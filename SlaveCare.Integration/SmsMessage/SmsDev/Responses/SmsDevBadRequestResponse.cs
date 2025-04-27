@@ -1,5 +1,4 @@
-﻿
-using SlaveCare.Domain.Responses.Interfaces;
+﻿using SlaveCare.Domain.Responses.Interfaces;
 
 namespace SlaveCare.Integration.SmsMessage.SmsDev.Responses
 {

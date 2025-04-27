@@ -11,6 +11,7 @@ namespace SlaveCare.Infra.Data.Context.SeedConfiguration.SeedDev
         {
             builder.HasData(ConstantSeederUser.MasterUsers());
             builder.HasData(ConstantSeederUser.ManagerUsers());
+            builder.HasData(ConstantSeederUser.EmployeeUsers());
         }
     }
 }

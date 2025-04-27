@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using SlaveCare.Domain.Constants;
-using SlaveCare.Domain.Entities.Enums;
 using SlaveCare.Domain.Helpers;
 using SlaveCare.Domain.Interfaces.Services.v1;
 using SlaveCare.Domain.Interfaces.Services.v1.Authentication;

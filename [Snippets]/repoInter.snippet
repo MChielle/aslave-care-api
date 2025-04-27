@@ -23,12 +23,19 @@
           <Function>
           </Function>
         </Literal>
+		  <Literal Editable="true">
+			  <ID>Project</ID>
+			  <ToolTip>Project name</ToolTip>
+			  <Default>Project</Default>
+			  <Function>
+			  </Function>
+		  </Literal>
       </Declarations>
       <Code Language="csharp">
-        <![CDATA[using Appointment.Domain.Entities;
+        <![CDATA[using $Project$.Domain.Entities;
 using System;
 
-namespace Appointment.Domain.Interfaces.Repositories
+namespace $Project$.Domain.Interfaces.Repositories
 {
     public interface I$Entity$Repository : IRepositoryBase<$Entity$, $Key$>
     {

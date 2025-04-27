@@ -10,6 +10,8 @@ namespace SlaveCare.Infra.Data.Context.SeedConfiguration.SeedDev
         public void Configure(EntityTypeBuilder<UserRole> builder)
         {
             builder.HasData(ConstantSeederUserRole.MasterUserRoles());
+            builder.HasData(ConstantSeederUserRole.ManagerUserRoles());
+            builder.HasData(ConstantSeederUserRole.EmployeeUserRoles());
         }
     }
 }

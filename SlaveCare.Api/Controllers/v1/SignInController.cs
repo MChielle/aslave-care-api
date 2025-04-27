@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using SlaveCare.Api.Controllers.Base;
-using SlaveCare.Domain.Entities.Enums;
 using SlaveCare.Domain.Interfaces.Services.v1.Authentication;
 using SlaveCare.Domain.Models.v1.SignIn;
 using SlaveCare.Domain.Responses;
@@ -27,7 +26,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="signInEmailRequestModel">SignInEmailRequestModel</param>
         [AllowAnonymous]
-        [HttpPost("Email")]
+        [HttpPost("email")]
         [ProducesResponseType(typeof(OkResponse<SignInAuthenticationModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -43,7 +42,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="signInRecoverPasswordRequestModel"></param>
         [AllowAnonymous]
-        [HttpPost("RequestRecoverPassword")]
+        [HttpPost("request-recover-password")]
         [ProducesResponseType(typeof(OkResponse<object>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
@@ -58,7 +57,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="emailConfirmationCodeModel"></param>
         [AllowAnonymous]
-        [HttpPost("ValidateEmailConfirmationCode")]
+        [HttpPost("validate-email-confirmation-code")]
         [ProducesResponseType(typeof(OkResponse<SignInRecoverPasswordAuthenticationModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
@@ -74,7 +73,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="phoneNumberConfirmationCodeModel"></param>
         [AllowAnonymous]
-        [HttpPost("ValidatePhoneNumberConfirmationCode")]
+        [HttpPost("validate-phone-number-confirmation-code")]
         [ProducesResponseType(typeof(OkResponse<SignInRecoverPasswordAuthenticationModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
@@ -90,7 +89,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="emailConfirmationCodeModel"></param>
         [AllowAnonymous]
-        [HttpPost("ValidateRecoverPasswordConfirmationCode")]
+        [HttpPost("validate-recover-password-confirmation-code")]
         [ProducesResponseType(typeof(OkResponse<SignInRecoverPasswordAuthenticationModel>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
@@ -104,7 +103,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// [Authenticated] SignIn Controller route to change password.
         /// </summary>
         /// <param name="signInChangePasswordModel"></param>
-        [HttpPost("ChangePassword")]
+        [HttpPost("change-password")]
         [ProducesResponseType(typeof(OkResponse<object>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -120,7 +119,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="phoneNumber"></param>
         [AllowAnonymous]
-        [HttpPost("ResendConfirmationCodeSms/{phoneNumber}")]
+        [HttpPost("resend-confirmation-code-sms/{phoneNumber}")]
         [ProducesResponseType(typeof(OkResponse<object>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -136,7 +135,7 @@ namespace SlaveCare.Api.Controllers.v1
         /// </summary>
         /// <param name="email"></param>
         [AllowAnonymous]
-        [HttpPost("ResendConfirmationCodeEmail/{email}")]
+        [HttpPost("resend-confirmation-code-email/{email}")]
         [ProducesResponseType(typeof(OkResponse<object>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
@@ -148,7 +147,7 @@ namespace SlaveCare.Api.Controllers.v1
         }
 
         [AllowAnonymous]
-        [HttpPost("SocialMedia")]
+        [HttpPost("social-media")]
         [ProducesResponseType(typeof(OkResponse<object>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
