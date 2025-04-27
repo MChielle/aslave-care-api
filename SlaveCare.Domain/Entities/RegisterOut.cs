@@ -1,9 +1,6 @@
-﻿using System;
+﻿using SlaveCare.Domain.Entities.Core;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SlaveCare.Domain.Entities.Core;
 
 namespace SlaveCare.Domain.Entities
 {

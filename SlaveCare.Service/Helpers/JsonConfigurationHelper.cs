@@ -12,7 +12,7 @@ namespace SlaveCare.Service.Helpers
                 DateFormatString = "yyyy-MM-dd'T'HH:mm:ss'Z'",
                 ContractResolver = new CamelCasePropertyNamesContractResolver(),
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
-                DateTimeZoneHandling = DateTimeZoneHandling.Unspecified
+                DateTimeZoneHandling = DateTimeZoneHandling.Utc
             };
         }
     }

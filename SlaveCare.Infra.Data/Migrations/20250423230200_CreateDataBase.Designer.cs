@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SlaveCare.Infra.Data.Context;
 
 #nullable disable
@@ -11,52 +12,54 @@ using SlaveCare.Infra.Data.Context;
 namespace SlaveCare.Infra.Data.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    [Migration("20250407012146_CreateRegistryIn")]
-    partial class CreateRegistryIn
+    [Migration("20250423230200_CreateDataBase")]
+    partial class CreateDataBase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.15")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("ProductVersion", "8.0.15")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.Employee", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("About")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Disable")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhotoPath")
                         .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("character varying(150)");
 
                     b.Property<decimal>("SplitPercentage")
-                        .HasColumnType("decimal(65,30)");
+                        .HasColumnType("numeric");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -69,7 +72,7 @@ namespace SlaveCare.Infra.Data.Migrations
                         {
                             Id = new Guid("71c45363-20e5-4f70-be43-3b46452cd7a0"),
                             About = "Dev",
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Disable = false,
                             Name = "Matheus",
                             SplitPercentage = 0m,
@@ -81,30 +84,30 @@ namespace SlaveCare.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Disable")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhotoPath")
                         .HasMaxLength(150)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("character varying(150)");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -116,68 +119,145 @@ namespace SlaveCare.Infra.Data.Migrations
                         new
                         {
                             Id = new Guid("71c45363-20e5-4f70-be43-3b46452cd7a0"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Disable = false,
                             Name = "Matheus",
                             UserId = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9be")
                         });
                 });
 
-            modelBuilder.Entity("SlaveCare.Domain.Entities.RegistryIn", b =>
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterIn", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Apply")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ApplyDate")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<bool>("Donation")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("SupplierId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("RegistryIns");
+                    b.ToTable("RegistersIn");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterInStock", b =>
+                {
+                    b.Property<Guid>("RegisterInId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("StockId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.HasKey("RegisterInId", "StockId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("RegisterInStocks");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterOut", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Apply")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime>("ApplyDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RegistersOut");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterOutStock", b =>
+                {
+                    b.Property<Guid>("RegisterOutId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("StockId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("decimal(8, 2)");
+
+                    b.HasKey("RegisterOutId", "StockId");
+
+                    b.HasIndex("StockId");
+
+                    b.ToTable("RegisterOutStocks");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.Role", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int>("UserType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
@@ -187,21 +267,21 @@ namespace SlaveCare.Infra.Data.Migrations
                         new
                         {
                             Id = new Guid("e589a9e9-1ba9-46e8-8487-ec68b2f9ef76"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Master",
                             UserType = 0
                         },
                         new
                         {
                             Id = new Guid("574ac0d0-2e84-44d7-8949-a8169fa3bbff"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Manager",
                             UserType = 0
                         },
                         new
                         {
                             Id = new Guid("a869d27c-b75d-424b-a2d6-c91e273d631b"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Employee",
                             UserType = 0
                         });
@@ -211,27 +291,27 @@ namespace SlaveCare.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .HasMaxLength(200)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("Disable")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(8, 2)");
@@ -245,31 +325,31 @@ namespace SlaveCare.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("Disable")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.HasKey("Id");
 
@@ -280,46 +360,46 @@ namespace SlaveCare.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("AppleUserId")
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("FireBaseCloudMessageToken")
-                        .HasColumnType("longtext");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("LastLogin")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("LastPasswordChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("character varying(50)");
 
                     b.Property<byte[]>("Password")
-                        .HasColumnType("longblob");
+                        .HasColumnType("bytea");
 
                     b.Property<string>("PhoneNumber")
                         .HasMaxLength(20)
-                        .HasColumnType("varchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<Guid>("UserValidationId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -331,7 +411,7 @@ namespace SlaveCare.Infra.Data.Migrations
                         new
                         {
                             Id = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9bd"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "matheuschielle+master@gmail.com",
                             FireBaseCloudMessageToken = "ds4Pz40YTeazL39DToMz5P:APA91bHUoBotVr6Mi9d3EfsbgVGrHUdWfmfGslBP2hFboNcdc7MlTQRt2aE2DZTNad-0-ISU3Bk_wON4eLNJZw_pIQ5tH3lPQDJy-4XglcSH5LAufDKmqjy3K0osz7uph6oTknwHpGem",
                             Name = "Matheus",
@@ -341,7 +421,7 @@ namespace SlaveCare.Infra.Data.Migrations
                         new
                         {
                             Id = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9be"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "matheuschielle+manager@gmail.com",
                             FireBaseCloudMessageToken = "ds4Pz40YTeazL39DToMz5P:APA91bHUoBotVr6Mi9d3EfsbgVGrHUdWfmfGslBP2hFboNcdc7MlTQRt2aE2DZTNad-0-ISU3Bk_wON4eLNJZw_pIQ5tH3lPQDJy-4XglcSH5LAufDKmqjy3K0osz7uph6oTknwHpGem",
                             Name = "Matheus",
@@ -351,7 +431,7 @@ namespace SlaveCare.Infra.Data.Migrations
                         new
                         {
                             Id = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9bc"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "matheuschielle+employee@gmail.com",
                             FireBaseCloudMessageToken = "ds4Pz40YTeazL39DToMz5P:APA91bHUoBotVr6Mi9d3EfsbgVGrHUdWfmfGslBP2hFboNcdc7MlTQRt2aE2DZTNad-0-ISU3Bk_wON4eLNJZw_pIQ5tH3lPQDJy-4XglcSH5LAufDKmqjy3K0osz7uph6oTknwHpGem",
                             Name = "Matheus",
@@ -363,10 +443,10 @@ namespace SlaveCare.Infra.Data.Migrations
             modelBuilder.Entity("SlaveCare.Domain.Entities.UserRole", b =>
                 {
                     b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("RoleId")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -396,30 +476,30 @@ namespace SlaveCare.Infra.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreationDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("EmailConfirmationCode")
                         .HasMaxLength(4)
-                        .HasColumnType("varchar(4)");
+                        .HasColumnType("character varying(4)");
 
                     b.Property<bool>("EmailValidated")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTime?>("LastChangeDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("PhoneNumberConfirmationCode")
                         .HasMaxLength(4)
-                        .HasColumnType("varchar(4)");
+                        .HasColumnType("character varying(4)");
 
                     b.Property<bool>("PhoneNumberValidated")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("boolean");
 
                     b.HasKey("Id");
 
@@ -429,21 +509,21 @@ namespace SlaveCare.Infra.Data.Migrations
                         new
                         {
                             Id = new Guid("f9961144-2f1e-41c4-b96c-79e62c20b21b"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             EmailValidated = true,
                             PhoneNumberValidated = true
                         },
                         new
                         {
                             Id = new Guid("6d3dd407-d5e5-41ce-a49b-599145fe89fc"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             EmailValidated = true,
                             PhoneNumberValidated = true
                         },
                         new
                         {
                             Id = new Guid("6d3dd407-d5e5-41ce-a49b-599145fe89fa"),
-                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             EmailValidated = true,
                             PhoneNumberValidated = true
                         });
@@ -471,7 +551,7 @@ namespace SlaveCare.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("SlaveCare.Domain.Entities.RegistryIn", b =>
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterIn", b =>
                 {
                     b.HasOne("SlaveCare.Domain.Entities.Supplier", "Supplier")
                         .WithMany()
@@ -480,6 +560,44 @@ namespace SlaveCare.Infra.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterInStock", b =>
+                {
+                    b.HasOne("SlaveCare.Domain.Entities.RegisterIn", "RegisterIn")
+                        .WithMany("RegisterInStocks")
+                        .HasForeignKey("RegisterInId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("SlaveCare.Domain.Entities.Stock", "Stock")
+                        .WithMany("RegisterInStocks")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("RegisterIn");
+
+                    b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterOutStock", b =>
+                {
+                    b.HasOne("SlaveCare.Domain.Entities.RegisterOut", "RegisterOut")
+                        .WithMany("RegisterOutStocks")
+                        .HasForeignKey("RegisterOutId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("SlaveCare.Domain.Entities.Stock", "Stock")
+                        .WithMany("RegisterOutStocks")
+                        .HasForeignKey("StockId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("RegisterOut");
+
+                    b.Navigation("Stock");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.User", b =>
@@ -512,9 +630,26 @@ namespace SlaveCare.Infra.Data.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterIn", b =>
+                {
+                    b.Navigation("RegisterInStocks");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.RegisterOut", b =>
+                {
+                    b.Navigation("RegisterOutStocks");
+                });
+
             modelBuilder.Entity("SlaveCare.Domain.Entities.Role", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("SlaveCare.Domain.Entities.Stock", b =>
+                {
+                    b.Navigation("RegisterInStocks");
+
+                    b.Navigation("RegisterOutStocks");
                 });
 
             modelBuilder.Entity("SlaveCare.Domain.Entities.User", b =>

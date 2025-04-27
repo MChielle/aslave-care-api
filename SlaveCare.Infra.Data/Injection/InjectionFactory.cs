@@ -58,19 +58,18 @@ namespace SlaveCare.Infra.Data.Injection
                 _logger.LogInformation(string.Concat($"Configure Connection String (ConfigureDbContext)".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), (string.IsNullOrEmpty(_connectionString) ? "ERROR" : "Executed")));
 
                 _services.AddDbContext<BaseContext>(options =>
-                    options.UseMySql(_connectionString,
-                        ServerVersion.AutoDetect(_connectionString),
-                        mySqlOptionsAction =>
-                        {
-                            mySqlOptionsAction.EnableRetryOnFailure(
-                                maxRetryCount: 5,
-                                maxRetryDelay: TimeSpan.FromSeconds(15),
-                                errorNumbersToAdd: null);
-
+                    options.UseNpgsql(
+                    _connectionString,
+                    postgresOptionsAction =>
+                    {
+                        postgresOptionsAction.EnableRetryOnFailure(maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(15),
+                            errorCodesToAdd: null);
 #if DEBUG
-                            options.EnableSensitiveDataLogging();
+                        options.EnableSensitiveDataLogging();
 #endif
-                        }));
+                    }
+                ));
             }
         }
 
@@ -85,16 +84,18 @@ namespace SlaveCare.Infra.Data.Injection
             _logger.LogInformation(string.Concat($"Configure Connection String (CreateDbContext)".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), (string.IsNullOrEmpty(_connectionString) ? "ERROR" : "Executed")));
 
             var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
-            optionsBuilder.UseMySql(_connectionString,
-                        ServerVersion.AutoDetect(_connectionString),
-                        mySqlOptionsAction =>
-                        {
-                            mySqlOptionsAction.EnableRetryOnFailure(
-                                maxRetryCount: 5,
-                                maxRetryDelay: TimeSpan.FromSeconds(15),
-                                errorNumbersToAdd: null);
-                        }
-                    );
+            optionsBuilder.UseNpgsql(
+                _connectionString += "CommandTimeout=600;",
+                postgresOptionsAction =>
+                {
+                    postgresOptionsAction.EnableRetryOnFailure(maxRetryCount: 5,
+                                                            maxRetryDelay: TimeSpan.FromSeconds(15),
+                                                            errorCodesToAdd: null);
+#if DEBUG
+                    optionsBuilder.EnableSensitiveDataLogging();
+#endif
+                }
+            );
 
             optionsBuilder.EnableSensitiveDataLogging(true);
 

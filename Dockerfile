@@ -1,14 +1,14 @@
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
 WORKDIR /app
 
 # Copiar csproj e restaurar dependencias
-COPY ./Appointment.Api/*.csproj ./Appointment.Api/
-COPY ./Appointment.Api.UnitTests/*.csproj ./Appointment.Api.UnitTests/
-COPY ./Appointment.Api.IntegrationTests/*.csproj ./Appointment.Api.IntegrationTests/
-COPY ./Appointment.Domain/*.csproj ./Appointment.Domain/
-COPY ./Appointment.Infra.Data/*.csproj ./Appointment.Infra.Data/
-COPY ./Appointment.Service/*.csproj ./Appointment.Service/
-COPY ./Appointment.Integration/*.csproj ./Appointment.Integration/
+COPY ./SlaveCare.Api/*.csproj ./SlaveCare.Api/
+COPY ./SlaveCare.Api.UnitTests/*.csproj ./SlaveCare.Api.UnitTests/
+COPY ./SlaveCare.Api.IntegrationTests/*.csproj ./SlaveCare.Api.IntegrationTests/
+COPY ./SlaveCare.Domain/*.csproj ./SlaveCare.Domain/
+COPY ./SlaveCare.Infra.Data/*.csproj ./SlaveCare.Infra.Data/
+COPY ./SlaveCare.Service/*.csproj ./SlaveCare.Service/
+COPY ./SlaveCare.Integration/*.csproj ./SlaveCare.Integration/
 COPY ./*.sln ./
 
 RUN dotnet restore
@@ -19,12 +19,12 @@ RUN dotnet publish -c Release
 
 # Build da imagem
 #dev raspberry
-#FROM mcr.microsoft.com/dotnet/aspnet:6.0.14-alpine3.17-arm64v8
+#FROM mcr.microsoft.com/dotnet/aspnet:8.0.0-alpine3.17-arm64v8
 #prod
-FROM mcr.microsoft.com/dotnet/aspnet:7.0
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
 
 WORKDIR /app
-COPY --from=build-env /app/Appointment.Api/bin/Release/net7.0/publish .
+COPY --from=build-env /app/SlaveCare.Api/bin/Release/net8.0/publish .
 
 EXPOSE 80
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet Appointment.Api.dll
+CMD ASPNETCORE_URLS=http://*:$PORT dotnet SlaveCare.Api.dll
