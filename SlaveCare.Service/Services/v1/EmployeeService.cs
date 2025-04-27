@@ -1,7 +1,6 @@
 ﻿using SlaveCare.Domain.Constants;
 using SlaveCare.Domain.Entities;
 using SlaveCare.Domain.Entities.Enums;
-using SlaveCare.Domain.Enums;
 using SlaveCare.Domain.Interfaces.Repositories.v1;
 using SlaveCare.Domain.Interfaces.Services.v1;
 using SlaveCare.Domain.Interfaces.Services.v1.Authentication;
@@ -10,7 +9,6 @@ using SlaveCare.Domain.Models.v1.User;
 using SlaveCare.Domain.Responses;
 using SlaveCare.Domain.Responses.Interfaces;
 using SlaveCare.Domain.Responses.Messages;
-using SlaveCare.Integration.Amazon.S3.Interfaces;
 using SlaveCare.Service.ServiceContext;
 using SlaveCare.Service.Services.Base;
 using System;
@@ -22,16 +20,14 @@ namespace SlaveCare.Service.Services.v1
     public class EmployeeService : ServiceBase<EmployeeAddModel, EmployeeUpdateModel, EmployeePatchModel, EmployeeGetModel, EmployeeModel, Employee, Guid>, IEmployeeService
     {
         private readonly IEmployeeRepository _repository;
-        private readonly IS3FileService _s3FileService;
         private readonly ISignUpService _signUpService;
         private readonly IUserService _userService;
         private readonly IJwtService _jwtService;
 
-        public EmployeeService(IEmployeeRepository repository, IServiceContext serviceContext, IS3FileService s3FileService, ISignUpService signUpService, IUserService userService, IJwtService jwtService)
+        public EmployeeService(IEmployeeRepository repository, IServiceContext serviceContext, ISignUpService signUpService, IUserService userService, IJwtService jwtService)
             : base(repository, serviceContext)
         {
             _repository = repository;
-            _s3FileService = s3FileService;
             _signUpService = signUpService;
             _userService = userService;
             _jwtService = jwtService;
@@ -45,12 +41,12 @@ namespace SlaveCare.Service.Services.v1
             model.UserId = user.Id;
             var employee = await _repository.AddAsync(Mapper.Map<Employee>(model));
             if (employee == null) return new BadRequestResponse(ConstantMessages.CRUD_CREATE_FAIL, response);
-            if (!string.IsNullOrEmpty(model.PhotoBase64String))
-            {
-                var uploadResponse = await _s3FileService.UploadImageToS3(employee.Id.ToString(), model.PhotoBase64String, ImageFileType.Photo);
-                employee.PhotoPath = uploadResponse.S3FileUrl;
-                employee = await _repository.UpdateAsync(employee);
-            }
+            //if (!string.IsNullOrEmpty(model.PhotoBase64String))
+            //{
+                //var uploadResponse = await _s3FileService.UploadImageToS3(employee.Id.ToString(), model.PhotoBase64String, ImageFileType.Photo);
+                //employee.PhotoPath = uploadResponse.S3FileUrl;
+            //    employee = await _repository.UpdateAsync(employee);
+            //}
             return new OkResponse<EmployeeGetModel>(Mapper.Map<EmployeeGetModel>(employee));
         }
 
@@ -59,15 +55,12 @@ namespace SlaveCare.Service.Services.v1
             var employee = await _repository.GetByIdAsync(model.Id);
             if (employee == null) return new NoContentResponse();
             var employeeUpdated = Mapper.Map<Employee>(model);
-            if (!string.IsNullOrEmpty(model.PhotoBase64String))
-            {
-                var uploadResponse = await _s3FileService.UploadImageToS3(model.Id.ToString(), model.PhotoBase64String, ImageFileType.Photo);
-                employeeUpdated.PhotoPath = uploadResponse.S3FileUrl;
-            }
-            else
-            {
-                employeeUpdated.PhotoPath = employee.PhotoPath;
-            }
+            //if (!string.IsNullOrEmpty(model.PhotoBase64String))
+            //{
+            //    var uploadResponse = await _s3FileService.UploadImageToS3(model.Id.ToString(), model.PhotoBase64String, ImageFileType.Photo);
+            //    employeeUpdated.PhotoPath = uploadResponse.S3FileUrl;
+            //}
+            //employeeUpdated.PhotoPath = employee.PhotoPath;
             employee = await _repository.UpdateAsync(employeeUpdated);
             return new OkResponse<EmployeeGetModel>(Mapper.Map<EmployeeGetModel>(employee));
         }
@@ -76,7 +69,7 @@ namespace SlaveCare.Service.Services.v1
         {
             var entity = await _repository.GetByIdAsync(id);
             if (entity == null) return new NoContentResponse();
-            if (entity.PhotoPath != null) await _s3FileService.DeleteImageFromS3(entity.PhotoPath, ImageFileType.Photo);
+            //if (entity.PhotoPath != null) await _s3FileService.DeleteImageFromS3(entity.PhotoPath, ImageFileType.Photo);
             entity = RemoveUserSensitiveData(entity);
             await _repository.UpdateAsync(entity);
             await _userService.SoftDeleteById(entity.UserId);
@@ -87,7 +80,7 @@ namespace SlaveCare.Service.Services.v1
         {
             var entity = await _repository.GetByUserIdAsync(userId);
             if (entity == null) return new NoContentResponse();
-            if (entity.PhotoPath != null) await _s3FileService.DeleteImageFromS3(entity.PhotoPath, ImageFileType.Photo);
+            //if (entity.PhotoPath != null) await _s3FileService.DeleteImageFromS3(entity.PhotoPath, ImageFileType.Photo);
             entity = RemoveUserSensitiveData(entity);
             await _repository.UpdateAsync(entity);
             await _userService.SoftDeleteById(entity.UserId);
