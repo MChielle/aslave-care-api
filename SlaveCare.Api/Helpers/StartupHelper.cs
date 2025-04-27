@@ -178,7 +178,7 @@ namespace SlaveCare.Api.Helpers
                     .AddNewtonsoftJson(option =>
                     {
                         option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                        option.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+                        option.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
                         option.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss'Z'";
                         option.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     });

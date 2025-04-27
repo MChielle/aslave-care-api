@@ -42,6 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[CI]", "[CI]", "{E59C00AA-6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Docker]", "[Docker]", "{A81D7808-73E3-4CF5-8CF4-7A0D6144CE05}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
 		docker-slave-care-api.sh = docker-slave-care-api.sh
 		Dockerfile = Dockerfile
 	EndProjectSection
