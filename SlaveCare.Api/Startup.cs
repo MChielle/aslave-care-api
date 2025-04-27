@@ -52,8 +52,8 @@ namespace SlaveCare.Api
             StartupHelper.ConfigureRedis(services, _logger);
 
             //TODO: buscar outras soluções, independente de configuração de build sempre ocorre "Object reference not set to an instance of an object" durante a migration.
-            StartupHelper.ConfigureFirebase(services, _logger);
-            StartupHelper.ConfigureAmazonS3(services, _logger);
+            //StartupHelper.ConfigureFirebase(services, _logger);
+            //StartupHelper.ConfigureAmazonS3(services, _logger);
             StartupHelper.ConfigureGoogleOAuth2(services, _logger);
 
             StartupHelper.ConfigureIntegrationProviders(_logger);
