@@ -84,13 +84,14 @@ namespace SlaveCare.Api
 
             app.UseRouting();
 
+            StartupHelper.UseCors(app);
+
             app.UseAuthentication();
 
             app.UseAuthorization();
 
             StartupHelper.ConfigureRewriter(app);
 
-            StartupHelper.UseCors(app);
 
             app.UseProblemDetailsExceptionHandler(loggerFactory);
 
