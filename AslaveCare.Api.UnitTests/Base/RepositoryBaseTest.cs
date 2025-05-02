@@ -49,7 +49,7 @@ namespace AslaveCare.Api.UnitTests.Base
             var builder = new DbContextOptionsBuilder<BaseContext>();
             var databaseRoot = new InMemoryDatabaseRoot();
 
-            builder.UseInMemoryDatabase("slavecare_test", databaseRoot);
+            builder.UseInMemoryDatabase("aslavecare_test", databaseRoot);
             builder.EnableServiceProviderCaching(false);
 
             options = builder.Options;

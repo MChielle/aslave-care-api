@@ -56,7 +56,7 @@ namespace AslaveCare.Api.Helpers
                 var urls = new List<string>
                 {
                     "http://localhost:4200",
-                    "https://slave-care-web.onrender.com"
+                    "https://aslave-care-web.onrender.com"
                 };
 
                 options.WithOrigins(urls.ToArray())

@@ -6,7 +6,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using AslaveCare.Api;
 using AslaveCare.Api.Extensions;
 using AslaveCare.Api.Helpers;
 using AslaveCare.Domain.Helpers;
