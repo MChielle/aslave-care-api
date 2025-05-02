@@ -1,0 +1,79 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using AslaveCare.Domain.Entities;
+using AslaveCare.Domain.Interfaces.Repositories.v1;
+using AslaveCare.Domain.Interfaces.Services.v1;
+using AslaveCare.Domain.Models.v1.RegisterInStock;
+using AslaveCare.Domain.Models.v1.RegisterOutStock;
+using AslaveCare.Domain.Models.v1.Stock;
+using AslaveCare.Domain.Responses;
+using AslaveCare.Domain.Responses.Interfaces;
+using AslaveCare.Service.ServiceContext;
+using AslaveCare.Service.Services.Base;
+
+namespace AslaveCare.Service.Services.v1
+{
+    public class StockService : ServiceBase<StockAddModel, StockUpdateModel, StockPatchModel, StockGetModel, StockModel, Stock, Guid>, IStockService
+    {
+        private readonly IStockRepository _repository;
+
+        public StockService(IStockRepository repository, IServiceContext serviceContext)
+            : base(repository, serviceContext)
+        {
+            _repository = repository;
+        }
+
+        public async Task<IResponseBase> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellation = default)
+        {
+            var entities = await _repository.GetByParameters(parameters, cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<IList<StockGetModel>>(Mapper.Map<IList<StockGetModel>>(entities));
+        }
+
+        public async Task<IResponseBase> GetLowerStocks(int number, CancellationToken cancellation = default)
+        {
+            var entities = await _repository.GetLowerStocks(number, cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<IList<StockGetModel>>(Mapper.Map<IList<StockGetModel>>(entities));
+        }
+
+        public async Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default)
+        {
+            var entities = await _repository.GetToListAsync(cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<IList<StockGetModel>>(Mapper.Map<IList<StockGetModel>>(entities));
+        }
+
+        public async Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
+        {
+            foreach (var stockToUpdate in registerInStocks)
+            {
+                var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
+
+                if (apply)
+                    stock.Quantity += stockToUpdate.Quantity;
+                else
+                    stock.Quantity -= stockToUpdate.Quantity;
+
+                await _repository.UpdateAsync(stock);
+            }
+        }
+
+        public async Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
+        {
+            foreach (var stockToUpdate in registerOutStocks)
+            {
+                var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
+
+                if (apply)
+                    stock.Quantity -= stockToUpdate.Quantity;
+                else
+                    stock.Quantity += stockToUpdate.Quantity;
+
+                await _repository.UpdateAsync(stock);
+            }
+        }
+    }
+}
