@@ -29,21 +29,21 @@ namespace AslaveCare.Service.Services.v1
         {
             var entities = await _repository.GetByParameters(parameters, cancellation);
             if (entities == null) return new NoContentResponse();
-            return new OkResponse<IList<StockGetModel>>(Mapper.Map<IList<StockGetModel>>(entities));
+            return new OkResponse<IEnumerable<StockGetModel>>(Mapper.Map<IEnumerable<StockGetModel>>(entities));
         }
 
         public async Task<IResponseBase> GetLowerStocks(int number, CancellationToken cancellation = default)
         {
             var entities = await _repository.GetLowerStocks(number, cancellation);
             if (entities == null) return new NoContentResponse();
-            return new OkResponse<IList<StockGetModel>>(Mapper.Map<IList<StockGetModel>>(entities));
+            return new OkResponse<IEnumerable<StockGetModel>>(Mapper.Map<IEnumerable<StockGetModel>>(entities));
         }
 
         public async Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default)
         {
             var entities = await _repository.GetToListAsync(cancellation);
             if (entities == null) return new NoContentResponse();
-            return new OkResponse<IList<StockGetModel>>(Mapper.Map<IList<StockGetModel>>(entities));
+            return new OkResponse<IEnumerable<StockGetModel>>(Mapper.Map<IEnumerable<StockGetModel>>(entities));
         }
 
         public async Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)

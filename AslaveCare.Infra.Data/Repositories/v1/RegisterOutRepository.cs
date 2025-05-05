@@ -38,5 +38,23 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .Where(x => x.DeletionDate.Equals(null))
                 .ToListAsync(cancellation);
         }
+
+        public async Task<Dictionary<DateTime, decimal>> GetConsumptionsPerMonth(CancellationToken cancellation)
+        {
+            return await _context.RegistersOut
+                .Include(x => x.RegisterOutStocks)
+                    .ThenInclude(x => x.Stock)
+                .AsNoTracking()
+                .Where(x => x.DeletionDate.Equals(null) && x.Apply)
+                .OrderByDescending(x => x.CreationDate)
+                .GroupBy(x => new { x.CreationDate.Year, x.CreationDate.Month })
+                .Take(12)
+                .Select(x => new
+                {
+                    MonthYear = new DateTime(x.Key.Year, x.Key.Month, 1),
+                    Total = x.Sum(y => y.RegisterOutStocks.Sum(w => w.Quantity))
+                })
+                .ToDictionaryAsync(x => x.MonthYear, x => x.Total, cancellation);
+        }
     }
 }

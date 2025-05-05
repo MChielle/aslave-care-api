@@ -19,6 +19,10 @@ using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.v1;
 using AslaveCare.Service.Services.v1.Authentication;
 using AslaveCare.Service.Services.v1.Notification;
+using AslaveCare.Domain.Interfaces.Services;
+using AslaveCare.Service.Services;
+using AslaveCare.Domain.Interfaces.Repositories;
+using AslaveCare.Infra.Data.Repositories;
 
 namespace AslaveCare.Infra.Data.Injection
 {
@@ -115,6 +119,7 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IRegisterInStockService, RegisterInStockService>();
             _services.AddScoped<IRegisterOutService, RegisterOutService>();
             _services.AddScoped<IRegisterOutStockService, RegisterOutStockService>();
+            _services.AddScoped<IStockTypeService, StockTypeService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -147,6 +152,7 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IRegisterInStockRepository, RegisterInStockRepository>();
             _services.AddScoped<IRegisterOutRepository, RegisterOutRepository>();
             _services.AddScoped<IRegisterOutStockRepository, RegisterOutStockRepository>();
+            _services.AddScoped<IStockTypeRepository, StockTypeRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 

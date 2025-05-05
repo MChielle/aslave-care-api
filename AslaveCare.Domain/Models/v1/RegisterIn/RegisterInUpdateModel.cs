@@ -11,6 +11,6 @@ namespace AslaveCare.Domain.Models.v1.RegisterIn
         public bool Donation { get; set; }
         public string Description { get; set; }
         public bool Apply { get; set; }
-        public List<RegisterInStockGetStockModel> RegisterInStocks { get; set; }
+        public List<RegisterInStockPatchModel> RegisterInStocks { get; set; }
     }
 }

@@ -36,13 +36,14 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         public async override Task<RegisterIn> AddAsync(RegisterIn entity)
         {
             var lastNumber = await _context.RegistersIn.OrderByDescending(x => x.Number).FirstOrDefaultAsync();
-            entity.Number = lastNumber == null ? 0: lastNumber.Number++;
+            entity.Number = lastNumber == null ? 1 : lastNumber.Number++;
             if(entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             return await base.AddAsync(entity);
         }
 
         public async override Task<RegisterIn> UpdateAsync(RegisterIn entity)
         {
+            //TODO: ver se não esta zerando o número sequêncial do registro.
             if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             return await base.UpdateAsync(entity);
         }
@@ -57,23 +58,48 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
-        public async Task<Dictionary<string, decimal>> GetDonationsByMonth(CancellationToken cancellation)
+        public async Task<Dictionary<DateTime, decimal>> GetDonationsPerMonth(CancellationToken cancellation)
         {
             return await _context.RegistersIn
                 .Include(x => x.RegisterInStocks)
                     .ThenInclude(x => x.Stock)
                 .AsNoTracking()
-                .Where(x => x.DeletionDate.Equals(null) && x.Donation)
+                .Where(x => x.DeletionDate.Equals(null) && x.Donation && x.Apply)
+                .OrderByDescending(x => x.CreationDate)
                 .GroupBy(x => new { x.CreationDate.Year, x.CreationDate.Month })
-                .OrderByDescending(x => x.Key.Year)
-                .OrderByDescending(x => x.Key.Month)
                 .Take(12)
                 .Select(x => new
                 {
-                    Month = $"{x.Key.Month}/{x.Key.Year}",
-                    Total = x.Sum(y => y.RegisterInStocks.Sum(w => w.Price))
+                    MonthYear = new DateTime(x.Key.Year, x.Key.Month, 1),
+                    Total = x.Sum(y => y.RegisterInStocks.Sum(w => w.Quantity))
                 })
-                .ToDictionaryAsync(x => x.Month, x => x.Total, cancellation);
+                .ToDictionaryAsync(x => x.MonthYear, x => x.Total, cancellation);
+        }
+
+        public async Task<Dictionary<DateTime, decimal>> GetShoppingPerMonth(CancellationToken cancellation)
+        {
+            return await _context.RegistersIn
+                .Include(x => x.RegisterInStocks)
+                    .ThenInclude(x => x.Stock)
+                .AsNoTracking()
+                .Where(x => x.DeletionDate.Equals(null) && !x.Donation && x.Apply)
+                .OrderByDescending(x => x.CreationDate)
+                .GroupBy(x => new { x.CreationDate.Year, x.CreationDate.Month })
+                .Take(12)
+                .Select(x => new
+                {
+                    MonthYear = new DateTime(x.Key.Year, x.Key.Month, 1),
+                    Total = x.Sum(y => y.RegisterInStocks.Sum(w => w.Quantity))
+                })
+                .ToDictionaryAsync(x => x.MonthYear, x => x.Total, cancellation);
+        }
+
+        public async Task<RegisterIn> GetLastNumber()
+        {
+            return await _context.RegistersIn
+                .AsNoTracking()
+                .OrderByDescending(x => x.Number)
+                .FirstOrDefaultAsync();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace AslaveCare.Domain.Interfaces.Repositories.v1
 {
     public interface IRegisterOutRepository : IRepositoryBase<RegisterOut, Guid>
     {
+        Task<Dictionary<DateTime, decimal>> GetConsumptionsPerMonth(CancellationToken cancellation);
         Task<List<RegisterOut>> GetToListAsync(CancellationToken cancellation);
     }
 }

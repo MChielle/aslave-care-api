@@ -15,6 +15,7 @@ using AslaveCare.Domain.Models.v1.Supplier;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Models.v1.UserRole;
 using AslaveCare.Domain.Models.v1.UserValidation;
+using AslaveCare.Domain.Models.v1.StockType;
 
 namespace AslaveCare.Service.Mappings
 {
@@ -34,6 +35,16 @@ namespace AslaveCare.Service.Mappings
             RegisterInStockMappings();
             RegisterOutMappings();
             RegisterOutStockMappings();
+            StockTypeMappings();
+        }
+
+        private void StockTypeMappings()
+        {
+            CreateMap<StockType, StockTypeModel>().ReverseMap();
+            CreateMap<StockType, StockTypeAddModel>().ReverseMap();
+            CreateMap<StockType, StockTypeGetModel>().ReverseMap();
+            CreateMap<StockType, StockTypePatchModel>().ReverseMap();
+            CreateMap<StockType, StockTypeUpdateModel>().ReverseMap();
         }
 
         private void RegisterOutStockMappings()

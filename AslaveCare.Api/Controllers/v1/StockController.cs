@@ -8,6 +8,7 @@ using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
+using System.Collections.Generic;
 
 namespace AslaveCare.Api.Controllers.v1
 {
@@ -25,6 +26,11 @@ namespace AslaveCare.Api.Controllers.v1
         /// [Authenticated] Stock Controller route to get stock by any parameter.
         /// </summary>
         [HttpGet("get-by-parameters")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<StockGetModel>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> GetByParams([FromQuery] StockGetByParametersModel parameters)
         {
             return await _service.GetByParameters(parameters);
@@ -34,7 +40,7 @@ namespace AslaveCare.Api.Controllers.v1
         /// [Authenticated] Stock Controller route to get stock to list.
         /// </summary>
         [HttpGet("to-list")]
-        [ProducesResponseType(typeof(OkResponse<StockGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<StockGetModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
@@ -48,7 +54,7 @@ namespace AslaveCare.Api.Controllers.v1
         /// [Authenticated] Stock Controller route to get stock to list.
         /// </summary>
         [HttpGet("lower-stocks/{number}")]
-        [ProducesResponseType(typeof(OkResponse<StockGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<StockGetModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]

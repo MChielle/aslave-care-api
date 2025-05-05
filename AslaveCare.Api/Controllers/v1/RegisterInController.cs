@@ -25,7 +25,7 @@ namespace AslaveCare.Api.Controllers.v1
         /// [Authenticated] RegisterIn Controller route to get registers to list.
         /// </summary>
         [HttpGet("to-list")]
-        [ProducesResponseType(typeof(OkResponse<RegisterInGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<RegisterInGetModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
@@ -53,7 +53,7 @@ namespace AslaveCare.Api.Controllers.v1
         }
 
         /// <summary>
-        /// [Authenticated] RegisterIn Controller route to get donations by month.
+        /// [Authenticated] RegisterIn Controller route to get donations per month.
         /// </summary>
         /// <param name="cancellation"></param>
         /// <returns></returns>
@@ -63,9 +63,25 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IResponseBase> GetDonationsByMonth(CancellationToken cancellation)
+        public async Task<IResponseBase> GetDonationsPerMonth(CancellationToken cancellation)
         {
-            return await _service.GetDonationsByMonth(cancellation);
+            return await _service.GetDonationsPerMonth(cancellation);
+        }
+
+        /// <summary>
+        /// [Authenticated] RegisterIn Controller route to get shopping per month.
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet("shopping-per-month")]
+        [ProducesResponseType(typeof(OkResponse<Dictionary<string, decimal>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetShoppingPerMonth(CancellationToken cancellation)
+        {
+            return await _service.GetShoppingPerMonth(cancellation);
         }
     }
 }

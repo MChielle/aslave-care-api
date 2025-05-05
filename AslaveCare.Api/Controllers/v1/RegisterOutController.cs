@@ -8,6 +8,7 @@ using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.RegisterOut;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
+using System.Collections.Generic;
 
 namespace AslaveCare.Api.Controllers.v1
 {
@@ -24,7 +25,7 @@ namespace AslaveCare.Api.Controllers.v1
         /// [Authenticated] RegisterOut Controller route to get registers to list.
         /// </summary>
         [HttpGet("to-list")]
-        [ProducesResponseType(typeof(OkResponse<RegisterOutGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<RegisterOutGetModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
@@ -32,6 +33,22 @@ namespace AslaveCare.Api.Controllers.v1
         public async Task<IResponseBase> GetToListAsync(CancellationToken cancellation)
         {
             return await _service.GetToListAsync(cancellation);
+        }
+
+        /// <summary>
+        /// [Authenticated] RegisterOut Controller route to get consumptions per month.
+        /// </summary>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet("consumptions-per-month")]
+        [ProducesResponseType(typeof(OkResponse<Dictionary<string, decimal>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetConsumptionsPerMonth(CancellationToken cancellation)
+        {
+            return await _service.GetConsumptionsPerMonth(cancellation);
         }
     }
 }

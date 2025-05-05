@@ -9,6 +9,7 @@ using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.Supplier;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
+using System.Collections.Generic;
 
 namespace AslaveCare.Api.Controllers.v1
 {
@@ -40,7 +41,7 @@ namespace AslaveCare.Api.Controllers.v1
         /// [Authenticated] Supplier Controller route to get Supplier by any parameter.
         /// </summary>
         [HttpGet("get-by-parameters")]
-        [ProducesResponseType(typeof(OkResponse<SupplierGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<SupplierGetModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
@@ -54,7 +55,7 @@ namespace AslaveCare.Api.Controllers.v1
         /// [Authenticated] Supplier Controller route to get suppliers to list.
         /// </summary>
         [HttpGet("to-list")]
-        [ProducesResponseType(typeof(OkResponse<SupplierGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<SupplierGetModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]

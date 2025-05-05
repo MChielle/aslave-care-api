@@ -12,10 +12,10 @@ namespace AslaveCare.Api.Controllers.v1
     [Produces("application/json")]
     public class TypeController : ControllerBase
     {
-        [HttpGet("social-media-type")]
-        public IResponseBase GetSocialMediaType()
+        [HttpGet("stock-type")]
+        public IResponseBase GetStockType()
         {
-            return new OkResponse<object>(EnumExtensions.EnumToObject<SocialMediaType>());
+            return new OkResponse<object>(EnumExtensions.EnumToObject<StockType>());
         }
     }
 }

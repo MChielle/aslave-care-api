@@ -12,6 +12,8 @@ namespace AslaveCare.Domain.Interfaces.Repositories.v1
         Task<List<RegisterIn>> GetToListAsync(CancellationToken cancellation);
 
         Task<RegisterIn> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation);
-        Task<Dictionary<string, decimal>> GetDonationsByMonth(CancellationToken cancellation);
+        Task<Dictionary<DateTime, decimal>> GetDonationsPerMonth(CancellationToken cancellation);
+        Task<Dictionary<DateTime, decimal>> GetShoppingPerMonth(CancellationToken cancellation);
+        Task<RegisterIn> GetLastNumber();
     }
 }

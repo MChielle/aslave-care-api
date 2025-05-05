@@ -22,6 +22,7 @@ namespace AslaveCare.Infra.Data.Context
         public DbSet<RegisterInStock> RegisterInStocks { get; set; }
         public DbSet<RegisterOut> RegistersOut { get; set; }
         public DbSet<RegisterOutStock> RegisterOutStocks { get; set; }
+        public DbSet<StockType> StockTypes { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)
