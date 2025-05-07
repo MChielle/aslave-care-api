@@ -1,0 +1,8 @@
+﻿using AslaveCare.Domain.Models.Core;
+namespace AslaveCare.Domain.Models.Core
+{
+    public class EntityModel<TKey> : IEntityModel<TKey>
+    {
+        public virtual TKey Id { get; set; }
+    }
+}

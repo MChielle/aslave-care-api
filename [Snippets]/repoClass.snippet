@@ -55,7 +55,7 @@ namespace $Project$.Infra.Data.Repositories
         {
         }
 		
-		public override async Task<$Entity$> GetCompleteByIdAsync(Guid id, CancellationToken cancellationToken = default)
+		public override async Task<$Entity$> GetCompleteByIdAsync($Key$ id, CancellationToken cancellationToken = default)
         {
             return await GetByIdAsync(id, cancellationToken);
         }

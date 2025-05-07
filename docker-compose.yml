@@ -7,25 +7,25 @@ services:
     restart: always
     container_name: redis
     networks:
-      - slavecare_network
+      - aslavecare_network
     logging:
       driver: "json-file"
       options:
         max-file: "5"   # number of files or file count
         max-size: "10m" # file size
-  slavecare_api:
+  aslavecare_api:
     build:
         context: .
         dockerfile: Dockerfile
-    image: "slavecare_api"
+    image: "aslavecare_api"
     ports:
       - "8080:80"
     env_file:
       - .env
     restart: always
-    container_name: "slavecare-api"
+    container_name: "aslavecare-api"
     networks:
-      - slavecare_network
+      - aslavecare_network
     logging:
       driver: "json-file"
       options:
@@ -33,5 +33,5 @@ services:
         max-size: "10m" # file size
 
 networks:
-  slavecare_network:
+  aslavecare_network:
     driver: bridge

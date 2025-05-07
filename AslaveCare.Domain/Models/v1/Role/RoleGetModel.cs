@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using AslaveCare.Domain.Entities.Enums;
+using AslaveCare.Domain.Models.Core;
+using AslaveCare.Domain.Models.v1.UserRole;
+
+namespace AslaveCare.Domain.Models.v1.Role
+{
+    public class RoleGetModel : EntityModel<Guid>
+    {
+        public string Name { get; set; }
+        public UserType UserType { get; set; }
+        public ICollection<UserRoleModel> UserRoles { get; set; }
+    }
+}
