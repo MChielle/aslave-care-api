@@ -54,5 +54,13 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .Where(x => x.DeletionDate.Equals(null))
                 .ToListAsync(cancellation);
         }
+
+        public async Task<int> GetTotalStocksQuantityWarning(CancellationToken cancellationToken)
+        {
+            return await _context.Stocks
+                .AsNoTracking()
+                .Where(x => x.Quantity <= x.QuantityLowWarning)
+                .CountAsync(cancellationToken);
+        }
     }
 }

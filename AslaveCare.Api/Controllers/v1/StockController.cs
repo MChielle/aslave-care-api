@@ -63,5 +63,19 @@ namespace AslaveCare.Api.Controllers.v1
         {
             return await _service.GetLowerStocks(number, cancellationToken);
         }
+
+        /// <summary>
+        /// [Authenticated] Stock Controller route to get stock to list.
+        /// </summary>
+        [HttpGet("total-stocks-quantity-warning")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<StocksQuantityWarningModel>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetTotalStocksQuantityWarning(CancellationToken cancellationToken)
+        {
+            return await _service.GetTotalStocksQuantityWarning(cancellationToken);
+        }
     }
 }

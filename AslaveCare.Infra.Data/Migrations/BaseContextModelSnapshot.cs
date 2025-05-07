@@ -313,12 +313,12 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(8, 2)");
 
+                    b.Property<decimal>("QuantityLowWarning")
+                        .HasColumnType("decimal(8, 2)");
+
                     b.Property<string>("StockTypeId")
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
-
-                    b.Property<decimal>("stockLowWarning")
-                        .HasColumnType("decimal(8, 2)");
 
                     b.HasKey("Id");
 

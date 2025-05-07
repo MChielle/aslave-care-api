@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AslaveCare.Infra.Data.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    [Migration("20250505152423_CreateStockType")]
+    [Migration("20250507003714_CreateStockType")]
     partial class CreateStockType
     {
         /// <inheritdoc />
@@ -316,12 +316,12 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(8, 2)");
 
+                    b.Property<decimal>("QuantityLowWarning")
+                        .HasColumnType("decimal(8, 2)");
+
                     b.Property<string>("StockTypeId")
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
-
-                    b.Property<decimal>("stockLowWarning")
-                        .HasColumnType("decimal(8, 2)");
 
                     b.HasKey("Id");
 

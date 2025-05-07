@@ -22,7 +22,7 @@ namespace AslaveCare.Domain.Entities
         public bool Disable { get; set; }
 
         [Column(TypeName = PropertyType.Decimal_8_2)]
-        public decimal stockLowWarning { get; set; }
+        public decimal QuantityLowWarning { get; set; }
 
         [MaxLength(PropertyLength.GenericShortName)]
         public string StockTypeId { get; set; }

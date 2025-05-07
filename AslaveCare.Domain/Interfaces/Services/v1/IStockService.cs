@@ -15,6 +15,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellation = default);
         Task<IResponseBase> GetLowerStocks(int number, CancellationToken cancellation = default);
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
+        Task<IResponseBase> GetTotalStocksQuantityWarning(CancellationToken cancellationToken);
         Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply);
         Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerInStocks, bool apply);
     }

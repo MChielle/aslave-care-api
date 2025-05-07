@@ -11,19 +11,19 @@ namespace AslaveCare.Infra.Data.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<decimal>(
+                name: "QuantityLowWarning",
+                table: "Stocks",
+                type: "numeric(8,2)",
+                nullable: false,
+                defaultValue: 0m);
+
             migrationBuilder.AddColumn<string>(
                 name: "StockTypeId",
                 table: "Stocks",
                 type: "character varying(20)",
                 maxLength: 20,
                 nullable: true);
-
-            migrationBuilder.AddColumn<decimal>(
-                name: "stockLowWarning",
-                table: "Stocks",
-                type: "numeric(8,2)",
-                nullable: false,
-                defaultValue: 0m);
 
             migrationBuilder.CreateTable(
                 name: "StockTypes",
@@ -67,11 +67,11 @@ namespace AslaveCare.Infra.Data.Migrations
                 table: "Stocks");
 
             migrationBuilder.DropColumn(
-                name: "StockTypeId",
+                name: "QuantityLowWarning",
                 table: "Stocks");
 
             migrationBuilder.DropColumn(
-                name: "stockLowWarning",
+                name: "StockTypeId",
                 table: "Stocks");
         }
     }

@@ -10,7 +10,7 @@ namespace AslaveCare.Domain.Models.v1.Stock
         public string Description { get; set; }
         public decimal Quantity { get; set; }
         public bool Disable { get; set; }
-        public decimal stockLowWarning { get; set; }
+        public decimal QuantityLowWarning { get; set; }
         public string StockTypeId { get; set; }
     }
 }

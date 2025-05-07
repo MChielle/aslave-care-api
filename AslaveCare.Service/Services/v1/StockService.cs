@@ -46,6 +46,12 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<IEnumerable<StockGetModel>>(Mapper.Map<IEnumerable<StockGetModel>>(entities));
         }
 
+        public async Task<IResponseBase> GetTotalStocksQuantityWarning(CancellationToken cancellationToken)
+        {
+            var totalStocksQuantityWarning = await _repository.GetTotalStocksQuantityWarning(cancellationToken);
+            return new OkResponse<StocksQuantityWarningModel>(new StocksQuantityWarningModel(totalStocksQuantityWarning));
+        }
+
         public async Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
         {
             foreach (var stockToUpdate in registerInStocks)
