@@ -42,7 +42,8 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         {
             return await _context.Stocks
                 .AsNoTracking()
-                .OrderBy(x => x.Quantity <= x.QuantityLowWarning)
+                .Where(x => x.Quantity <= x.QuantityLowWarning)
+                .OrderBy(x => x.Quantity)
                 .Take(number)
                 .ToListAsync(cancellation);
         }
