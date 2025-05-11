@@ -9,6 +9,7 @@ using AslaveCare.Domain.Models.v1.RegisterOut;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using System.Collections.Generic;
+using AslaveCare.Domain.Models.v1.RegisterIn;
 
 namespace AslaveCare.Api.Controllers.v1
 {
@@ -33,6 +34,23 @@ namespace AslaveCare.Api.Controllers.v1
         public async Task<IResponseBase> GetToListAsync(CancellationToken cancellation)
         {
             return await _service.GetToListAsync(cancellation);
+        }
+
+        /// <summary>
+        /// [Authenticated] RegisterOut Controller route to get registry to update.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpGet("{id}/to-update")]
+        [ProducesResponseType(typeof(OkResponse<RegisterOutGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)
+        {
+            return await _service.GetByIdToUpdateAsync(id, cancellation);
         }
 
         /// <summary>

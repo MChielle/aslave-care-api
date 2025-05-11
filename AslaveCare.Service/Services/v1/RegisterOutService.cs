@@ -19,12 +19,15 @@ namespace AslaveCare.Service.Services.v1
     {
         private readonly IRegisterOutRepository _repository;
         private readonly IStockService _stockService;
+        private readonly IRegisterOutStockService _registerOutStockService;
 
-        public RegisterOutService(IRegisterOutRepository repository, IServiceContext serviceContext, IStockService stockService)
+
+        public RegisterOutService(IRegisterOutRepository repository, IServiceContext serviceContext, IStockService stockService, IRegisterOutStockService registerOutStockService)
             : base(repository, serviceContext)
         {
             _repository = repository;
             _stockService = stockService;
+            _registerOutStockService = registerOutStockService;
         }
 
         public override async Task<IResponseBase> AddAsync(RegisterOutAddModel model)
@@ -39,8 +42,10 @@ namespace AslaveCare.Service.Services.v1
         public async override Task<IResponseBase> UpdateAsync(RegisterOutUpdateModel model)
         {
             var response = await base.UpdateAsync(model);
-            if (model.Apply)
-                await _stockService.UpdateStockQuantity(model.RegisterOutStocks, model.Apply);
+
+            await _registerOutStockService.AddOrDeleteAsync(model.Id, model.RegisterOutStocks);
+
+            await _stockService.UpdateStockQuantity(model.RegisterOutStocks, model.Apply);
 
             return response;
         }
@@ -74,6 +79,13 @@ namespace AslaveCare.Service.Services.v1
 
             if (result == null) return new NoContentResponse();
             return new OkResponse<object>(result);
+        }
+
+        public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)
+        {         
+            var entities = await _repository.GetByIdToUpdateAsync(id, cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<RegisterOutGetModel>(Mapper.Map<RegisterOutGetModel>(entities));
         }
     }
 }

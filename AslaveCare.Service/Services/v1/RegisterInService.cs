@@ -7,6 +7,7 @@ using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.RegisterIn;
+using AslaveCare.Domain.Models.v1.RegisterInStock;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
@@ -19,12 +20,14 @@ namespace AslaveCare.Service.Services.v1
     {
         private readonly IStockService _stockService;
         private readonly IRegisterInRepository _repository;
+        private readonly IRegisterInStockService _registerInStockService;
 
-        public RegisterInService(IRegisterInRepository repository, IServiceContext serviceContext, IStockService stockService)
+        public RegisterInService(IRegisterInRepository repository, IServiceContext serviceContext, IStockService stockService, IRegisterInStockService registerInStockService)
             : base(repository, serviceContext)
         {
             _stockService = stockService;
             _repository = repository;
+            _registerInStockService = registerInStockService;
         }
 
         public override async Task<IResponseBase> AddAsync(RegisterInAddModel model)
@@ -39,8 +42,10 @@ namespace AslaveCare.Service.Services.v1
         public async override Task<IResponseBase> UpdateAsync(RegisterInUpdateModel model)
         {
             var response = await base.UpdateAsync(model);
-            if (model.Apply)
-                await _stockService.UpdateStockQuantity(model.RegisterInStocks, model.Apply);
+
+            await _registerInStockService.AddOrDeleteAsync(model.Id, model.RegisterInStocks);
+            
+            await _stockService.UpdateStockQuantity(model.RegisterInStocks, model.Apply);
 
             return response;
         }
