@@ -1,4 +1,10 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using AslaveCare.Domain.Configurations;
+using AslaveCare.Domain.Helpers;
+using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
+using AslaveCare.Domain.Models.v1.SignIn;
+using AslaveCare.Domain.Models.v1.SignUp;
+using AslaveCare.Domain.Models.v1.User;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System;
@@ -7,12 +13,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using AslaveCare.Domain.Configurations;
-using AslaveCare.Domain.Helpers;
-using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
-using AslaveCare.Domain.Models.v1.SignIn;
-using AslaveCare.Domain.Models.v1.SignUp;
-using AslaveCare.Domain.Models.v1.User;
 
 namespace AslaveCare.Service.Services.v1.Authentication
 {

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using AslaveCare.Domain.Models.Core;
+﻿using AslaveCare.Domain.Models.Core;
 using AslaveCare.Domain.Models.v1.RegisterOutStock;
+using System;
+using System.Collections.Generic;
 
 namespace AslaveCare.Domain.Models.v1.RegisterOut
 {

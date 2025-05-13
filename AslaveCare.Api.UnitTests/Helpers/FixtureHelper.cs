@@ -1,7 +1,7 @@
-﻿using AutoFixture;
-using System;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Models.v1.User;
+using AutoFixture;
+using System;
 
 namespace AslaveCare.Api.UnitTests.Helpers
 {

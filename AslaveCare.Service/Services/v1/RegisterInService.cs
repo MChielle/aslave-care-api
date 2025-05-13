@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.RegisterIn;
-using AslaveCare.Domain.Models.v1.RegisterInStock;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
-using SendGrid;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1
 {
@@ -39,12 +37,12 @@ namespace AslaveCare.Service.Services.v1
             return response;
         }
 
-        public async override Task<IResponseBase> UpdateAsync(RegisterInUpdateModel model)
+        public override async Task<IResponseBase> UpdateAsync(RegisterInUpdateModel model)
         {
             var response = await base.UpdateAsync(model);
 
             await _registerInStockService.AddOrDeleteAsync(model.Id, model.RegisterInStocks);
-            
+
             await _stockService.UpdateStockQuantity(model.RegisterInStocks, model.Apply);
 
             return response;
@@ -76,7 +74,7 @@ namespace AslaveCare.Service.Services.v1
             {
                 var foundValue = entities.FirstOrDefault(x => x.Key == searchKey);
 
-                if(foundValue.Key != default)
+                if (foundValue.Key != default)
                     result.Add(new { Month = foundValue.Key.ToString("MMMM")[0].ToString().ToUpper(), Total = foundValue.Value });
                 else
                     result.Add(new { Month = searchKey.ToString("MMMM")[0].ToString().ToUpper(), Total = 0 });

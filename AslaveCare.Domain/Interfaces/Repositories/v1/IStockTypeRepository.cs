@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AslaveCare.Domain.Interfaces.Repositories
+namespace AslaveCare.Domain.Interfaces.Repositories.v1
 {
     public interface IStockTypeRepository : IRepositoryBase<StockType, string>
     {

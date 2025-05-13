@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
@@ -19,10 +13,12 @@ using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.v1;
 using AslaveCare.Service.Services.v1.Authentication;
 using AslaveCare.Service.Services.v1.Notification;
-using AslaveCare.Domain.Interfaces.Services;
-using AslaveCare.Service.Services;
-using AslaveCare.Domain.Interfaces.Repositories;
-using AslaveCare.Infra.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace AslaveCare.Infra.Data.Injection
 {

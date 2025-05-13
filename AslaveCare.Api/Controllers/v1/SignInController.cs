@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AslaveCare.Api.Controllers.Base;
+using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
+using AslaveCare.Domain.Models.v1.SignIn;
+using AslaveCare.Domain.Responses;
+using AslaveCare.Domain.Responses.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Threading.Tasks;
-using AslaveCare.Api.Controllers.Base;
-using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
-using AslaveCare.Domain.Models.v1.SignIn;
-using AslaveCare.Domain.Responses;
-using AslaveCare.Domain.Responses.Interfaces;
 
 namespace AslaveCare.Api.Controllers.v1
 {

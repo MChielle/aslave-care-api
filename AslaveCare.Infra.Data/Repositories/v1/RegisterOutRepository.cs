@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AslaveCare.Domain.Entities;
+using AslaveCare.Domain.Interfaces.Repositories.v1;
+using AslaveCare.Infra.Data.Context;
+using AslaveCare.Infra.Data.Context.RepositoryContext;
+using AslaveCare.Infra.Data.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Interfaces.Repositories.v1;
-using AslaveCare.Infra.Data.Context;
-using AslaveCare.Infra.Data.Context.RepositoryContext;
-using AslaveCare.Infra.Data.Repositories.Base;
 
 namespace AslaveCare.Infra.Data.Repositories.v1
 {
@@ -18,14 +18,16 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             : base(context, repositoryContext)
         {
         }
-        public async override Task<RegisterOut> AddAsync(RegisterOut entity)
+
+        public override async Task<RegisterOut> AddAsync(RegisterOut entity)
         {
             var lastNumber = await GetLastNumber();
             entity.Number = lastNumber + 1;
             if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             return await base.AddAsync(entity);
         }
-        public async override Task<RegisterOut> UpdateAsync(RegisterOut entity)
+
+        public override async Task<RegisterOut> UpdateAsync(RegisterOut entity)
         {
             var entityfromdb = _context.RegistersOut.Find(entity.Id);
             if (entityfromdb == default) return null;
@@ -34,13 +36,13 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             entity.LastChangeDate = DateTime.UtcNow;
             entity.CreationDate = entityfromdb.CreationDate;
             entity.Number = entityfromdb.Number;
-            
+
             var attachedEntry = _context.Entry(entityfromdb);
-            
+
             attachedEntry.CurrentValues.SetValues(entity);
-            
+
             await _context.SaveChangesAsync();
-            
+
             return entity;
         }
 

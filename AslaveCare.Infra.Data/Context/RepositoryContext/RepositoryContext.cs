@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AslaveCare.Infra.Data.Context.RepositoryContext;
 
 namespace AslaveCare.Infra.Data.Context.RepositoryContext
 {

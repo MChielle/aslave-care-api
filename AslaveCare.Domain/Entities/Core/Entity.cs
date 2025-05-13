@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AslaveCare.Domain.Entities.Core;
 
 namespace AslaveCare.Domain.Entities.Core
 {

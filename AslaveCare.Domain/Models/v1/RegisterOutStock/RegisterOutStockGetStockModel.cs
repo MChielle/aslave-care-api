@@ -1,7 +1,6 @@
-﻿using System;
-using AslaveCare.Domain.Models.Core;
-using AslaveCare.Domain.Models.v1.RegisterOut;
+﻿using AslaveCare.Domain.Models.Core;
 using AslaveCare.Domain.Models.v1.Stock;
+using System;
 
 namespace AslaveCare.Domain.Models.v1.RegisterOutStock
 {

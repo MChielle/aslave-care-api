@@ -1,6 +1,6 @@
-﻿using System.Threading.Tasks;
-using AslaveCare.Domain.Models.v1.SignIn;
+﻿using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Responses.Interfaces;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
 {

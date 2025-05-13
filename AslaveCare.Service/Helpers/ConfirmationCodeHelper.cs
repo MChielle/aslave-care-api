@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AslaveCare.Domain.Constants;
+using System;
 using System.Linq;
-using AslaveCare.Domain.Constants;
 
 namespace AslaveCare.Service.Helpers
 {

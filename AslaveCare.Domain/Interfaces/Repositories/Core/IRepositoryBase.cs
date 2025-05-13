@@ -1,10 +1,10 @@
-﻿using System;
+﻿using AslaveCare.Domain.Entities.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
-using AslaveCare.Domain.Entities.Core;
 
 namespace AslaveCare.Domain.Interfaces.Repositories.Core
 {

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using AslaveCare.Domain.Entities.Constants;
+using AslaveCare.Domain.Entities.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using AslaveCare.Domain.Entities.Constants;
-using AslaveCare.Domain.Entities.Core;
-using AslaveCare.Domain.Enums;
 
 namespace AslaveCare.Domain.Entities
 {
@@ -30,6 +29,5 @@ namespace AslaveCare.Domain.Entities
         public List<RegisterInStock> RegisterInStocks { get; set; }
 
         public List<RegisterOutStock> RegisterOutStocks { get; set; }
-
     }
 }

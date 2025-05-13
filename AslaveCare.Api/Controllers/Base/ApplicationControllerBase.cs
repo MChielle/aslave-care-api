@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AslaveCare.Api.Attributes;
+﻿using AslaveCare.Api.Attributes;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AslaveCare.Api.Controllers.Base
 {

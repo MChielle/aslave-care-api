@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using System.Text;
-using System;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Models.v1.Employee;
 using AslaveCare.Domain.Models.v1.Manager;
@@ -11,11 +8,13 @@ using AslaveCare.Domain.Models.v1.RegisterOut;
 using AslaveCare.Domain.Models.v1.RegisterOutStock;
 using AslaveCare.Domain.Models.v1.Role;
 using AslaveCare.Domain.Models.v1.Stock;
+using AslaveCare.Domain.Models.v1.StockType;
 using AslaveCare.Domain.Models.v1.Supplier;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Models.v1.UserRole;
 using AslaveCare.Domain.Models.v1.UserValidation;
-using AslaveCare.Domain.Models.v1.StockType;
+using AutoMapper;
+using System.Text;
 
 namespace AslaveCare.Service.Mappings
 {
@@ -66,6 +65,7 @@ namespace AslaveCare.Service.Mappings
 
         private void RegisterInStockMappings()
         {
+            CreateMap<RegisterInStock, RegisterInStockGetRegisterInRestockReportModel>().ReverseMap();
             CreateMap<RegisterInStock, RegisterInStockGetRegisterInModel>().ReverseMap();
             CreateMap<RegisterInStock, RegisterInStockGetStockModel>().ReverseMap();
             CreateMap<RegisterInStock, RegisterInStockPatchModel>().ReverseMap();
@@ -77,6 +77,7 @@ namespace AslaveCare.Service.Mappings
             CreateMap<RegisterIn, RegisterInModel>().ReverseMap();
             CreateMap<RegisterIn, RegisterInAddModel>().ReverseMap();
             CreateMap<RegisterIn, RegisterInGetModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInGetRestockReportModel>().ReverseMap();
             CreateMap<RegisterIn, RegisterInPatchModel>().ReverseMap();
             CreateMap<RegisterIn, RegisterInUpdateModel>().ReverseMap();
         }
@@ -88,6 +89,7 @@ namespace AslaveCare.Service.Mappings
             CreateMap<Stock, StockGetModel>().ReverseMap();
             CreateMap<Stock, StockPatchModel>().ReverseMap();
             CreateMap<Stock, StockUpdateModel>().ReverseMap();
+            CreateMap<Stock, StockGetRestockReportModel>().ReverseMap();
         }
 
         private void SupplierMappings()

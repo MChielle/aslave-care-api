@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Net;
-using AslaveCare.Domain.Responses.Interfaces;
+﻿using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Integration.SmsMessage.HttpSms.Configuration;
 using AslaveCare.Integration.SmsMessage.HttpSms.Responses;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace AslaveCare.Integration.SmsMessage.HttpSms.Service.Base
 {

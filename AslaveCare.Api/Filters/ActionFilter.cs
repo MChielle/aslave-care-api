@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AslaveCare.Api.Controllers.Base;
+using AslaveCare.Domain.Helpers;
+using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
+using AslaveCare.Domain.Responses;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
-using AslaveCare.Api.Controllers.Base;
-using AslaveCare.Domain.Helpers;
-using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
-using AslaveCare.Domain.Responses;
 
 namespace AslaveCare.Api.Filters
 {

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using AslaveCare.Domain.Models.Core;
+﻿using AslaveCare.Domain.Models.Core;
 using AslaveCare.Domain.Models.v1.UserRole;
 using AslaveCare.Domain.Models.v1.UserValidation;
+using System;
+using System.Collections.Generic;
 
 namespace AslaveCare.Domain.Models.v1.User
 {

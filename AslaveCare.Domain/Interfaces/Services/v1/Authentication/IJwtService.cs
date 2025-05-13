@@ -1,10 +1,10 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Helpers;
+﻿using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.SignUp;
 using AslaveCare.Domain.Models.v1.User;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
 {

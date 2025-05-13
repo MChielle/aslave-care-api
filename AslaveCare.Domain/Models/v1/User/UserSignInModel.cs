@@ -1,5 +1,5 @@
-﻿using System;
-using AslaveCare.Domain.Models.v1.UserValidation;
+﻿using AslaveCare.Domain.Models.v1.UserValidation;
+using System;
 
 namespace AslaveCare.Domain.Models.v1.User
 {

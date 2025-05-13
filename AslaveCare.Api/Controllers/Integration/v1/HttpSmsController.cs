@@ -1,16 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using AslaveCare.Api.Controllers.Base;
+﻿using AslaveCare.Api.Controllers.Base;
 using AslaveCare.Integration.SmsMessage.HttpSms.Interfaces;
 using AslaveCare.Integration.SmsMessage.HttpSms.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Api.Controllers.Integration.v1
 {
 #if DEBUG
     [AllowAnonymous]
 #endif
-
     public class HttpSmsController : ApplicationControllerBase
     {
         private readonly IHttpSmsService _httpSmsService;

@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using AslaveCare.Domain.Entities.Enums;
+﻿using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Extensions;
+using System;
+using System.Collections.Generic;
 
 namespace AslaveCare.Infra.Data.Constants
 {

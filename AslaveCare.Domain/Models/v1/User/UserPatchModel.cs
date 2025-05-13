@@ -1,6 +1,6 @@
-﻿using System;
+﻿using AslaveCare.Domain.Models.Core;
+using System;
 using System.Text.Json.Serialization;
-using AslaveCare.Domain.Models.Core;
 
 namespace AslaveCare.Domain.Models.v1.User
 {

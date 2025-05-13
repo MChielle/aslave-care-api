@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AslaveCare.Service.ServiceContext;
 
 namespace AslaveCare.Service.ServiceContext
 {

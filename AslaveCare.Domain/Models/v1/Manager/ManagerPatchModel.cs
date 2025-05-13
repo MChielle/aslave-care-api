@@ -1,5 +1,5 @@
-﻿using System;
-using AslaveCare.Domain.Models.Core;
+﻿using AslaveCare.Domain.Models.Core;
+using System;
 
 namespace AslaveCare.Domain.Models.v1.Manager
 {

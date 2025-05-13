@@ -1,5 +1,5 @@
-﻿using System;
-using AslaveCare.Infra.Data.Context;
+﻿using AslaveCare.Infra.Data.Context;
+using System;
 
 namespace AslaveCare.Api.IntegrationTests.Configuration
 {

@@ -1,21 +1,21 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net;
-using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
-using AslaveCare.Api.Controllers.Base;
+﻿using AslaveCare.Api.Controllers.Base;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.Supplier;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Api.Controllers.v1
 {
     public class SupplierController : EntityController<SupplierAddModel, SupplierUpdateModel, SupplierPatchModel, SupplierGetModel, SupplierModel, Guid>
     {
         private readonly ISupplierService _supplierService;
+
         public SupplierController(ISupplierService supplierService)
             : base(supplierService)
         {

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities.Enums;
+﻿using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Services.Core;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Responses.Interfaces;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Domain.Interfaces.Services.v1
 {

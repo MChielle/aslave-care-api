@@ -1,16 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AslaveCare.Domain.Entities;
+using AslaveCare.Domain.Interfaces.Repositories.v1;
+using AslaveCare.Infra.Data.Context;
+using AslaveCare.Infra.Data.Context.RepositoryContext;
+using AslaveCare.Infra.Data.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Interfaces.Repositories.v1;
-using AslaveCare.Infra.Data.Context;
-using AslaveCare.Infra.Data.Context.RepositoryContext;
-using AslaveCare.Infra.Data.Repositories.Base;
-using AslaveCare.Domain.Constants;
-using AslaveCare.Domain.Exceptions;
 
 namespace AslaveCare.Infra.Data.Repositories.v1
 {
@@ -35,15 +33,15 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .ToListAsync(cancellation);
         }
 
-        public async override Task<RegisterIn> AddAsync(RegisterIn entity)
+        public override async Task<RegisterIn> AddAsync(RegisterIn entity)
         {
             var lastNumber = await GetLastNumber();
             entity.Number = lastNumber + 1;
-            if(entity.Apply) entity.ApplyDate = DateTime.UtcNow;
+            if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             return await base.AddAsync(entity);
         }
 
-        public async override Task<RegisterIn> UpdateAsync(RegisterIn entity)
+        public override async Task<RegisterIn> UpdateAsync(RegisterIn entity)
         {
             var entityfromdb = _context.RegistersIn.Find(entity.Id);
             if (entityfromdb == default) return null;

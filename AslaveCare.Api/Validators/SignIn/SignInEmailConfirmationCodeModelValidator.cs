@@ -1,7 +1,7 @@
-﻿using FluentValidation;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Models.v1.SignIn;
+using FluentValidation;
 
 namespace AslaveCare.Api.Validators.SignIn
 {

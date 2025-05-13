@@ -1,7 +1,6 @@
-﻿using System;
+﻿using AslaveCare.Domain.Entities;
+using System;
 using System.Collections.Generic;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Infra.Data.Constants;
 
 namespace AslaveCare.Infra.Data.Constants.SeederDev
 {

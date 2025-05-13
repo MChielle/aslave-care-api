@@ -1,8 +1,4 @@
-﻿using AutoMapper;
-using System;
-using System.Text;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
@@ -16,6 +12,10 @@ using AslaveCare.Integration.Google.OAuth2.Interfaces;
 using AslaveCare.Integration.Google.OAuth2.Models.Responses;
 using AslaveCare.Service.Helpers;
 using AslaveCare.Service.ServiceContext;
+using AutoMapper;
+using System;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1.Authentication
 {

@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using AslaveCare.Domain.Models.v1.User;
+using Newtonsoft.Json;
 using System;
-using AslaveCare.Domain.Models.v1.User;
 
 namespace AslaveCare.Domain.Models.v1.SignIn
 {

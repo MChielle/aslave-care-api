@@ -1,9 +1,7 @@
-﻿using System;
+﻿using AslaveCare.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Infra.Data.Constants;
-using AslaveCare.Infra.Data.Constants.SeederDev;
 
 namespace AslaveCare.Infra.Data.Constants.SeederDev
 {

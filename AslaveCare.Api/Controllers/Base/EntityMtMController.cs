@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AslaveCare.Domain.Interfaces.Services.Core;
+using AslaveCare.Domain.Models.Core;
+using AslaveCare.Domain.Responses.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using AslaveCare.Api.Controllers.Base;
-using AslaveCare.Domain.Interfaces.Services.Core;
-using AslaveCare.Domain.Models.Core;
-using AslaveCare.Domain.Responses.Interfaces;
 
 namespace AslaveCare.Api.Controllers.Base
 {

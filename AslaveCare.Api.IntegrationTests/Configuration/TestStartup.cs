@@ -4,8 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
-using AslaveCare.Api;
-using AslaveCare.Api.IntegrationTests.Configuration;
 
 namespace AslaveCare.Api.IntegrationTests.Configuration
 {

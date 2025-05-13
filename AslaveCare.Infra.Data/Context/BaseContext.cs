@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Infra.Data.Context;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Infra.Data.Context.SeedConfiguration;
 using AslaveCare.Infra.Data.Context.SeedConfiguration.SeedDev;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AslaveCare.Infra.Data.Context
 {

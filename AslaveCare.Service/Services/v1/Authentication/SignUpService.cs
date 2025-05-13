@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities.Enums;
+﻿using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
 using AslaveCare.Domain.Interfaces.Services.v1.Notification;
@@ -10,6 +8,8 @@ using AslaveCare.Domain.Models.v1.UserValidation;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
+using System;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1.Authentication
 {

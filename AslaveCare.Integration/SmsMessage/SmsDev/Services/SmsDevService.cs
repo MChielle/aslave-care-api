@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using AslaveCare.Domain.Responses.Interfaces;
+﻿using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Integration.SmsMessage.SmsDev.Configuration;
 using AslaveCare.Integration.SmsMessage.SmsDev.Interfaces;
 using AslaveCare.Integration.SmsMessage.SmsDev.Models;
 using AslaveCare.Integration.SmsMessage.SmsDev.Responses;
+using Newtonsoft.Json;
 
 namespace AslaveCare.Integration.SmsMessage.SmsDev.Services
 {

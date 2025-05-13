@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AslaveCare.Api.UnitTests.Base;
+using AslaveCare.Domain.Entities;
+using AslaveCare.Infra.Data.Repositories.v1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using AslaveCare.Api.UnitTests.Base;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Infra.Data.Repositories.v1;
 
 namespace AslaveCare.Api.UnitTests.Repositiories
 {

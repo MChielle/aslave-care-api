@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
-using AslaveCare.Domain.Models.v1.RegisterIn;
 using AslaveCare.Domain.Models.v1.RegisterOut;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1
 {
@@ -20,7 +19,6 @@ namespace AslaveCare.Service.Services.v1
         private readonly IRegisterOutRepository _repository;
         private readonly IStockService _stockService;
         private readonly IRegisterOutStockService _registerOutStockService;
-
 
         public RegisterOutService(IRegisterOutRepository repository, IServiceContext serviceContext, IStockService stockService, IRegisterOutStockService registerOutStockService)
             : base(repository, serviceContext)
@@ -39,7 +37,7 @@ namespace AslaveCare.Service.Services.v1
             return response;
         }
 
-        public async override Task<IResponseBase> UpdateAsync(RegisterOutUpdateModel model)
+        public override async Task<IResponseBase> UpdateAsync(RegisterOutUpdateModel model)
         {
             var response = await base.UpdateAsync(model);
 
@@ -82,7 +80,7 @@ namespace AslaveCare.Service.Services.v1
         }
 
         public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)
-        {         
+        {
             var entities = await _repository.GetByIdToUpdateAsync(id, cancellation);
             if (entities == null) return new NoContentResponse();
             return new OkResponse<RegisterOutGetModel>(Mapper.Map<RegisterOutGetModel>(entities));

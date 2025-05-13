@@ -1,6 +1,6 @@
-﻿using System;
-using AslaveCare.Domain.Models.Core;
+﻿using AslaveCare.Domain.Models.Core;
 using AslaveCare.Domain.Models.v1.User;
+using System;
 
 namespace AslaveCare.Domain.Models.v1.Employee
 {

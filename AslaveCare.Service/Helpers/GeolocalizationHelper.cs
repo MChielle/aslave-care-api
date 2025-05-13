@@ -1,5 +1,5 @@
-﻿using System;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
+using System;
 
 namespace AslaveCare.Service.Helpers
 {

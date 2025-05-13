@@ -1,13 +1,13 @@
-﻿using Newtonsoft.Json;
-using System.Text;
-using System.Web;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Integration.SmsMessage.HttpSms.Configuration;
 using AslaveCare.Integration.SmsMessage.HttpSms.Interfaces;
 using AslaveCare.Integration.SmsMessage.HttpSms.Models;
 using AslaveCare.Integration.SmsMessage.HttpSms.Responses;
 using AslaveCare.Integration.SmsMessage.HttpSms.Service.Base;
+using Newtonsoft.Json;
+using System.Text;
+using System.Web;
 
 namespace AslaveCare.Integration.SmsMessage.HttpSms.Service
 {

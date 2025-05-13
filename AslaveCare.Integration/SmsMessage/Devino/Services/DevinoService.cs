@@ -1,10 +1,10 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http.Headers;
-using AslaveCare.Domain.Responses.Interfaces;
+﻿using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Integration.SmsMessage.Devino.Configuration;
 using AslaveCare.Integration.SmsMessage.Devino.Interfaces;
 using AslaveCare.Integration.SmsMessage.Devino.Models;
 using AslaveCare.Integration.SmsMessage.Devino.Responses;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace AslaveCare.Integration.SmsMessage.Devino.Services
 {

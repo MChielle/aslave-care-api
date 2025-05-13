@@ -1,6 +1,4 @@
-﻿using AslaveCare.Integration.SmsMessage.Devino.Models;
-
-namespace AslaveCare.Integration.SmsMessage.Devino.Models
+﻿namespace AslaveCare.Integration.SmsMessage.Devino.Models
 {
     public class DevinoSendMessageModel
     {

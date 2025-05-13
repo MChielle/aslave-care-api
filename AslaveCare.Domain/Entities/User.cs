@@ -1,10 +1,9 @@
-﻿using System;
+﻿using AslaveCare.Domain.Entities.Constants;
+using AslaveCare.Domain.Entities.Core;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Entities.Constants;
-using AslaveCare.Domain.Entities.Core;
 
 namespace AslaveCare.Domain.Entities
 {

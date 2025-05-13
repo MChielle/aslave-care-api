@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using AslaveCare.Domain.Enums;
+﻿using AslaveCare.Domain.Enums;
 using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AslaveCare.Api.Controllers.v1
 {

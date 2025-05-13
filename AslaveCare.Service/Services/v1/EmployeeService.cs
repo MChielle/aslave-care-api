@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
@@ -14,6 +11,9 @@ using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Domain.Responses.Messages;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1
 {
@@ -43,8 +43,8 @@ namespace AslaveCare.Service.Services.v1
             if (employee == null) return new BadRequestResponse(ConstantMessages.CRUD_CREATE_FAIL, response);
             //if (!string.IsNullOrEmpty(model.PhotoBase64String))
             //{
-                //var uploadResponse = await _s3FileService.UploadImageToS3(employee.Id.ToString(), model.PhotoBase64String, ImageFileType.Photo);
-                //employee.PhotoPath = uploadResponse.S3FileUrl;
+            //var uploadResponse = await _s3FileService.UploadImageToS3(employee.Id.ToString(), model.PhotoBase64String, ImageFileType.Photo);
+            //employee.PhotoPath = uploadResponse.S3FileUrl;
             //    employee = await _repository.UpdateAsync(employee);
             //}
             return new OkResponse<EmployeeGetModel>(Mapper.Map<EmployeeGetModel>(employee));

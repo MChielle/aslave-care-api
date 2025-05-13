@@ -1,6 +1,6 @@
-﻿using FluentValidation;
-using AslaveCare.Domain.Extensions;
+﻿using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Models.Core;
+using FluentValidation;
 
 namespace AslaveCare.Api.Validators.Base
 {

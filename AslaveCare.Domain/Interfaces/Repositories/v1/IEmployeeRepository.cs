@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AslaveCare.Domain.Entities;
+using AslaveCare.Domain.Interfaces.Repositories.Core;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Interfaces.Repositories.Core;
 
 namespace AslaveCare.Domain.Interfaces.Repositories.v1
 {

@@ -4,7 +4,7 @@ using AslaveCare.Domain.Responses.Interfaces;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace AslaveCare.Domain.Interfaces.Services
+namespace AslaveCare.Domain.Interfaces.Services.v1
 {
     public interface IStockTypeService : IServiceBase<StockTypeAddModel, StockTypeUpdateModel, StockTypePatchModel, StockTypeGetModel, StockTypeModel, string>
     {

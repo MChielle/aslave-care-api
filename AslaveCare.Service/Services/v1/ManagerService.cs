@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
@@ -13,6 +11,8 @@ using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Domain.Responses.Messages;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
+using System;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1
 {

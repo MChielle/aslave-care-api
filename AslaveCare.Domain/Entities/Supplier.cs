@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
-using AslaveCare.Domain.Entities.Constants;
+﻿using AslaveCare.Domain.Entities.Constants;
 using AslaveCare.Domain.Entities.Core;
+using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace AslaveCare.Domain.Entities
 {

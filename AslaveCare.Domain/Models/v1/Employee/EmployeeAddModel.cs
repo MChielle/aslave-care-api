@@ -1,7 +1,7 @@
-﻿using System;
-using System.Text.Json.Serialization;
-using AslaveCare.Domain.Models.Core;
+﻿using AslaveCare.Domain.Models.Core;
 using AslaveCare.Domain.Models.v1.SignUp;
+using System;
+using System.Text.Json.Serialization;
 
 namespace AslaveCare.Domain.Models.v1.Employee
 {

@@ -1,15 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
 using AslaveCare.Infra.Data.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Infra.Data.Repositories.v1
 {
@@ -21,7 +21,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         }
 
         //TODO: verificar solução para injeção de parâmetros de forma genérica, pesquisar possibilidade de fazer include dinâmico.
-        public async Task<List<Stock>> GetByParameters(StockGetByParametersModel parameters,  CancellationToken cancellation = default)
+        public async Task<List<Stock>> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellation = default)
         {
             return await _context.Stocks
                 .AsNoTracking()
@@ -42,7 +42,9 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         {
             return await _context.Stocks
                 .AsNoTracking()
-                .Where(x => x.Quantity <= x.QuantityLowWarning)
+                .Where(x => x.Quantity < x.QuantityLowWarning)
+                .Where(x => x.Disable != true)
+                .Where(x => x.DeletionDate.Equals(null))
                 .OrderBy(x => x.Quantity)
                 .Take(number)
                 .ToListAsync(cancellation);
@@ -56,12 +58,27 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .ToListAsync(cancellation);
         }
 
-        public async Task<int> GetTotalStocksQuantityWarning(CancellationToken cancellationToken)
+        public async Task<int> GetTotalStocksQuantityWarning(CancellationToken cancellation)
         {
             return await _context.Stocks
                 .AsNoTracking()
-                .Where(x => x.Quantity <= x.QuantityLowWarning)
-                .CountAsync(cancellationToken);
+                .Where(x => x.Quantity < x.QuantityLowWarning)
+                .Where(x => x.Disable != true)
+                .CountAsync(cancellation);
+        }
+
+        public async Task<List<Stock>> GetRestockReportAsync(CancellationToken cancellation)
+        {
+            return await _context.Stocks
+                .AsNoTracking()
+                .Include(x => x.RegisterInStocks)
+                    .ThenInclude(x => x.RegisterIn)
+                        .ThenInclude(x => x.Supplier)
+                .Where(x => x.Quantity < x.QuantityLowWarning
+                                && x.Disable != true
+                                && x.DeletionDate.Equals(null)
+                                && x.RegisterInStocks.OrderBy(y => y.Price).Take(1).Any())
+                .ToListAsync(cancellation);
         }
     }
 }

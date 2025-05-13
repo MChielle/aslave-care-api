@@ -1,5 +1,4 @@
 ﻿using System;
-using AslaveCare.Domain.Entities;
 
 namespace AslaveCare.Domain.Entities
 {
