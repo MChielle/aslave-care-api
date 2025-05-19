@@ -63,13 +63,14 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             return await _context.Stocks
                 .AsNoTracking()
                 .Where(x => x.Quantity < x.QuantityLowWarning)
-                .Where(x => x.Disable != true)
+                .Where(x => x.Disable != true 
+                                && x.DeletionDate.Equals(null))
                 .CountAsync(cancellation);
         }
 
         public async Task<List<Stock>> GetRestockReportAsync(CancellationToken cancellation)
         {
-            return await _context.Stocks
+            var stocksWithSupplier = await _context.Stocks
                 .AsNoTracking()
                 .Include(x => x.RegisterInStocks)
                     .ThenInclude(x => x.RegisterIn)
@@ -79,6 +80,19 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                                 && x.DeletionDate.Equals(null)
                                 && x.RegisterInStocks.OrderBy(y => y.Price).Take(1).Any())
                 .ToListAsync(cancellation);
+
+            var stocksWithOutSupplier = await _context.Stocks
+                .AsNoTracking()
+                .Include(x => x.RegisterInStocks)
+                    .ThenInclude(x => x.RegisterIn)
+                        .ThenInclude(x => x.Supplier)
+                .Where(x => x.Quantity < x.QuantityLowWarning
+                                && x.Disable != true
+                                && x.DeletionDate.Equals(null)
+                                && !x.RegisterInStocks.Any())
+                .ToListAsync(cancellation);
+
+            return stocksWithSupplier.Concat(stocksWithOutSupplier).ToList();
         }
     }
 }
