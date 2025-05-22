@@ -9,6 +9,9 @@ namespace AslaveCare.Domain.Entities
 {
     public class User : Entity<Guid>
     {
+        [MaxLength(PropertyLength.FullName)]
+        public string Name { get; set; }
+
         [MaxLength(PropertyLength.PhoneNumber)]
         public string PhoneNumber { get; set; }
 
