@@ -61,6 +61,8 @@ namespace AslaveCare.Service.Services.v1.Authentication
             if (!response.IsSuccess) return new UnauthorizedResponse();
             var user = ((OkResponse<UserModel>)response).Data;
 
+            if (user.Disable) return new UnauthorizedResponse();
+
             if (user == null || user.Password.Length == 0 || !RSACipherHelper.ValidateEncryptedData(signInEmailRequestModel.Password, Encoding.UTF8.GetString(user.Password))) return new UnauthorizedResponse();
 
             var authentication = await _oAuthService.CreateSignInAuthenticationEmailAsync(user);

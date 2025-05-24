@@ -33,7 +33,11 @@ namespace AslaveCare.Domain.Entities
         public ICollection<UserRole> UserRoles { get; set; }
 
         public Guid UserValidationId { get; set; }
+        
         public UserValidation UserValidation { get; set; }
+        
         public string FireBaseCloudMessageToken { get; set; }
+
+        public bool Disable { get; set; }
     }
 }

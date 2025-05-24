@@ -10,12 +10,9 @@ namespace AslaveCare.Domain.Models.v1.Manager
         [JsonIgnore]
         public override Guid Id { get => base.Id; set => base.Id = value; }
 
-        public string Name { get; set; }
 
         public string PhotoBase64String { get; set; }
 
-        public bool Disable { get; set; }
-        public Guid StoreId { get; set; }
 
         [JsonIgnore]
         public Guid UserId { get; set; }

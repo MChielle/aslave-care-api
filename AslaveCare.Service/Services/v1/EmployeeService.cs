@@ -94,7 +94,6 @@ namespace AslaveCare.Service.Services.v1
             entity.Name = "DELETED";
             entity.PhotoPath = null;
             entity.Disable = true;
-            entity.SplitPercentage = 0;
             entity.DeletionDate = DateTime.UtcNow;
             return entity;
         }

@@ -13,12 +13,17 @@ namespace AslaveCare.Infra.Data.Constants
                     Id = "Alimento",
                     CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
                 },
-                  new()
+                new()
+                {
+                    Id = "Higiene",
+                    CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
+                },
+                new()
                 {
                     Id = "Limpeza",
                     CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
                 },
-                    new()
+                new()
                 {
                     Id = "Medicamento",
                     CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,

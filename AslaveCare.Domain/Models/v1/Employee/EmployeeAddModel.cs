@@ -10,10 +10,7 @@ namespace AslaveCare.Domain.Models.v1.Employee
         [JsonIgnore]
         public override Guid Id { get => base.Id; set => base.Id = value; }
 
-        public string Name { get; set; }
-        public string About { get; set; }
         public string PhotoBase64String { get; set; }
-        public decimal SplitPercentage { get; set; }
 
         [JsonIgnore]
         public Guid UserId { get; set; }

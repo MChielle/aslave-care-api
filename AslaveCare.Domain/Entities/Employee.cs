@@ -18,7 +18,6 @@ namespace AslaveCare.Domain.Entities
 
         public bool Disable { get; set; }
 
-        public decimal SplitPercentage { get; set; }
         public Guid UserId { get; set; }
         public User User { get; set; }
     }

@@ -7,9 +7,7 @@ namespace AslaveCare.Domain.Models.v1.Employee
     public class EmployeeGetWithoutSensitiveDataModel : EntityModel<Guid>
     {
         public string Name { get; set; }
-        public string About { get; set; }
         public string PhotoPath { get; set; }
-        public bool Disable { get; set; }
         public Guid UserId { get; set; }
         public UserGetModel User { get; set; }
     }

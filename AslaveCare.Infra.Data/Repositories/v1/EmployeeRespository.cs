@@ -23,7 +23,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         {
             return await _context.Employees
                 .Include(x => x.User)
-                .Where(x => x.Disable != true && x.DeletionDate == null)
+                .Where(x => x.DeletionDate == null)
                 .AsNoTracking()
                 .ToListAsync();
         }
