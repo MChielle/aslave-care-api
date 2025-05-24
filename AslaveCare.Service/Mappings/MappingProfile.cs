@@ -7,6 +7,7 @@ using AslaveCare.Domain.Models.v1.RegisterInStock;
 using AslaveCare.Domain.Models.v1.RegisterOut;
 using AslaveCare.Domain.Models.v1.RegisterOutStock;
 using AslaveCare.Domain.Models.v1.Role;
+using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Domain.Models.v1.StockType;
 using AslaveCare.Domain.Models.v1.Supplier;
@@ -108,6 +109,7 @@ namespace AslaveCare.Service.Mappings
             CreateMap<Employee, EmployeeGetModel>().ReverseMap();
             CreateMap<Employee, EmployeePatchModel>().ReverseMap();
             CreateMap<Employee, EmployeeUpdateModel>().ReverseMap();
+            CreateMap<Employee, GenericUserProfileGetWithoutSensitiveDataModel>().ReverseMap();
             CreateMap<Employee, EmployeeGetWithoutSensitiveDataModel>().ReverseMap();
         }
 
@@ -117,6 +119,7 @@ namespace AslaveCare.Service.Mappings
             CreateMap<Manager, ManagerAddModel>().ReverseMap();
             CreateMap<Manager, ManagerGetModel>().ReverseMap();
             CreateMap<Manager, ManagerUpdateModel>().ReverseMap();
+            CreateMap<Manager, GenericUserProfileGetWithoutSensitiveDataModel>().ReverseMap();
             CreateMap<Manager, ManagerGetWithoutSensitiveDataModel>().ReverseMap();
         }
 

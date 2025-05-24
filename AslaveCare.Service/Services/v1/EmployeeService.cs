@@ -5,6 +5,7 @@ using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
 using AslaveCare.Domain.Models.v1.Employee;
+using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
@@ -12,6 +13,7 @@ using AslaveCare.Domain.Responses.Messages;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -110,6 +112,20 @@ namespace AslaveCare.Service.Services.v1
             var employee = await _repository.GetCompleteByIdAsync(id, cancellationToken);
             if (employee == null) return new NoContentResponse();
             return new OkResponse<EmployeeModel>(Mapper.Map<EmployeeModel>(employee));
+        }
+
+        public async Task<IResponseBase> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var employee = await _repository.GetByUserIdAsync(userId, cancellationToken);
+            if(employee == null) return new NoContentResponse();
+            return new OkResponse<GenericUserProfileGetWithoutSensitiveDataModel>(Mapper.Map<GenericUserProfileGetWithoutSensitiveDataModel>(employee));
+        }
+
+        public async Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken)
+        {
+            var employees = await _repository.GetAnyToListAsync(cancellationToken);
+            if (employees == null) return new NoContentResponse();
+            return new OkResponse<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>(Mapper.Map<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>(employees));
         }
     }
 }

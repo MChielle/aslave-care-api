@@ -1,5 +1,6 @@
 ﻿using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Responses.Interfaces;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
@@ -23,5 +24,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
         Task<IResponseBase> ResendConfirmationCodeEmailAsync(string email);
 
         Task<IResponseBase> SignInSignUpSocialMediaAsync(SignInSocialMediaModel signInSocialMediaModel);
+        Task<IResponseBase> GetByTokenAsync(string stringValues, CancellationToken cancellationToken);
+        Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken);
     }
 }

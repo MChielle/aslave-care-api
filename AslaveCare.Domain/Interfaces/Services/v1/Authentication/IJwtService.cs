@@ -1,4 +1,5 @@
-﻿using AslaveCare.Domain.Helpers;
+﻿using AslaveCare.Domain.Entities.Enums;
+using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.SignUp;
 using AslaveCare.Domain.Models.v1.User;
@@ -26,12 +27,14 @@ namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
 
         Task<SignUpAuthenticationModel> CreateSignUpAuthenticationSocialMediaAsync(UserModel userModel, double expirationTimeSeconds, RefreshTokenData refreshTokenData);
 
-        Guid GetUserIdFromToken(string jwtToken);
+        UserType? GetRoleFromToken(string jwtToken);
+
 
         Task<SignInRecoverPasswordAuthenticationModel> CreateRecoverPasswordAuthenticationEmailAsync(UserModel userModel, double expirationTimeSeconds, RefreshTokenData refreshTokenData);
 
         JwtSecurityToken ReadJwt(string jwtToken);
 
         SignInSignUpAppleAutheicationModel ReadAppleAuthenticationJwt(string jwtToken);
+        Guid GetUserIdFromToken(string jwtToken);
     }
 }

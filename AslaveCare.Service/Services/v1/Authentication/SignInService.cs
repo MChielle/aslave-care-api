@@ -3,6 +3,7 @@ using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
 using AslaveCare.Domain.Interfaces.Services.v1.Notification;
+using AslaveCare.Domain.Models.v1.Employee;
 using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Models.v1.UserValidation;
@@ -14,7 +15,9 @@ using AslaveCare.Service.Helpers;
 using AslaveCare.Service.ServiceContext;
 using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1.Authentication
@@ -24,6 +27,8 @@ namespace AslaveCare.Service.Services.v1.Authentication
         private readonly IMapper Mapper;
         private readonly IJwtService _jwtService;
         private readonly IUserService _userService;
+        private readonly IManagerService _managerService;
+        private readonly IEmployeeService _employeeService;
         private readonly IOAuthService _oAuthService;
         private readonly IUserValidationService _userValidationService;
         private readonly INotificationService _notificationService;
@@ -35,7 +40,9 @@ namespace AslaveCare.Service.Services.v1.Authentication
             IOAuthService oAuthService,
             IUserValidationService userValidationService,
             INotificationService pushNotificationService,
-            IGoogleOAuth2Service googleOAuth2Service)
+            IGoogleOAuth2Service googleOAuth2Service,
+            IEmployeeService employeeService,
+            IManagerService managerService)
         {
             _jwtService = jwtService;
             _userService = userService;
@@ -44,6 +51,8 @@ namespace AslaveCare.Service.Services.v1.Authentication
             _userValidationService = userValidationService;
             _notificationService = pushNotificationService;
             _googleOAuth2Service = googleOAuth2Service;
+            _employeeService = employeeService;
+            _managerService = managerService;
         }
 
         public async Task<IResponseBase> SignInAsync(SignInEmailRequestModel signInEmailRequestModel)
@@ -284,6 +293,50 @@ namespace AslaveCare.Service.Services.v1.Authentication
             authentication.User = Mapper.Map<UserSignInModel>(user);
 
             return new OkResponse<SignInAuthenticationModel>(authentication);
+        }
+
+        public async Task<IResponseBase> GetByTokenAsync(string jwtToken, CancellationToken cancellationToken)
+        {
+            var userId = _jwtService.GetUserIdFromToken(jwtToken);
+            var userType = _jwtService.GetRoleFromToken(jwtToken);
+
+            switch (userType)
+            {
+                case Domain.Entities.Enums.UserType.Manager:
+                    return await _managerService.GetByUserIdAsync(userId, cancellationToken);
+
+                case Domain.Entities.Enums.UserType.Employee:
+                    return await _employeeService.GetByUserIdAsync(userId, cancellationToken);
+
+                default:
+                    return new NoContentResponse();
+            }
+        }
+
+        public async Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken)
+        {
+            var anyUsersToList = new List<GenericUserProfileGetWithoutSensitiveDataModel>();
+
+            var response = await _managerService.GetAnyToListAsync(cancellationToken);
+
+            if (response.IsSuccess)
+            {
+                var managers = ((OkResponse<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>)response).Data;
+                anyUsersToList.AddRange(Mapper.Map<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>(managers));
+            }
+
+            response = await _employeeService.GetAnyToListAsync(cancellationToken);
+
+            if (response.IsSuccess)
+            {
+                var employees = ((OkResponse<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>)response).Data;
+                anyUsersToList.AddRange(Mapper.Map<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>(employees));
+            }
+
+            if (anyUsersToList.Count > 0)
+                return new OkResponse<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>(anyUsersToList);
+
+            return new NoContentResponse();
         }
     }
 }

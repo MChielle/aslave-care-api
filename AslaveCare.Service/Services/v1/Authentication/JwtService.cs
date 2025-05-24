@@ -1,4 +1,5 @@
 ﻿using AslaveCare.Domain.Configurations;
+using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
 using AslaveCare.Domain.Models.v1.SignIn;
@@ -262,6 +263,17 @@ namespace AslaveCare.Service.Services.v1.Authentication
             var jsonToken = handler.ReadJwtToken(jwtToken);
             var UserId = jsonToken.Claims.Where(x => x.Type == "User.Identity.UniqueKey").First().Value;
             return new Guid(UserId);
+        }
+
+        public UserType? GetRoleFromToken(string jwtToken)
+        {
+            jwtToken = jwtToken.Replace("Bearer ", string.Empty);
+            var handler = new JwtSecurityTokenHandler();
+            if (!handler.CanReadToken(jwtToken)) return null;
+            var jsonToken = handler.ReadJwtToken(jwtToken);
+            var role = jsonToken.Claims.Where(x => x.Type == "role").First().Value;
+            var roleType = Enum.Parse<UserType>( role);
+            return roleType;
         }
 
         public JwtSecurityToken ReadJwt(string jwtToken)

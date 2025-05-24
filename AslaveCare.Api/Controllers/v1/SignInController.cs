@@ -1,24 +1,29 @@
 ﻿using AslaveCare.Api.Controllers.Base;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
+using AslaveCare.Domain.Models.v1.Employee;
 using AslaveCare.Domain.Models.v1.SignIn;
+using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AslaveCare.Api.Controllers.v1
 {
     public class SignInController : ApplicationControllerBase
     {
-        private readonly ISignInService _signInService;
+        private readonly ISignInService _service;
 
         public SignInController(ISignInService signInService)
         {
-            _signInService = signInService;
+            _service = signInService;
         }
 
         /// <summary>
@@ -34,7 +39,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> SignInAsync([FromBody] SignInEmailRequestModel signInEmailRequestModel)
         {
-            return await _signInService.SignInAsync(signInEmailRequestModel);
+            return await _service.SignInAsync(signInEmailRequestModel);
         }
 
         /// <summary>
@@ -48,7 +53,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> RecoverPassword([FromBody] SignInRecoverPasswordRequestModel signInRecoverPasswordRequestModel)
         {
-            return await _signInService.RequestRecoverPasswordByEmailAsync(signInRecoverPasswordRequestModel.Email);
+            return await _service.RequestRecoverPasswordByEmailAsync(signInRecoverPasswordRequestModel.Email);
         }
 
         //TODO: cachear no REDIS
@@ -64,7 +69,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> ValidateConfirmationCode([FromBody] SignInEmailConfirmationCodeModel emailConfirmationCodeModel)
         {
-            return await _signInService.ValidateEmailConfirmationCodeAsync(emailConfirmationCodeModel);
+            return await _service.ValidateEmailConfirmationCodeAsync(emailConfirmationCodeModel);
         }
 
         //TODO: cachear no REDIS
@@ -80,7 +85,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> ValidateConfirmationCode([FromBody] SignInPhoneNumberConfirmationCodeModel phoneNumberConfirmationCodeModel)
         {
-            return await _signInService.ValidatePhoneNumberConfirmationCodeAsync(phoneNumberConfirmationCodeModel);
+            return await _service.ValidatePhoneNumberConfirmationCodeAsync(phoneNumberConfirmationCodeModel);
         }
 
         //TODO: cachear no REDIS
@@ -96,7 +101,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> ValidateRecoverPasswordConfirmationCode([FromBody] SignInEmailConfirmationCodeModel emailConfirmationCodeModel)
         {
-            return await _signInService.ValidateRecoverPasswordConfirmationCodeAsync(emailConfirmationCodeModel);
+            return await _service.ValidateRecoverPasswordConfirmationCodeAsync(emailConfirmationCodeModel);
         }
 
         /// <summary>
@@ -111,7 +116,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> ChangePassword([FromBody] SignInChangePasswordModel signInChangePasswordModel)
         {
-            return await _signInService.ChangePasswordAsync(Request.Headers["Authorization"], signInChangePasswordModel);
+            return await _service.ChangePasswordAsync(Request.Headers["Authorization"], signInChangePasswordModel);
         }
 
         /// <summary>
@@ -127,7 +132,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> ResendConfirmationCodeSms([Required] string phoneNumber)
         {
-            return await _signInService.ResendConfirmationCodeSmsAsync(phoneNumber);
+            return await _service.ResendConfirmationCodeSmsAsync(phoneNumber);
         }
 
         /// <summary>
@@ -143,7 +148,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> ResendConfirmationCodeEmail([Required] string email)
         {
-            return await _signInService.ResendConfirmationCodeEmailAsync(email);
+            return await _service.ResendConfirmationCodeEmailAsync(email);
         }
 
         [AllowAnonymous]
@@ -155,7 +160,41 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> SignUpSocialMediaAsync([FromBody] SignInSocialMediaModel signUpSocialMediaModel)
         {
-            return await _signInService.SignInSignUpSocialMediaAsync(signUpSocialMediaModel);
+            return await _service.SignInSignUpSocialMediaAsync(signUpSocialMediaModel);
+        }
+
+        /// <summary>
+        /// [Authenticated] SignIn Controller - id from token to Get User Entity.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("token")]
+        [ProducesResponseType(typeof(OkResponse<GenericUserProfileGetWithoutSensitiveDataModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetByTokenAsync(CancellationToken cancellationToken)
+        {
+            return await _service.GetByTokenAsync(Request.Headers["Authorization"], cancellationToken);
+        }
+
+        /// <summary>
+        /// [Authenticated] SignIn Controller - id from token to Get User Entity.
+        /// </summary>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        [HttpGet("any-to-list")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken)
+        {
+            return await _service.GetAnyToListAsync(cancellationToken);
         }
     }
 }

@@ -2,15 +2,18 @@
 using AslaveCare.Domain.Models.v1.User;
 using System;
 
-namespace AslaveCare.Domain.Models.v1.Employee
+namespace AslaveCare.Domain.Models.v1.SignIn
 {
-    public class EmployeeGetWithoutSensitiveDataModel : EntityModel<Guid>
+    public class GenericUserProfileGetWithoutSensitiveDataModel : EntityModel<Guid>
     {
         public string Name { get; set; }
-        public string About { get; set; }
+
         public string PhotoPath { get; set; }
+
         public bool Disable { get; set; }
+
         public Guid UserId { get; set; }
+
         public UserGetModel User { get; set; }
     }
 }
