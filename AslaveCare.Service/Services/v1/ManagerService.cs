@@ -62,8 +62,9 @@ namespace AslaveCare.Service.Services.v1
             //    managerUpdated.PhotoPath = uploadResponse.S3FileUrl;
             //}
             //managerUpdated.PhotoPath = manager.PhotoPath;
+            await _userService.UpdateAsync(model.User);
             manager = await _repository.UpdateAsync(managerUpdated);
-            return new OkResponse<ManagerUpdateModel>(Mapper.Map<ManagerUpdateModel>(manager));
+            return new OkResponse<ManagerGetModel>(Mapper.Map<ManagerGetModel>(manager));
         }
 
         public async Task<IResponseBase> SoftDeleteById(Guid id)
@@ -90,8 +91,6 @@ namespace AslaveCare.Service.Services.v1
 
         private Manager RemoveManagerSensitiveData(Manager entity)
         {
-            entity.Name = "DELETED";
-            entity.Disable = true;
             entity.PhotoPath = null;
             entity.DeletionDate = DateTime.UtcNow;
             return entity;
@@ -100,6 +99,13 @@ namespace AslaveCare.Service.Services.v1
         public async Task<IResponseBase> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
         {
             var manager = await _repository.GetByUserIdAsync(userId, cancellationToken);
+            if (manager == null) return new NoContentResponse();
+            return new OkResponse<GenericUserProfileGetWithoutSensitiveDataModel>(Mapper.Map<GenericUserProfileGetWithoutSensitiveDataModel>(manager));
+        }
+
+        public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var manager = await _repository.GetByIdToUpdateAsync(id, cancellationToken);
             if (manager == null) return new NoContentResponse();
             return new OkResponse<GenericUserProfileGetWithoutSensitiveDataModel>(Mapper.Map<GenericUserProfileGetWithoutSensitiveDataModel>(manager));
         }

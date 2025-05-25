@@ -97,6 +97,8 @@ namespace AslaveCare.Service.Services.v1
             user.Name = "DELETED";
             user.AppleUserId = "DELETED";
             user.Password = null;
+            user.Disable = true;
+            user.FireBaseCloudMessageToken = null;
             user.DeletionDate = DateTime.UtcNow;
             return user;
         }
@@ -152,6 +154,7 @@ namespace AslaveCare.Service.Services.v1
             user.Name = model?.Name ?? user.Name;
             user.PhoneNumber = model.PhoneNumber ?? user.PhoneNumber;
             user.LastChangeDate = DateTime.UtcNow;
+            user.Disable = model.Disable;
 
             user = await _repository.UpdateAsync(user);
 

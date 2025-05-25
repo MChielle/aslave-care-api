@@ -91,9 +91,7 @@ namespace AslaveCare.Service.Services.v1
 
         private Employee RemoveUserSensitiveData(Employee entity)
         {
-            entity.Name = "DELETED";
             entity.PhotoPath = null;
-            entity.Disable = true;
             entity.DeletionDate = DateTime.UtcNow;
             return entity;
         }
@@ -111,6 +109,13 @@ namespace AslaveCare.Service.Services.v1
             var employee = await _repository.GetCompleteByIdAsync(id, cancellationToken);
             if (employee == null) return new NoContentResponse();
             return new OkResponse<EmployeeModel>(Mapper.Map<EmployeeModel>(employee));
+        }
+
+        public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var employee = await _repository.GetByIdToUpdateAsync(id, cancellationToken);
+            if (employee == null) return new NoContentResponse();
+            return new OkResponse<GenericUserProfileGetWithoutSensitiveDataModel>(Mapper.Map<GenericUserProfileGetWithoutSensitiveDataModel>(employee));
         }
 
         public async Task<IResponseBase> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)

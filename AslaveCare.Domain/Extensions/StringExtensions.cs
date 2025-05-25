@@ -17,14 +17,12 @@ namespace AslaveCare.Domain.Extensions
                 _ => searchInput.Any(input.Contains)
             };
 
-        //TODO: TESTAR (SHA256.CREATE)
         public static string ToHashSha256(this string input) =>
             input switch
             {
                 null => string.Empty,
                 "" => string.Empty,
                 _ => BitConverter.ToString((SHA256.Create()).ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", "")
-                //_ => BitConverter.ToString((new SHA256Managed()).ComputeHash(Encoding.UTF8.GetBytes(input))).Replace("-", "") - obsolete
             };
 
         public static string FirstCharToUpper(this string input) =>

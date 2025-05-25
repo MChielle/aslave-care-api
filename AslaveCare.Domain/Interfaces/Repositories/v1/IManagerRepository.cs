@@ -10,7 +10,7 @@ namespace AslaveCare.Domain.Interfaces.Repositories.v1
     public interface IManagerRepository : IRepositoryBase<Manager, Guid>
     {
         Task<IEnumerable<Manager>> GetAnyToListAsync(CancellationToken cancellationToken);
-
+        Task<Manager> GetByIdToUpdateAsync(Guid id, CancellationToken cancellationToken);
         Task<Manager> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default);
     }
 }

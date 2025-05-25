@@ -16,5 +16,6 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> GetByTokenAsync(string jwtToken, CancellationToken cancellationToken);
         Task<IResponseBase> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken);
         Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken);
+        Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellationToken);
     }
 }

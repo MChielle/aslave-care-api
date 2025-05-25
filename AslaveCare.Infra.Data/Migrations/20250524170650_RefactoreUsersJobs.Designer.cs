@@ -3,6 +3,7 @@ using System;
 using AslaveCare.Infra.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AslaveCare.Infra.Data.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    partial class BaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250524170650_RefactoreUsersJobs")]
+    partial class RefactoreUsersJobs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -246,14 +249,14 @@ namespace AslaveCare.Infra.Data.Migrations
                             Id = new Guid("574ac0d0-2e84-44d7-8949-a8169fa3bbff"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Manager",
-                            UserType = 1
+                            UserType = 0
                         },
                         new
                         {
                             Id = new Guid("a869d27c-b75d-424b-a2d6-c91e273d631b"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Employee",
-                            UserType = 2
+                            UserType = 0
                         });
                 });
 

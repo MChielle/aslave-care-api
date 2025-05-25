@@ -1,6 +1,8 @@
 ﻿using AslaveCare.Domain.Models.Core;
+using AslaveCare.Domain.Models.v1.UserRole;
 using AslaveCare.Domain.Models.v1.UserValidation;
 using System;
+using System.Collections.Generic;
 
 namespace AslaveCare.Domain.Models.v1.User
 {
@@ -15,6 +17,7 @@ namespace AslaveCare.Domain.Models.v1.User
         public DateTime? LastPasswordChangeDate { get; set; }
         public string CountryId { get; set; }
         public Guid UserValidationId { get; set; }
+        public ICollection<UserRoleGetRoleModel> UserRoles { get; set; }
         public UserValidationGetWithoutSensitiveDataModel UserValidation { get; set; }
     }
 }

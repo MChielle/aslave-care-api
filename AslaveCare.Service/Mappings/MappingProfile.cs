@@ -145,6 +145,7 @@ namespace AslaveCare.Service.Mappings
         private void UserRoleMappings()
         {
             CreateMap<UserRole, UserRoleModel>().ReverseMap();
+            CreateMap<UserRole, UserRoleGetRoleModel>().ReverseMap();
         }
 
         private void UserMappings()

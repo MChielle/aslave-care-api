@@ -10,7 +10,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
     public interface IManagerService : IServiceBase<ManagerAddModel, ManagerUpdateModel, ManagerPatchModel, ManagerGetModel, ManagerModel, Guid>
     {
         Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken);
-
+        Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellationToken);
         Task<IResponseBase> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken);
         
         Task<IResponseBase> SoftDeleteById(Guid id);

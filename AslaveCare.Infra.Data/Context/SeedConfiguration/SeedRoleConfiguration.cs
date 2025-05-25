@@ -15,6 +15,7 @@ namespace AslaveCare.Infra.Data.Context.SeedConfiguration
                 {
                     Id = item.Id,
                     Name = item.Name,
+                    UserType = item.Type,
                     CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
                     DeletionDate = null,
                     LastChangeDate = null

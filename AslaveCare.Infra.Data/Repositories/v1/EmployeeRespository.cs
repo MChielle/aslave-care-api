@@ -23,11 +23,23 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         {
             return await _context.Employees
                 .Include(x => x.User)
+                    .ThenInclude(x => x.UserRoles)
+                        .ThenInclude(x => x.Role)
                 .Where(x => x.DeletionDate == null)
                 .AsNoTracking()
                 .ToListAsync();
         }
 
+        public async Task<Employee> GetByIdToUpdateAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return await _context.Employees
+                .Include(x => x.User)
+                    .ThenInclude(x => x.UserRoles)
+                        .ThenInclude(x => x.Role)
+                .Where(x => x.Id == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(cancellationToken);
+        }
         public async Task<Employee> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             return await _context.Employees
