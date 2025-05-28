@@ -27,9 +27,9 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IResponseBase> SignUpEmailAsync([FromBody] SignUpEmailModel signUpEmailRequestModel)
+        public async Task<IResponseBase> SignUpEmailAsync([FromBody] SignUpEmailModel signUpEmailModel)
         {
-            return await _signUpService.SignUpEmailAsync(signUpEmailRequestModel, UserType.Employee);
+            return await _signUpService.SignUpEmailAsync(signUpEmailModel, UserType.Employee);
         }
     }
 }

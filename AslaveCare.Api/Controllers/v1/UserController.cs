@@ -1,11 +1,13 @@
 ﻿using AslaveCare.Api.Controllers.Base;
 using AslaveCare.Domain.Interfaces.Services.v1;
+using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Domain.Responses.Messages;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -13,12 +15,12 @@ namespace AslaveCare.Api.Controllers.v1
 {
     public class UserController : EntityController<UserAddModel, UserUpdateModel, UserPatchModel, UserGetModel, UserModel, Guid>
     {
-        private readonly IUserService _userService;
+        private readonly IUserService _service;
 
         public UserController(IUserService service)
             : base(service)
         {
-            _userService = service;
+            _service = service;
         }
 
         /// <summary>
@@ -34,7 +36,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> SoftDelete(Guid id)
         {
-            return await _userService.SoftDeleteById(id);
+            return await _service.SoftDeleteById(id);
         }
 
         /// <summary>
@@ -50,7 +52,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> SoftDeleteByEmail(string email)
         {
-            return await _userService.SoftDeleteByEmail(email);
+            return await _service.SoftDeleteByEmail(email);
         }
 
         /// <summary>
@@ -66,7 +68,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> SoftDeleteByPhoneNumber(string phoneNumber)
         {
-            return await _userService.SoftDeleteByPhoneNumber(phoneNumber);
+            return await _service.SoftDeleteByPhoneNumber(phoneNumber);
         }
 
         /// <summary>
@@ -82,7 +84,7 @@ namespace AslaveCare.Api.Controllers.v1
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
         public async Task<IResponseBase> UpdateByTokenAsync([FromBody] UserUpdateModel model)
         {
-            return await _userService.UpdateByTokenAsync(Request.Headers["Authorization"], model);
+            return await _service.UpdateByTokenAsync(Request.Headers["Authorization"], model);
         }
 
         [ApiExplorerSettings(IgnoreApi = true)]
@@ -112,13 +114,27 @@ namespace AslaveCare.Api.Controllers.v1
         [HttpPost("check-phone-number/{phoneNumber}/token")]
         public async Task<IResponseBase> CheckPhoneNumber(string phoneNumber)
         {
-            return await _userService.CheckPhoneNumberByToken(Request.Headers["Authorization"], phoneNumber);
+            return await _service.CheckPhoneNumberByToken(Request.Headers["Authorization"], phoneNumber);
         }
 
         [HttpPost("validate-phone-number/{phoneNumber}/confirmation-code/{confirmationCode}/token")]
         public async Task<IResponseBase> ValidatePhoneNumber(string phoneNumber, string confirmationCode)
         {
-            return await _userService.ValidateAndUpdatePhoneNumberByToken(Request.Headers["Authorization"], phoneNumber, confirmationCode);
+            return await _service.ValidateAndUpdatePhoneNumberByToken(Request.Headers["Authorization"], phoneNumber, confirmationCode);
+        }
+
+        /// <summary>
+        /// [Authenticated] User Controller route to get User by any parameter.
+        /// </summary>
+        [HttpGet("get-by-parameters")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<UserGetModel>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetByParams([FromQuery] UserGetByParametersModel parameters)
+        {
+            return await _service.GetByParameters(parameters);
         }
     }
 }

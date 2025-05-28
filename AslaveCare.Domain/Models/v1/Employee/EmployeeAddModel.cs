@@ -16,6 +16,6 @@ namespace AslaveCare.Domain.Models.v1.Employee
         public Guid UserId { get; set; }
 
         public Guid StoreId { get; set; }
-        public SignUpEmailModel SignUp { get; set; }
+        public SignUpGenericModel SignUp { get; set; }
     }
 }

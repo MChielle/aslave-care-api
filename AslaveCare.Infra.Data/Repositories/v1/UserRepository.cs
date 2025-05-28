@@ -1,6 +1,8 @@
 ﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
+using AslaveCare.Domain.Models.v1.Stock;
+using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Infra.Data.Constants;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
@@ -85,6 +87,18 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .Where(x => x.AppleUserId == appleUserId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<List<User>> GetByParameters(UserGetByParametersModel parameters, CancellationToken cancellation = default)
+        {
+            return await _context.Users
+                .AsNoTracking()
+                .Where(x => !parameters.Id.HasValue ? true : x.Id == parameters.Id)
+                .Where(x => string.IsNullOrEmpty(parameters.Name) ? true : x.Name == parameters.Name)
+                .Where(x => string.IsNullOrEmpty(parameters.PhoneNumber) ? true : x.PhoneNumber == parameters.PhoneNumber)
+                .Where(x => string.IsNullOrEmpty(parameters.Email) ? true : x.Email == parameters.Email)
+                .Where(x => !parameters.Disable.HasValue ? true : x.Disable == parameters.Disable)
+                .ToListAsync(cancellation);
         }
     }
 }

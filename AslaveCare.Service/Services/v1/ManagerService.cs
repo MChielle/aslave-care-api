@@ -36,7 +36,7 @@ namespace AslaveCare.Service.Services.v1
 
         public override async Task<IResponseBase> AddAsync(ManagerAddModel model)
         {
-            var response = await _signUpService.SignUpEmailAsync(model.SignUp, UserType.Manager);
+            var response = await _signUpService.SignUpGenericAsync(model.SignUp, UserType.Manager);
             if (!response.IsSuccess) return response;
             var user = ((OkResponse<UserModel>)response).Data;
             model.UserId = user.Id;

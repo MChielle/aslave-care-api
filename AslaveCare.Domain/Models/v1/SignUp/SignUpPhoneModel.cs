@@ -1,6 +1,6 @@
 ﻿namespace AslaveCare.Domain.Models.v1.SignUp
 {
-    public class SignUpPhoneRequestModel
+    public class SignUpPhoneModel
     {
         public string PhoneNumber { get; set; }
 

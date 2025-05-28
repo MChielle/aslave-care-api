@@ -33,5 +33,6 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> CheckPhoneNumberByToken(string jwtToken, string phoneNumber);
 
         Task<IResponseBase> ValidateAndUpdatePhoneNumberByToken(string jwtToken, string phoneNumber, string confirmationCode);
+        Task<IResponseBase> GetByParameters(UserGetByParametersModel parameters, CancellationToken cancellation = default);
     }
 }

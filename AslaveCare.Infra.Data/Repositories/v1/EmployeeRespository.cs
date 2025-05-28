@@ -43,6 +43,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         public async Task<Employee> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken = default)
         {
             return await _context.Employees
+                .Include(x => x.User)
                 .Where(x => x.UserId == userId)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(cancellationToken);

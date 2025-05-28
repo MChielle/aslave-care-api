@@ -8,5 +8,6 @@ namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
     public interface ISignUpService
     {
         Task<IResponseBase> SignUpEmailAsync(SignUpEmailModel signUpEmailModel, UserType userType);
+        Task<IResponseBase> SignUpGenericAsync(SignUpGenericModel signUpModel, UserType userType);
     }
 }
