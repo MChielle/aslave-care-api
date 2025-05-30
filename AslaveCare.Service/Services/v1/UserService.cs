@@ -103,7 +103,7 @@ namespace AslaveCare.Service.Services.v1
             return user;
         }
 
-        public async Task UpdateLastLoginAsync(Guid id)
+        public async System.Threading.Tasks.Task UpdateLastLoginAsync(Guid id)
         {
             var user = await _repository.GetByIdAsync(id);
             user.LastLogin = DateTime.UtcNow;

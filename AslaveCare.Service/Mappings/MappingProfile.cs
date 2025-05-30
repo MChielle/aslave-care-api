@@ -11,10 +11,12 @@ using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Domain.Models.v1.StockType;
 using AslaveCare.Domain.Models.v1.Supplier;
+using AslaveCare.Domain.Models.v1.TaskNote;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Models.v1.UserRole;
 using AslaveCare.Domain.Models.v1.UserValidation;
 using AutoMapper;
+using System;
 using System.Text;
 
 namespace AslaveCare.Service.Mappings
@@ -36,6 +38,16 @@ namespace AslaveCare.Service.Mappings
             RegisterOutMappings();
             RegisterOutStockMappings();
             StockTypeMappings();
+            TaskNoteMappings();
+        }
+
+        private void TaskNoteMappings()
+        {
+            CreateMap<TaskNote, TaskNoteModel>().ReverseMap();
+            CreateMap<TaskNote, TaskNoteAddModel>().ReverseMap();
+            CreateMap<TaskNote, TaskNoteGetModel>().ReverseMap();
+            CreateMap<TaskNote, TaskNotePatchModel>().ReverseMap();
+            CreateMap<TaskNote, TaskNoteUpdateModel>().ReverseMap();
         }
 
         private void StockTypeMappings()

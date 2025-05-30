@@ -52,7 +52,7 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<StocksQuantityWarningModel>(new StocksQuantityWarningModel(totalStocksQuantityWarning));
         }
 
-        public async Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
+        public async System.Threading.Tasks.Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
         {
             foreach (var stockToUpdate in registerInStocks)
             {
@@ -67,7 +67,7 @@ namespace AslaveCare.Service.Services.v1
             }
         }
 
-        public async Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
+        public async System.Threading.Tasks.Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
         {
             foreach (var stockToUpdate in registerOutStocks)
             {

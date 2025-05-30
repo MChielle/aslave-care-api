@@ -71,7 +71,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             return user;
         }
 
-        public async Task UpdateLastLogin(Guid Id)
+        public async System.Threading.Tasks.Task UpdateLastLogin(Guid Id)
         {
             var user = await _context.Users.FindAsync(Id);
             user.LastLogin = DateTime.UtcNow;
