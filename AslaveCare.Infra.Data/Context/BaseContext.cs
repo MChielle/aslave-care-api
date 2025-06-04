@@ -67,6 +67,7 @@ namespace AslaveCare.Infra.Data.Context
             #endregion Seeder Test
 
             modelBuilder.ApplyConfiguration(new SeedStockTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SeedStockConfiguration());
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
