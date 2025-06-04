@@ -1,8 +1,5 @@
-﻿using System;
-using AslaveCare.Domain.Entities.Constants;
-using System.ComponentModel.DataAnnotations;
-using AslaveCare.Domain.Enums;
-using AslaveCare.Domain.Models.Core;
+﻿using AslaveCare.Domain.Models.Core;
+using System;
 
 namespace AslaveCare.Domain.Models.v1.Stock
 {

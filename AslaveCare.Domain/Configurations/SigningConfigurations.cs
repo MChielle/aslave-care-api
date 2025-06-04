@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using AslaveCare.Domain.Constants;
+using AslaveCare.Domain.Extensions;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
-using AslaveCare.Domain.Constants;
-using AslaveCare.Domain.Extensions;
 
 namespace AslaveCare.Domain.Configurations
 {

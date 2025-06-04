@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Infra.Data.Constants;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AslaveCare.Infra.Data.Context.SeedConfiguration
 {
@@ -15,6 +15,7 @@ namespace AslaveCare.Infra.Data.Context.SeedConfiguration
                 {
                     Id = item.Id,
                     Name = item.Name,
+                    UserType = item.Type,
                     CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
                     DeletionDate = null,
                     LastChangeDate = null

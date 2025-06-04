@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace AslaveCare.Domain.Enums
+﻿namespace AslaveCare.Domain.Enums
 {
     public enum StockType
     {

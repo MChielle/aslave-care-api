@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore;
+﻿using AslaveCare.Infra.Data.Context;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using AslaveCare.Api.IntegrationTests.Configuration;
-using AslaveCare.Infra.Data.Context;
 
 namespace AslaveCare.Api.IntegrationTests.Configuration
 {

@@ -1,9 +1,11 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Repositories.Core;
+using AslaveCare.Domain.Models.v1.User;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Domain.Interfaces.Repositories.v1
 {
@@ -16,5 +18,6 @@ namespace AslaveCare.Domain.Interfaces.Repositories.v1
         Task<User> AddUserWithRoleAsync(User user, UserType userType);
 
         Task<User> GetByAppleUserIdAsync(string appleUserId, CancellationToken cancellationToken);
+        Task<List<User>> GetByParameters(UserGetByParametersModel parameters, CancellationToken cancellation = default);
     }
 }

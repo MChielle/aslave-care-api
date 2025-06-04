@@ -1,20 +1,21 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Collections.Generic;
-using AslaveCare.Api.Controllers.Base;
+﻿using AslaveCare.Api.Controllers.Base;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.RegisterIn;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Api.Controllers.v1
 {
     public class RegisterInController : EntityController<RegisterInAddModel, RegisterInUpdateModel, RegisterInPatchModel, RegisterInGetModel, RegisterInModel, Guid>
     {
         private readonly IRegisterInService _service;
+
         public RegisterInController(IRegisterInService service)
             : base(service)
         {
@@ -58,7 +59,7 @@ namespace AslaveCare.Api.Controllers.v1
         /// <param name="cancellation"></param>
         /// <returns></returns>
         [HttpGet("donations-per-month")]
-        [ProducesResponseType(typeof(OkResponse<Dictionary<string,decimal>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResponse<Dictionary<string, decimal>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]

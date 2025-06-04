@@ -1,5 +1,4 @@
 ﻿using AslaveCare.Domain.Responses.Interfaces;
-using AslaveCare.Integration.SmsMessage.HttpSms.Responses;
 
 namespace AslaveCare.Integration.SmsMessage.HttpSms.Responses
 {

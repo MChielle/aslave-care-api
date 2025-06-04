@@ -1,14 +1,14 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities.Core;
+﻿using AslaveCare.Domain.Entities.Core;
 using AslaveCare.Domain.Interfaces.Repositories.Core;
 using AslaveCare.Domain.Interfaces.Services.Core;
 using AslaveCare.Domain.Models.Core;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
+using AutoMapper;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.Base
 {

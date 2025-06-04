@@ -1,0 +1,48 @@
+📌 1. Controle Financeiro
+✅ Caixa organizado: Registra todas as entradas e saídas de dinheiro, permitindo acompanhar saldo disponível.
+✅ Registro de doações em dinheiro: Identificar doador, valor e data da doação.
+✅ Controle de contas a pagar: Registro de despesas recorrentes e futuras para previsibilidade financeira.
+✅ Registro de pagamentos de hóspedes: Controle de mensalidades, descontos aplicados e pendências.
+✅ Relatórios financeiros: Demonstrativos de receitas, despesas e saldo atualizado.
+
+📌 2. Controle de Estoque
+✅ Gestão de itens essenciais: Fraldas geriátricas, medicações, café e outros insumos do lar.
+✅ Entrada de doações de itens: Registrar quem doou e quais itens entraram no estoque.
+✅ Histórico de compras: Registrar compras feitas, valores pagos e fornecedores.
+✅ Consulta rápida: Relatório atualizado de quantos itens estão disponíveis.
+✅ Lista de necessidades: Baseada no estoque, gerar lista automática do que o lar precisa para facilitar pedidos de doação.
+
+TypeTag:
+	Id
+	Tag
+
+SizeTag:
+	Id
+	Tag
+
+ItemSizeTag:
+	ItemId
+	SizeTagId
+
+ItemTypeTag:
+	ItemId
+	TypeTagId
+
+Item:
+	Id
+	Name
+	Description
+	AverageValue		(Preço médio, ignorando doações)
+	LastValue			(Valor última compra, ignorando doações)
+	Quantity			(Quantidade, ignorando doações)
+	AvailableQuantity 	(Quantidade disponível)
+
+Supplier:
+	Id
+	Name (Mercado 123)
+	
+Supply:
+	Id
+	Type (Entrada/Saida)
+	itemId
+	Quantity

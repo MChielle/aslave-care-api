@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using AslaveCare.Service.Mappings;
+﻿using AslaveCare.Service.Mappings;
+using AutoMapper;
 
 namespace AslaveCare.Api.UnitTests.Helpers
 {

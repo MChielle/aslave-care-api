@@ -1,18 +1,21 @@
-﻿using System;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
 using AslaveCare.Domain.Models.v1.Manager;
+using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Domain.Responses.Messages;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1
 {
@@ -33,7 +36,7 @@ namespace AslaveCare.Service.Services.v1
 
         public override async Task<IResponseBase> AddAsync(ManagerAddModel model)
         {
-            var response = await _signUpService.SignUpEmailAsync(model.SignUp, UserType.Manager);
+            var response = await _signUpService.SignUpGenericAsync(model.SignUp, UserType.Manager);
             if (!response.IsSuccess) return response;
             var user = ((OkResponse<UserModel>)response).Data;
             model.UserId = user.Id;
@@ -59,8 +62,9 @@ namespace AslaveCare.Service.Services.v1
             //    managerUpdated.PhotoPath = uploadResponse.S3FileUrl;
             //}
             //managerUpdated.PhotoPath = manager.PhotoPath;
+            await _userService.UpdateAsync(model.User);
             manager = await _repository.UpdateAsync(managerUpdated);
-            return new OkResponse<ManagerUpdateModel>(Mapper.Map<ManagerUpdateModel>(manager));
+            return new OkResponse<ManagerGetModel>(Mapper.Map<ManagerGetModel>(manager));
         }
 
         public async Task<IResponseBase> SoftDeleteById(Guid id)
@@ -87,11 +91,30 @@ namespace AslaveCare.Service.Services.v1
 
         private Manager RemoveManagerSensitiveData(Manager entity)
         {
-            entity.Name = "DELETED";
-            entity.Disable = true;
             entity.PhotoPath = null;
             entity.DeletionDate = DateTime.UtcNow;
             return entity;
+        }
+
+        public async Task<IResponseBase> GetByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+        {
+            var manager = await _repository.GetByUserIdAsync(userId, cancellationToken);
+            if (manager == null) return new NoContentResponse();
+            return new OkResponse<GenericUserProfileGetWithoutSensitiveDataModel>(Mapper.Map<GenericUserProfileGetWithoutSensitiveDataModel>(manager));
+        }
+
+        public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellationToken)
+        {
+            var manager = await _repository.GetByIdToUpdateAsync(id, cancellationToken);
+            if (manager == null) return new NoContentResponse();
+            return new OkResponse<GenericUserProfileGetWithoutSensitiveDataModel>(Mapper.Map<GenericUserProfileGetWithoutSensitiveDataModel>(manager));
+        }
+
+        public async Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken)
+        {
+            var manager = await _repository.GetAnyToListAsync(cancellationToken);
+            if (manager == null) return new NoContentResponse();
+            return new OkResponse<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>(Mapper.Map<IEnumerable<GenericUserProfileGetWithoutSensitiveDataModel>>(manager));
         }
     }
 }

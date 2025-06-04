@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities.Enums;
+﻿using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
 using AslaveCare.Domain.Interfaces.Services.v1.Notification;
@@ -10,6 +8,8 @@ using AslaveCare.Domain.Models.v1.UserValidation;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
+using System;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1.Authentication
 {
@@ -31,29 +31,43 @@ namespace AslaveCare.Service.Services.v1.Authentication
 
         public async Task<IResponseBase> SignUpEmailAsync(SignUpEmailModel signUpEmailModel, UserType userType)
         {
-            switch (userType)
-            {
-                case UserType.Employee:
-                case UserType.Manager:
-                    return await SignUpAsync(signUpEmailModel, userType);
-
-                default:
-                    throw new NotImplementedException();
-            }
-        }
-
-        private async Task<IResponseBase> SignUpAsync(SignUpEmailModel signUpEmailModel, UserType userType)
-        {
             var response = await _userService.GetByEmailAsync(signUpEmailModel.Email);
             if (response.IsSuccess) return new UnauthorizedResponse();
 
-            var newUser = new UserAddModel { Email = signUpEmailModel.Email, Password = signUpEmailModel.Password, Name = signUpEmailModel.Name };
+            var newUser = new UserAddModel 
+            { 
+                Email = signUpEmailModel.Email, 
+                Password = signUpEmailModel.Password, 
+                Name = signUpEmailModel.Name 
+            };
 
             newUser.UserValidation = new UserValidationAddModel
             {
                 EmailValidated = true,
                 CreationDate = DateTime.UtcNow
             };
+            return await _userService.AddUserWithRoleAsync(newUser, userType);
+        }
+
+        public async Task<IResponseBase> SignUpGenericAsync(SignUpGenericModel signUpModel, UserType userType)
+        {
+            var response = await _userService.GetByEmailAsync(signUpModel.Email);
+            if (response.IsSuccess) return new UnauthorizedResponse();
+
+            var newUser = new UserAddModel 
+            { 
+                Email = signUpModel.Email, 
+                PhoneNumber = signUpModel.PhoneNumber, 
+                Password = signUpModel.Password, 
+                Name = signUpModel.Name 
+            };
+
+            newUser.UserValidation = new UserValidationAddModel
+            {
+                EmailValidated = true,
+                CreationDate = DateTime.UtcNow
+            };
+
             return await _userService.AddUserWithRoleAsync(newUser, userType);
         }
     }

@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Net;
-using System.Threading.Tasks;
-using System.Threading;
-using AslaveCare.Api.Controllers.Base;
+﻿using AslaveCare.Api.Controllers.Base;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Api.Controllers.v1
 {
@@ -76,6 +76,20 @@ namespace AslaveCare.Api.Controllers.v1
         public async Task<IResponseBase> GetTotalStocksQuantityWarning(CancellationToken cancellationToken)
         {
             return await _service.GetTotalStocksQuantityWarning(cancellationToken);
+        }
+
+        /// <summary>
+        /// [Authenticated] Stock Controller route to get restock report.
+        /// </summary>
+        [HttpGet("restock-report")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<StockGetModel>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation)
+        {
+            return await _service.GetRestockReportAsync(cancellation);
         }
     }
 }

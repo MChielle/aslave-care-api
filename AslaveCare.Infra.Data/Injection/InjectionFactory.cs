@@ -1,10 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using System;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
@@ -12,17 +6,21 @@ using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
 using AslaveCare.Domain.Interfaces.Services.v1.Notification;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
+using AslaveCare.Infra.Data.Repositories;
 using AslaveCare.Infra.Data.Repositories.v1;
 using AslaveCare.Integration.Amazon.S3.Interfaces;
 using AslaveCare.Integration.Amazon.S3.Services;
 using AslaveCare.Service.ServiceContext;
+using AslaveCare.Service.Services;
 using AslaveCare.Service.Services.v1;
 using AslaveCare.Service.Services.v1.Authentication;
 using AslaveCare.Service.Services.v1.Notification;
-using AslaveCare.Domain.Interfaces.Services;
-using AslaveCare.Service.Services;
-using AslaveCare.Domain.Interfaces.Repositories;
-using AslaveCare.Infra.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using System;
 
 namespace AslaveCare.Infra.Data.Injection
 {
@@ -120,6 +118,7 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IRegisterOutService, RegisterOutService>();
             _services.AddScoped<IRegisterOutStockService, RegisterOutStockService>();
             _services.AddScoped<IStockTypeService, StockTypeService>();
+            _services.AddScoped<ITaskNoteService, TaskNoteService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
@@ -153,6 +152,7 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IRegisterOutRepository, RegisterOutRepository>();
             _services.AddScoped<IRegisterOutStockRepository, RegisterOutStockRepository>();
             _services.AddScoped<IStockTypeRepository, StockTypeRepository>();
+            _services.AddScoped<ITaskNoteRepository, TaskNoteRepository>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 

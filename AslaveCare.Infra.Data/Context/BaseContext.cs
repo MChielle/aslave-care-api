@@ -1,10 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Infra.Data.Context;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Infra.Data.Context.SeedConfiguration;
 using AslaveCare.Infra.Data.Context.SeedConfiguration.SeedDev;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AslaveCare.Infra.Data.Context
 {
@@ -23,6 +21,7 @@ namespace AslaveCare.Infra.Data.Context
         public DbSet<RegisterOut> RegistersOut { get; set; }
         public DbSet<RegisterOutStock> RegisterOutStocks { get; set; }
         public DbSet<StockType> StockTypes { get; set; }
+        public DbSet<TaskNote> TaskNotes { get; set; }
 
         public BaseContext(DbContextOptions<BaseContext> options)
             : base(options)
@@ -66,6 +65,9 @@ namespace AslaveCare.Infra.Data.Context
             modelBuilder.ApplyConfiguration(new SeedManagerConfiguration());
 
             #endregion Seeder Test
+
+            modelBuilder.ApplyConfiguration(new SeedStockTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new SeedStockConfiguration());
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

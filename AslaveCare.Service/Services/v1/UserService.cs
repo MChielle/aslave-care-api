@@ -1,9 +1,5 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
@@ -16,6 +12,10 @@ using AslaveCare.Domain.Responses.Messages;
 using AslaveCare.Service.Helpers;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1
 {
@@ -52,7 +52,7 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<UserModel>(Mapper.Map<UserModel>(user));
         }
 
-        public async Task<IResponseBase> AddUserWithRoleAsync(UserAddModel userModel, UserType userType)
+        public async Task<IResponseBase> AddUserWithRoleAsync(UserAddModel userModel, Domain.Entities.Enums.UserType userType)
         {
             var user = await _repository.AddUserWithRoleAsync(Mapper.Map<User>(userModel), userType);
             if (user == null) return new NoContentResponse();
@@ -97,11 +97,13 @@ namespace AslaveCare.Service.Services.v1
             user.Name = "DELETED";
             user.AppleUserId = "DELETED";
             user.Password = null;
+            user.Disable = true;
+            user.FireBaseCloudMessageToken = null;
             user.DeletionDate = DateTime.UtcNow;
             return user;
         }
 
-        public async Task UpdateLastLoginAsync(Guid id)
+        public async System.Threading.Tasks.Task UpdateLastLoginAsync(Guid id)
         {
             var user = await _repository.GetByIdAsync(id);
             user.LastLogin = DateTime.UtcNow;
@@ -152,6 +154,7 @@ namespace AslaveCare.Service.Services.v1
             user.Name = model?.Name ?? user.Name;
             user.PhoneNumber = model.PhoneNumber ?? user.PhoneNumber;
             user.LastChangeDate = DateTime.UtcNow;
+            user.Disable = model.Disable;
 
             user = await _repository.UpdateAsync(user);
 
@@ -226,6 +229,13 @@ namespace AslaveCare.Service.Services.v1
             var userValidationModel = ((OkResponse<UserValidationModel>)response).Data;
             userGetModel.UserValidation = Mapper.Map<UserValidationGetWithoutSensitiveDataModel>(userValidationModel);
             return new OkResponse<UserGetModel>(userGetModel);
+        }
+
+        public async Task<IResponseBase> GetByParameters(UserGetByParametersModel parameters, CancellationToken cancellation = default)
+        {
+            var users = await _repository.GetByParameters(parameters, cancellation);
+            if (users == null) return new NoContentResponse();
+            return new OkResponse<List<UserModel>>(Mapper.Map<List<UserModel>>(users));
         }
     }
 }

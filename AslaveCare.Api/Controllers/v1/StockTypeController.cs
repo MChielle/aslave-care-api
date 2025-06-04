@@ -1,20 +1,20 @@
 ﻿using AslaveCare.Api.Controllers.Base;
-using AslaveCare.Domain.Interfaces.Services;
-using AslaveCare.Domain.Models.v1.RegisterOut;
+using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.StockType;
-using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Domain.Responses;
+using AslaveCare.Domain.Responses.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Threading.Tasks;
-using System.Threading;
 using System.Collections.Generic;
+using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Api.Controllers.v1
 {
     public class StockTypeController : EntityController<StockTypeAddModel, StockTypeUpdateModel, StockTypePatchModel, StockTypeGetModel, StockTypeModel, string>
     {
         private readonly IStockTypeService _service;
+
         public StockTypeController(IStockTypeService service)
             : base(service)
         {

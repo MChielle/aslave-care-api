@@ -1,17 +1,16 @@
 ﻿using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Interfaces.Repositories;
-using AslaveCare.Domain.Interfaces.Services;
-using AslaveCare.Domain.Models.v1.RegisterOut;
+using AslaveCare.Domain.Interfaces.Repositories.v1;
+using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.StockType;
-using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Domain.Responses;
+using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace AslaveCare.Service.Services
+namespace AslaveCare.Service.Services.v1
 {
     public class StockTypeService : ServiceBase<StockTypeAddModel, StockTypeUpdateModel, StockTypePatchModel, StockTypeGetModel, StockTypeModel, StockType, string>, IStockTypeService
     {

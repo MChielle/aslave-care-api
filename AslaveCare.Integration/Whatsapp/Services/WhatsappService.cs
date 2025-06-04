@@ -1,8 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using AslaveCare.Integration.Whatsapp.Interfaces;
+using Newtonsoft.Json;
 using System.Net;
 using System.Text;
-using AslaveCare.Integration.Whatsapp.Interfaces;
-using AslaveCare.Integration.Whatsapp.Services;
 
 namespace AslaveCare.Integration.Whatsapp.Services
 {

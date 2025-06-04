@@ -1,4 +1,5 @@
-﻿using Org.BouncyCastle.Crypto;
+﻿using AslaveCare.Domain.Exceptions;
+using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
 using Org.BouncyCastle.Security;
@@ -6,7 +7,6 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using AslaveCare.Domain.Exceptions;
 
 namespace AslaveCare.Domain.Helpers
 {

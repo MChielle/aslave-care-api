@@ -1,5 +1,5 @@
-﻿using FirebaseAdmin.Messaging;
-using AslaveCare.Integration.Firebase.Interfaces;
+﻿using AslaveCare.Integration.Firebase.Interfaces;
+using FirebaseAdmin.Messaging;
 
 namespace AslaveCare.Integration.Firebase.Services
 {

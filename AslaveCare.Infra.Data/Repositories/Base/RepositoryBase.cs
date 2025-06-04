@@ -1,17 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Constants;
+﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Entities.Core;
 using AslaveCare.Domain.Exceptions;
 using AslaveCare.Domain.Interfaces.Behavior;
 using AslaveCare.Domain.Interfaces.Repositories.Core;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Infra.Data.Repositories.Base
 {

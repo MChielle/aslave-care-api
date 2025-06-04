@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using AslaveCare.Domain.Models.Core;
+using AslaveCare.Domain.Responses.Interfaces;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using AslaveCare.Domain.Models.Core;
-using AslaveCare.Domain.Responses.Interfaces;
 
 namespace AslaveCare.Domain.Interfaces.Services.Core
 {

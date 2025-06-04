@@ -1,11 +1,11 @@
-﻿using System;
+﻿using AslaveCare.Api.UnitTests.Base;
+using AslaveCare.Domain.Entities;
+using AslaveCare.Infra.Data.Repositories.v1;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using AslaveCare.Api.UnitTests.Base;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Infra.Data.Repositories.v1;
 
 namespace AslaveCare.Api.UnitTests.Repositiories
 {
@@ -14,7 +14,7 @@ namespace AslaveCare.Api.UnitTests.Repositiories
         #region Create
 
         [Fact]
-        public async Task PersistNewUserToDatabase()
+        public async System.Threading.Tasks.Task PersistNewUserToDatabase()
         {
             var user = fixture.BuildUser();
 
@@ -28,7 +28,7 @@ namespace AslaveCare.Api.UnitTests.Repositiories
         #region Read
 
         [Fact]
-        public async Task GetAllUsersFromDatabase()
+        public async System.Threading.Tasks.Task GetAllUsersFromDatabase()
         {
             var user1 = fixture.BuildUser();
             var user2 = fixture.BuildUser();
@@ -43,7 +43,7 @@ namespace AslaveCare.Api.UnitTests.Repositiories
         }
 
         [Fact]
-        public async Task GetSpecificUserFromDatabase()
+        public async System.Threading.Tasks.Task GetSpecificUserFromDatabase()
         {
             var user = fixture.BuildUser();
             user = await _repository.AddOrUpdateAsync(user);
@@ -77,7 +77,7 @@ namespace AslaveCare.Api.UnitTests.Repositiories
         #region Delete
 
         [Fact]
-        public async Task Delete_ShouldDeleteUserFromDataBase_UsingEntity()
+        public async System.Threading.Tasks.Task Delete_ShouldDeleteUserFromDataBase_UsingEntity()
         {
             var user1 = fixture.BuildUser();
             var user2 = fixture.BuildUser();
@@ -92,7 +92,7 @@ namespace AslaveCare.Api.UnitTests.Repositiories
         }
 
         [Fact]
-        public async Task Delete_ShouldDeleteUsersFromDataBase_UsingEntities()
+        public async System.Threading.Tasks.Task Delete_ShouldDeleteUsersFromDataBase_UsingEntities()
         {
             var user1 = fixture.BuildUser();
             var user2 = fixture.BuildUser();
@@ -113,7 +113,7 @@ namespace AslaveCare.Api.UnitTests.Repositiories
         }
 
         [Fact]
-        public async Task Delete_ShouldDeleteUserFromDataBase_UsingId()
+        public async System.Threading.Tasks.Task Delete_ShouldDeleteUserFromDataBase_UsingId()
         {
             var user1 = fixture.BuildUser();
             var user2 = fixture.BuildUser();
@@ -128,7 +128,7 @@ namespace AslaveCare.Api.UnitTests.Repositiories
         }
 
         [Fact]
-        public async Task Delete_ShouldDeleteUsersFromDataBase_UsingIds()
+        public async System.Threading.Tasks.Task Delete_ShouldDeleteUsersFromDataBase_UsingIds()
         {
             var user1 = fixture.BuildUser();
             var user2 = fixture.BuildUser();

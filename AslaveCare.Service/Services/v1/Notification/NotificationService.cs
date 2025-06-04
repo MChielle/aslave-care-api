@@ -1,9 +1,4 @@
-﻿using SendGrid;
-using SendGrid.Helpers.Mail;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Configurations;
+﻿using AslaveCare.Domain.Configurations;
 using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Interfaces.Services.v1.Notification;
 using AslaveCare.Domain.Models.v1.PushNotification.EmailSendGrid;
@@ -12,6 +7,11 @@ using AslaveCare.Integration.SmsMessage.Devino.Interfaces;
 using AslaveCare.Integration.SmsMessage.HttpSms.Interfaces;
 using AslaveCare.Integration.SmsMessage.HttpSms.Models;
 using AslaveCare.Integration.SmsMessage.SmsDev.Interfaces;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1.Notification
 {

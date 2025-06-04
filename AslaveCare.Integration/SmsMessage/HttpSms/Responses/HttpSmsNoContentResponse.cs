@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using AslaveCare.Domain.Responses.Interfaces;
+﻿using AslaveCare.Domain.Responses.Interfaces;
+using Newtonsoft.Json;
 
 namespace AslaveCare.Integration.SmsMessage.HttpSms.Responses
 {

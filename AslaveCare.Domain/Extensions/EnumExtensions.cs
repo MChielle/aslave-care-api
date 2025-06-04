@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
-using AslaveCare.Domain.Extensions;
 
 namespace AslaveCare.Domain.Extensions
 {

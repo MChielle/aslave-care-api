@@ -1,7 +1,4 @@
-﻿using System;
-using AslaveCare.Domain.Entities.Core;
-
-namespace AslaveCare.Domain.Entities.Core
+﻿namespace AslaveCare.Domain.Entities.Core
 {
     public abstract class EntityMtM : IMtMEntity
     {

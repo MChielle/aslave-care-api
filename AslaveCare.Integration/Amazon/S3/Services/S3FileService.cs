@@ -1,12 +1,12 @@
 ﻿using Amazon.S3;
 using Amazon.S3.Model;
-using System.Text.RegularExpressions;
 using AslaveCare.Domain.Enums;
 using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Helpers;
 using AslaveCare.Integration.Amazon.S3.Configurations;
 using AslaveCare.Integration.Amazon.S3.Interfaces;
 using AslaveCare.Integration.Amazon.S3.Model;
+using System.Text.RegularExpressions;
 
 namespace AslaveCare.Integration.Amazon.S3.Services
 {

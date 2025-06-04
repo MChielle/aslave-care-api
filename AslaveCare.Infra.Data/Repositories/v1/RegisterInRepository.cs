@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AslaveCare.Domain.Entities;
+using AslaveCare.Domain.Interfaces.Repositories.v1;
+using AslaveCare.Infra.Data.Context;
+using AslaveCare.Infra.Data.Context.RepositoryContext;
+using AslaveCare.Infra.Data.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Interfaces.Repositories.v1;
-using AslaveCare.Infra.Data.Context;
-using AslaveCare.Infra.Data.Context.RepositoryContext;
-using AslaveCare.Infra.Data.Repositories.Base;
 
 namespace AslaveCare.Infra.Data.Repositories.v1
 {
@@ -33,19 +33,31 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .ToListAsync(cancellation);
         }
 
-        public async override Task<RegisterIn> AddAsync(RegisterIn entity)
+        public override async Task<RegisterIn> AddAsync(RegisterIn entity)
         {
-            var lastNumber = await _context.RegistersIn.OrderByDescending(x => x.Number).FirstOrDefaultAsync();
-            entity.Number = lastNumber == null ? 1 : lastNumber.Number++;
-            if(entity.Apply) entity.ApplyDate = DateTime.UtcNow;
+            var lastNumber = await GetLastNumber();
+            entity.Number = lastNumber + 1;
+            if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             return await base.AddAsync(entity);
         }
 
-        public async override Task<RegisterIn> UpdateAsync(RegisterIn entity)
+        public override async Task<RegisterIn> UpdateAsync(RegisterIn entity)
         {
-            //TODO: ver se não esta zerando o número sequêncial do registro.
+            var entityfromdb = _context.RegistersIn.Find(entity.Id);
+            if (entityfromdb == default) return null;
+
             if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
-            return await base.UpdateAsync(entity);
+            entity.LastChangeDate = DateTime.UtcNow;
+            entity.CreationDate = entityfromdb.CreationDate;
+            entity.Number = entityfromdb.Number;
+
+            var attachedEntry = _context.Entry(entityfromdb);
+
+            attachedEntry.CurrentValues.SetValues(entity);
+
+            await _context.SaveChangesAsync();
+
+            return entity;
         }
 
         public async Task<RegisterIn> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)
@@ -94,11 +106,12 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .ToDictionaryAsync(x => x.MonthYear, x => x.Total, cancellation);
         }
 
-        public async Task<RegisterIn> GetLastNumber()
+        public async Task<int> GetLastNumber()
         {
             return await _context.RegistersIn
                 .AsNoTracking()
                 .OrderByDescending(x => x.Number)
+                .Select(x => x.Number)
                 .FirstOrDefaultAsync();
         }
     }

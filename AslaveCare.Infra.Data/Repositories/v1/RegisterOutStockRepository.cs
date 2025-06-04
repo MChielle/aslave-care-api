@@ -1,14 +1,14 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
 using AslaveCare.Infra.Data.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Infra.Data.Repositories.v1
 {
@@ -19,7 +19,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         {
         }
 
-        public async override Task<RegisterOutStock> GetByIdsAsync(Guid registerOutId, Guid stockId, CancellationToken cancellationToken = default)
+        public override async Task<RegisterOutStock> GetByIdsAsync(Guid registerOutId, Guid stockId, CancellationToken cancellationToken = default)
         {
             return await _context.RegisterOutStocks
                 .Where(x => x.RegisterOutId.Equals(registerOutId) && x.StockId.Equals(stockId))

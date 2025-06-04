@@ -1,12 +1,12 @@
-﻿using AutoMapper;
-using Moq;
-using System;
-using AslaveCare.Api.UnitTests.Helpers;
+﻿using AslaveCare.Api.UnitTests.Helpers;
 using AslaveCare.Domain.Entities.Core;
 using AslaveCare.Domain.Interfaces.Repositories.Core;
 using AslaveCare.Domain.Models.Core;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
+using AutoMapper;
+using Moq;
+using System;
 
 namespace AslaveCare.Api.UnitTests.Base
 {

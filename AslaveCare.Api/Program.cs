@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using System.Threading.Tasks;
-using AslaveCare.Api;
 
 namespace AslaveCare.Api
 {

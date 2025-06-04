@@ -9,6 +9,7 @@ namespace AslaveCare.Domain.Entities
     {
         [MaxLength(PropertyLength.GenericShortName)]
         public override string Id { get => base.Id; set => base.Id = value; }
+
         public List<Stock> Stocks { get; set; }
     }
 }

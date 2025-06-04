@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Net;
-using AslaveCare.Domain.Responses.Interfaces;
+﻿using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Integration.Google.OAuth2.Configurations;
 using AslaveCare.Integration.Google.OAuth2.Models.Responses;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace AslaveCare.Integration.Google.OAuth2.Services.Base
 {

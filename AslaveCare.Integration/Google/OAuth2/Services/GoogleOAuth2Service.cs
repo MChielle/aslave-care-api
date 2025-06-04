@@ -1,9 +1,9 @@
-﻿using System.Web;
-using AslaveCare.Domain.Responses.Interfaces;
+﻿using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Integration.Google.OAuth2.Configurations;
 using AslaveCare.Integration.Google.OAuth2.Interfaces;
 using AslaveCare.Integration.Google.OAuth2.Models.Responses;
 using AslaveCare.Integration.Google.OAuth2.Services.Base;
+using System.Web;
 
 namespace AslaveCare.Integration.Google.OAuth2.Services
 {

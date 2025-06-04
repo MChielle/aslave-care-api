@@ -28,32 +28,18 @@ namespace AslaveCare.Infra.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("About")
-                        .HasMaxLength(200)
-                        .HasColumnType("character varying(200)");
-
                     b.Property<DateTime>("CreationDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("Disable")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTime?>("LastChangeDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhotoPath")
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
-
-                    b.Property<decimal>("SplitPercentage")
-                        .HasColumnType("numeric");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -68,11 +54,7 @@ namespace AslaveCare.Infra.Data.Migrations
                         new
                         {
                             Id = new Guid("71c45363-20e5-4f70-be43-3b46452cd7a0"),
-                            About = "Dev",
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Disable = false,
-                            Name = "Matheus",
-                            SplitPercentage = 0m,
                             UserId = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9bc")
                         });
                 });
@@ -89,15 +71,8 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<bool>("Disable")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTime?>("LastChangeDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
 
                     b.Property<string>("PhotoPath")
                         .HasMaxLength(150)
@@ -117,8 +92,6 @@ namespace AslaveCare.Infra.Data.Migrations
                         {
                             Id = new Guid("71c45363-20e5-4f70-be43-3b46452cd7a0"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
-                            Disable = false,
-                            Name = "Matheus",
                             UserId = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9be")
                         });
                 });
@@ -132,7 +105,7 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.Property<bool>("Apply")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ApplyDate")
+                    b.Property<DateTime?>("ApplyDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreationDate")
@@ -193,7 +166,7 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.Property<bool>("Apply")
                         .HasColumnType("boolean");
 
-                    b.Property<DateTime>("ApplyDate")
+                    b.Property<DateTime?>("ApplyDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("CreationDate")
@@ -273,14 +246,14 @@ namespace AslaveCare.Infra.Data.Migrations
                             Id = new Guid("574ac0d0-2e84-44d7-8949-a8169fa3bbff"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Manager",
-                            UserType = 0
+                            UserType = 1
                         },
                         new
                         {
                             Id = new Guid("a869d27c-b75d-424b-a2d6-c91e273d631b"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
                             Name = "Employee",
-                            UserType = 0
+                            UserType = 2
                         });
                 });
 
@@ -325,6 +298,1625 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.HasIndex("StockTypeId");
 
                     b.ToTable("Stocks");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Achocolatado",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Achocolatado Líquido L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Açucar 1 Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000004"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Açucar 2 Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000005"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Açucar 5Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000006"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Adoçante",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000007"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Arroz 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000008"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Arroz 1 Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000009"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Arroz 2Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000010"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Arroz 5Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000011"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Atum",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000012"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Azeite de Oliva",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000013"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Biscoito Doce",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000014"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Biscoito Salgado",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000015"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Bolo pronto",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000016"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Bom Bom cx",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000017"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Café 250Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000018"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Café 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000019"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Chá",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000020"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Chimia - doce de leite",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000021"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Creme de leite",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000022"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Erva mate",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000023"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Ervilha em lata",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000024"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Extrato/molho de Tomate",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000025"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha Aveia 170g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000026"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha Aveia 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000027"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha Aveia 1kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000028"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha de mandioca 1kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000029"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha de mandioca 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000030"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha de milho 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000031"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha de milho 1kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000032"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha de Trigo 1kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000033"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha de Trigo 5kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000034"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farinha Integral 1Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000035"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Farofa",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000036"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Feijão 250g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000037"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Feijão 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000038"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Feijão 1kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000039"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Fermento biológico",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000040"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Fermento de bolo",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000041"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Gelatina",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000042"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Gelatina 1kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000043"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Granola",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000044"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Iogurte 1l",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000045"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Leite",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000046"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Leite condensado",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000047"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Leite em pó",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000048"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Lentilha",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000049"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Maionese",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000050"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Maisena",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000051"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Margarina",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000052"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Massa",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000053"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Milho de pipoca",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000054"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Milho em lata",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000055"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Miojo",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000056"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Óleo de soja",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000057"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "ovos",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000058"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Polentina",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000059"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Polvilho",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000060"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Refri lata",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000061"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Requeijão",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000062"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sal",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000063"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sal Grosso",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000064"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Salsicha lata",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000065"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sardinha",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000066"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Seleta lata",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000067"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Suco pó pc",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000068"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sucoliq 1L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000069"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Temperos diversos",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000070"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Vinagre",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000071"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Vinagre Balsâmico",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000072"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Absorvente Geriátrico",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000073"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Álcool 500ml",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000074"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Alcool 1L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000075"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Álcool em gel",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000076"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Amaciante 5L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000077"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Amaciante 2L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000078"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Bom bril",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000079"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Cloro (Q-Boa) 1L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000080"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Cloro (Q-Boa) 2L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000081"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Cloro (Q-Boa) 5L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000082"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Coala",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000083"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Cotonete caixa",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000084"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Creme dental",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000085"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Condicionador de Cabelo",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000086"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desinfetante 500ml",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000087"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desinfetante 1L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000088"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desinfetante 2L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000089"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desinfetante 5L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000090"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Detergente 500ml",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000091"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Detergente 1L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000092"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Detergente 2L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000093"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Detergente 5L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000094"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Detergente Clorado",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000095"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desodorante Rolom",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000096"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desodorante Aerosol",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000097"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desengordurante 500ml",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000098"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Desengordurante 5L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000099"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Diabo Verde",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000100"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Enxaguante bucal",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000101"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Escova de dente",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000102"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Escova de Roupa/chão",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000103"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Esfregão de aço",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000104"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Esponja",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000105"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Fraldas diversas",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000106"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Hidratante",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000107"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Lenço umidecido",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000108"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Limpa Piso",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000109"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Limpa vidro",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000110"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Lixa de unha",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000111"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Lustra móvel",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000112"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Luva de Borracha",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000113"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Luva de Procedimento P",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000114"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Luva de Procedimento M",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000115"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Luva de Procedimento G",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000116"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Multiuso",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000117"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Naftalina 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000118"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Óleo de girassol",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000119"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Pá para lixo",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000120"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Pano de chão",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000121"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Papel higiênico",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000122"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Papel Toalha",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000123"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Prendedor pct 12 ",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000124"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Prestobarba",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000125"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Rodo",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000126"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão em barra",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000127"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão em pó 500g",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000128"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão em pó 1kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000129"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão em pó 2 Kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000130"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão em pó 4kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000131"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão em pó 10kg",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000132"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão líquido 2L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000133"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabão Líquido Caseiro",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000134"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabonete barra",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000135"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabonete líq 250 ml",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000136"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabonete líq 500 ml",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000137"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabonete líq 1L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000138"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Sabonete líquido 2L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000139"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Saco de lixo 100l",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000140"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Saco lixo branco 50L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000141"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Saco lixo branco 100L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000142"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Saponaceo",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000143"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Shampoo diversos ",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000144"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Talco",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000145"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Vassoura",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000146"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Vanish 1L",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Higiene"
+                        },
+                        new
+                        {
+                            Id = new Guid("00000000-0000-0000-0000-000000000147"),
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Description = "",
+                            Disable = false,
+                            Name = "Vinagre 750ml",
+                            Quantity = 0m,
+                            QuantityLowWarning = 0m,
+                            StockTypeId = "Alimento"
+                        });
                 });
 
             modelBuilder.Entity("AslaveCare.Domain.Entities.StockType", b =>
@@ -346,6 +1938,28 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("StockTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "Alimento",
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = "Higiene",
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = "Limpeza",
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = "Medicamento",
+                            CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
                 });
 
             modelBuilder.Entity("AslaveCare.Domain.Entities.Supplier", b =>
@@ -383,6 +1997,37 @@ namespace AslaveCare.Infra.Data.Migrations
                     b.ToTable("Suppliers");
                 });
 
+            modelBuilder.Entity("AslaveCare.Domain.Entities.TaskNote", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("DeletionDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Done")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("LastChangeDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("TaskNotes");
+                });
+
             modelBuilder.Entity("AslaveCare.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -397,6 +2042,9 @@ namespace AslaveCare.Infra.Data.Migrations
 
                     b.Property<DateTime?>("DeletionDate")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("Disable")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Email")
                         .HasMaxLength(50)
@@ -439,6 +2087,7 @@ namespace AslaveCare.Infra.Data.Migrations
                         {
                             Id = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9bd"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Disable = false,
                             Email = "matheuschielle+master@gmail.com",
                             FireBaseCloudMessageToken = "ds4Pz40YTeazL39DToMz5P:APA91bHUoBotVr6Mi9d3EfsbgVGrHUdWfmfGslBP2hFboNcdc7MlTQRt2aE2DZTNad-0-ISU3Bk_wON4eLNJZw_pIQ5tH3lPQDJy-4XglcSH5LAufDKmqjy3K0osz7uph6oTknwHpGem",
                             Name = "Matheus",
@@ -449,6 +2098,7 @@ namespace AslaveCare.Infra.Data.Migrations
                         {
                             Id = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9be"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Disable = false,
                             Email = "matheuschielle+manager@gmail.com",
                             FireBaseCloudMessageToken = "ds4Pz40YTeazL39DToMz5P:APA91bHUoBotVr6Mi9d3EfsbgVGrHUdWfmfGslBP2hFboNcdc7MlTQRt2aE2DZTNad-0-ISU3Bk_wON4eLNJZw_pIQ5tH3lPQDJy-4XglcSH5LAufDKmqjy3K0osz7uph6oTknwHpGem",
                             Name = "Matheus",
@@ -459,6 +2109,7 @@ namespace AslaveCare.Infra.Data.Migrations
                         {
                             Id = new Guid("ef2c54d6-a131-4e5a-b757-e3ebdd67e9bc"),
                             CreationDate = new DateTime(2021, 11, 8, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Disable = false,
                             Email = "matheuschielle+employee@gmail.com",
                             FireBaseCloudMessageToken = "ds4Pz40YTeazL39DToMz5P:APA91bHUoBotVr6Mi9d3EfsbgVGrHUdWfmfGslBP2hFboNcdc7MlTQRt2aE2DZTNad-0-ISU3Bk_wON4eLNJZw_pIQ5tH3lPQDJy-4XglcSH5LAufDKmqjy3K0osz7uph6oTknwHpGem",
                             Name = "Matheus",
@@ -633,6 +2284,17 @@ namespace AslaveCare.Infra.Data.Migrations
                         .WithMany("Stocks")
                         .HasForeignKey("StockTypeId")
                         .OnDelete(DeleteBehavior.NoAction);
+                });
+
+            modelBuilder.Entity("AslaveCare.Domain.Entities.TaskNote", b =>
+                {
+                    b.HasOne("AslaveCare.Domain.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("AslaveCare.Domain.Entities.User", b =>

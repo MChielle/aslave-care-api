@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Models.Core;
+﻿using AslaveCare.Domain.Models.Core;
+using System;
 
 namespace AslaveCare.Domain.Models.v1.Supplier
 {

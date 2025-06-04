@@ -1,4 +1,9 @@
-﻿using FluentValidation.AspNetCore;
+﻿using AslaveCare.Api.Extensions;
+using AslaveCare.Api.Helpers;
+using AslaveCare.Domain.Helpers;
+using AslaveCare.Domain.Models;
+using AslaveCare.Infra.Data.Injection;
+using FluentValidation.AspNetCore;
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,11 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
-using AslaveCare.Api.Extensions;
-using AslaveCare.Api.Helpers;
-using AslaveCare.Domain.Helpers;
-using AslaveCare.Domain.Models;
-using AslaveCare.Infra.Data.Injection;
 
 namespace AslaveCare.Api
 {
@@ -91,7 +91,6 @@ namespace AslaveCare.Api
             app.UseAuthorization();
 
             StartupHelper.ConfigureRewriter(app);
-
 
             app.UseProblemDetailsExceptionHandler(loggerFactory);
 

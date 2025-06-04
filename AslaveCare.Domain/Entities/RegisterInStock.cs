@@ -1,8 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using AslaveCare.Domain.Entities;
-using AslaveCare.Domain.Entities.Constants;
+﻿using AslaveCare.Domain.Entities.Constants;
 using AslaveCare.Domain.Entities.Core;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AslaveCare.Domain.Entities
 {
@@ -12,7 +11,7 @@ namespace AslaveCare.Domain.Entities
         public RegisterIn RegisterIn { get; set; }
         public Guid StockId { get; set; }
         public Stock Stock { get; set; }
-        
+
         [Column(TypeName = PropertyType.Decimal_8_2)]
         public decimal Quantity { get; set; }
 

@@ -1,13 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
-using Moq;
-using System;
-using System.Reflection;
-using AslaveCare.Api.UnitTests.Helpers;
+﻿using AslaveCare.Api.UnitTests.Helpers;
 using AslaveCare.Domain.Entities.Core;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
 using AslaveCare.Infra.Data.Repositories.Base;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
+using Moq;
+using System;
+using System.Reflection;
 
 namespace AslaveCare.Api.UnitTests.Base
 {

@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using AslaveCare.Api.Filters;
+﻿using AslaveCare.Api.Filters;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AslaveCare.Api.Attributes
 {

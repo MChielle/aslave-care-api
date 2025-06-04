@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using AslaveCare.Domain.Entities;
+﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.RegisterInStock;
@@ -12,6 +8,10 @@ using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace AslaveCare.Service.Services.v1
 {
@@ -52,7 +52,7 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<StocksQuantityWarningModel>(new StocksQuantityWarningModel(totalStocksQuantityWarning));
         }
 
-        public async Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
+        public async System.Threading.Tasks.Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
         {
             foreach (var stockToUpdate in registerInStocks)
             {
@@ -67,7 +67,7 @@ namespace AslaveCare.Service.Services.v1
             }
         }
 
-        public async Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
+        public async System.Threading.Tasks.Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
         {
             foreach (var stockToUpdate in registerOutStocks)
             {
@@ -80,6 +80,13 @@ namespace AslaveCare.Service.Services.v1
 
                 await _repository.UpdateAsync(stock);
             }
+        }
+
+        public async Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation)
+        {
+            var entities = await _repository.GetRestockReportAsync(cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<IEnumerable<StockGetRestockReportModel>>(Mapper.Map<IEnumerable<StockGetRestockReportModel>>(entities));
         }
     }
 }
