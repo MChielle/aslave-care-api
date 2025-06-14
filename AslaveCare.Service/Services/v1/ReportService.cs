@@ -33,5 +33,10 @@ namespace AslaveCare.Service.Services.v1
         {
             return await _stockService.GetRestockReportAsync(cancellation);
         }
+
+        public async Task<IResponseBase> GetStockReportAsync(CancellationToken cancellation)
+        {
+            return await _stockService.GetStockReportAsync(cancellation);
+        }
     }
 }

@@ -16,6 +16,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
 
         Task<IResponseBase> GetLowerStocks(int number, CancellationToken cancellation = default);
         Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation);
+        Task<IResponseBase> GetStockReportAsync(CancellationToken cancellation);
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
 
         Task<IResponseBase> GetTotalStocksQuantityWarning(CancellationToken cancellationToken);

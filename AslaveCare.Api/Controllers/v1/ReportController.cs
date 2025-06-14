@@ -63,5 +63,19 @@ namespace AslaveCare.Api.Controllers.v1
         {
             return await _service.GetMonthTopDonorsReportAsync(top, cancellation);
         }
+
+        /// <summary>
+        /// [Authenticated] Report Controller route to get stock report.
+        /// </summary>
+        [HttpGet("stock-report")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<StockGetModel>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetStockReportAsync(CancellationToken cancellation)
+        {
+            return await _service.GetStockReportAsync(cancellation);
+        }
     }
 }
