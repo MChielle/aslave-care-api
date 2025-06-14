@@ -17,6 +17,7 @@ using AslaveCare.Domain.Models.v1.UserRole;
 using AslaveCare.Domain.Models.v1.UserValidation;
 using AutoMapper;
 using System;
+using System.Linq;
 using System.Text;
 
 namespace AslaveCare.Service.Mappings
@@ -83,6 +84,10 @@ namespace AslaveCare.Service.Mappings
             CreateMap<RegisterInStock, RegisterInStockGetStockModel>().ReverseMap();
             CreateMap<RegisterInStock, RegisterInStockPatchModel>().ReverseMap();
             CreateMap<RegisterInStock, RegisterInStockModel>().ReverseMap();
+
+            CreateMap<RegisterInStock, RegisterInStockGetDonationReportModel>()
+                .ForMember(dest => dest.StockName, opt => opt.MapFrom(src => src.Stock.Name))
+                .ForMember(dest => dest.StockTypeId, opt => opt.MapFrom(src => src.Stock.StockTypeId));
         }
 
         private void RegisterInMappings()

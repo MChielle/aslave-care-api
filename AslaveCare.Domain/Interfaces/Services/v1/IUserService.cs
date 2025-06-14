@@ -24,8 +24,6 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
 
         Task UpdateLastLoginAsync(Guid id);
 
-        Task<IResponseBase> ChangePassword(UserModel userModel);
-
         Task<IResponseBase> UpdateByTokenAsync(string jwtToken, UserUpdateModel model);
 
         Task<IResponseBase> GetByAppleUserIdAsync(string appleUserId, CancellationToken cancellationToken = default);
@@ -34,5 +32,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
 
         Task<IResponseBase> ValidateAndUpdatePhoneNumberByToken(string jwtToken, string phoneNumber, string confirmationCode);
         Task<IResponseBase> GetByParameters(UserGetByParametersModel parameters, CancellationToken cancellation = default);
+        Task<IResponseBase> UpdateByMasterAsync(Guid id, UserUpdateByMasterModel model);
+        Task<IResponseBase> UpdateAsync(UserModel model);
     }
 }

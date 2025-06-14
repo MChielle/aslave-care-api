@@ -132,6 +132,7 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<ISignUpService, SignUpService>();
             _services.AddScoped<IS3FileService, S3FileService>();
             _services.AddScoped<IServiceContext, ServiceContext>();
+            _services.AddScoped<IReportService, ReportService>();
 
             _logger.LogInformation(string.Concat($"Configure Injection Other Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
