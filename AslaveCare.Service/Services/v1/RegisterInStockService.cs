@@ -2,6 +2,7 @@
 using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Models.v1.RegisterInStock;
+using AslaveCare.Domain.Models.v1.Supplier;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;

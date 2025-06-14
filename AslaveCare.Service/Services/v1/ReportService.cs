@@ -9,19 +9,24 @@ namespace AslaveCare.Service.Services.v1
     public class ReportService : IReportService
     {
         private readonly IStockService _stockService;
-        private readonly IRegisterInService _registerInService;
         private readonly IRegisterInStockService _registerInStockService;
+        private readonly ISupplierService _supplierService;
 
-        public ReportService(IStockService stockService, IRegisterInService registerInService, IRegisterInStockService registerInStockService)
+        public ReportService(IStockService stockService, IRegisterInStockService registerInStockService, ISupplierService supplierService)
         {
             _stockService = stockService;
-            _registerInService = registerInService;
             _registerInStockService = registerInStockService;
+            _supplierService = supplierService;
         }
 
         public async Task<IResponseBase> GetDonationsReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation)
         {
             return await _registerInStockService.GetDonationsReportAsync(initialDate, finalDate, cancellation);
+        }
+
+        public async Task<IResponseBase> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation)
+        {
+            return await _supplierService.GetMonthTopDonorsReportAsync(top, cancellation);
         }
 
         public async Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation)

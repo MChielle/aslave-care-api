@@ -14,5 +14,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> GetByParameters(SupplierGetByParametersModel parameters, CancellationToken cancellationToken = default);
 
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
+
+        Task<IResponseBase> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation = default);
     }
 }

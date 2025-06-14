@@ -64,18 +64,17 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                     .Include(x => x.Stock)
                     .Include(x => x.RegisterIn)
                 .Where(x => x.RegisterIn.Apply)
-                .Where(x => x.RegisterIn.DeletionDate == null)
                 .Where(x => x.RegisterIn.Donation)
+                .Where(x => x.RegisterIn.DeletionDate == null)
                 .Where(x => x.RegisterIn.ApplyDate >= initialDate && x.RegisterIn.ApplyDate <= finalDate)
-                .AsNoTracking()
                 .GroupBy(x => x.StockId)
                 .Select(x => new RegisterInStock
                 {
                     Stock = x.FirstOrDefault().Stock,
                     Quantity = x.Sum(x => x.Quantity),
                 })
-                .ToListAsync();
-
+                .AsNoTracking()
+                .ToListAsync(cancellation);
         }
     }
 }

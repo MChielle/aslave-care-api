@@ -51,5 +51,37 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .Where(x => !parameters.Disable.HasValue ? true : x.Disable == parameters.Disable)
                 .ToListAsync(cancellation);
         }
+
+        public async Task<List<Supplier>> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation)
+        {
+            return await _context.RegisterInStocks
+                .Include(x => x.Stock)
+                .Include(x => x.RegisterIn)
+                    .ThenInclude(x => x.Supplier)
+                .Where(x => x.RegisterIn.Apply)
+                .Where(x => x.RegisterIn.DeletionDate == null)
+                .Where(x => x.RegisterIn.Donation)
+                .Where(x => x.RegisterIn.ApplyDate.Value.Month == DateTime.UtcNow.Month).AsNoTracking()
+                .GroupBy(x => x.RegisterIn.SupplierId)
+                .Select(x => new Supplier
+                {
+                    Name = x.FirstOrDefault().RegisterIn.Supplier.Name,
+                    RegistersIn = new List<RegisterIn>
+                    {
+                        new RegisterIn
+                        {
+                            RegisterInStocks = new List<RegisterInStock>
+                            {
+                                new RegisterInStock
+                                {
+                                    Quantity = x.Sum(x => x.Quantity)
+                                }
+                            }
+                        }
+                    }
+                })
+                .AsNoTracking()
+                .ToListAsync(cancellation);
+        }
     }
 }

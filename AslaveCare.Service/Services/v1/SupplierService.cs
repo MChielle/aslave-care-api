@@ -37,6 +37,13 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<IList<SupplierGetModel>>(Mapper.Map<IList<SupplierGetModel>>(entity));
         }
 
+        public async Task<IResponseBase> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation = default)
+        {
+            var entities = await _repository.GetMonthTopDonorsReportAsync(top, cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<IList<SupplierGetDonorModel>>(Mapper.Map<IList<SupplierGetDonorModel>>(entities));
+        }
+
         public async Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default)
         {
             var entities = await _repository.GetToListAsync(cancellation);
