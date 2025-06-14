@@ -1,6 +1,7 @@
 ﻿using AslaveCare.Domain.Entities.Constants;
 using AslaveCare.Domain.Entities.Core;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AslaveCare.Domain.Entities
@@ -17,5 +18,7 @@ namespace AslaveCare.Domain.Entities
         public string Email { get; set; }
 
         public bool Disable { get; set; }
+
+        public List<RegisterIn> RegistersIn { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AslaveCare.Domain.Constants;
 using AslaveCare.Domain.Entities;
+using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
@@ -14,6 +15,7 @@ using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,19 +25,21 @@ namespace AslaveCare.Service.Services.v1
     public class UserService : ServiceBase<UserAddModel, UserUpdateModel, UserPatchModel, UserGetModel, UserModel, User, Guid>, IUserService
     {
         private readonly IJwtService _jwtService;
+        private readonly IOAuthService _oAuthService;
         private readonly IUserRepository _repository;
         private readonly IUserValidationService _userValidationService;
         private readonly INotificationService _notificationService;
 
         public UserService(IUserRepository repository, INotificationService notificationService,
             IUserValidationService userValidationService, IJwtService jwtService,
-            IServiceContext serviceContext)
+            IServiceContext serviceContext, IOAuthService oAuthService)
             : base(repository, serviceContext)
         {
             _repository = repository;
             _notificationService = notificationService;
             _userValidationService = userValidationService;
             _jwtService = jwtService;
+            _oAuthService = oAuthService;
         }
 
         public async Task<IResponseBase> GetByEmailAsync(string email)
@@ -103,19 +107,11 @@ namespace AslaveCare.Service.Services.v1
             return user;
         }
 
-        public async System.Threading.Tasks.Task UpdateLastLoginAsync(Guid id)
+        public async Task UpdateLastLoginAsync(Guid id)
         {
             var user = await _repository.GetByIdAsync(id);
             user.LastLogin = DateTime.UtcNow;
             await _repository.UpdateAsync(user);
-        }
-
-        public async Task<IResponseBase> ChangePassword(UserModel userModel)
-        {
-            var user = Mapper.Map<User>(userModel);
-            user = await _repository.UpdateAsync(user);
-            if (user == null) return new BadRequestResponse(ConstantMessages.CRUD_UPDATE_FAIL, null);
-            return new OkResponse<object>(null);
         }
 
         public override async Task<IResponseBase> UpdateAsync(UserUpdateModel model)
@@ -147,7 +143,7 @@ namespace AslaveCare.Service.Services.v1
                 user.UserValidation.EmailConfirmationCode = ConfirmationCodeHelper.GenerateConfirmationCode();
                 response = await _userValidationService.AddOrUpdateAsync(Mapper.Map<UserValidationModel>(user.UserValidation));
                 if (!response.IsSuccess) return new BadRequestResponse(ConstantMessages.CRUD_UPDATE_FAIL, null);
-                await _notificationService.SendValidationCodeNotificationEmailAsync(model.Name, model.Email, user.UserValidation.EmailConfirmationCode);
+                //await _notificationService.SendValidationCodeNotificationEmailAsync(model.Name, model.Email, user.UserValidation.EmailConfirmationCode);
             }
 
             user.Email = model.Email;
@@ -161,6 +157,14 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<UserGetModel>(Mapper.Map<UserGetModel>(user));
         }
 
+        public async Task<IResponseBase> UpdateAsync(UserModel model)
+        {
+            model.LastChangeDate = DateTime.UtcNow;
+            model.LastPasswordChangeDate = DateTime.UtcNow;
+            var user = await _repository.UpdateAsync(Mapper.Map<User>(model));
+            return new OkResponse<UserGetModel>(Mapper.Map<UserGetModel>(user));
+        }
+
         public async Task<IResponseBase> UpdateByTokenAsync(string jwtToken, UserUpdateModel model)
         {
             var userId = _jwtService.GetUserIdFromToken(jwtToken);
@@ -170,9 +174,9 @@ namespace AslaveCare.Service.Services.v1
 
         public async Task<IResponseBase> GetByAppleUserIdAsync(string appleUserId, CancellationToken cancellationToken = default)
         {
-            var customer = await _repository.GetByAppleUserIdAsync(appleUserId, cancellationToken);
-            if (customer == null) return new NoContentResponse();
-            return new OkResponse<UserModel>(Mapper.Map<UserModel>(customer));
+            var user = await _repository.GetByAppleUserIdAsync(appleUserId, cancellationToken);
+            if (user == null) return new NoContentResponse();
+            return new OkResponse<UserModel>(Mapper.Map<UserModel>(user));
         }
 
         public async Task<IResponseBase> CheckPhoneNumberByToken(string jwtToken, string phoneNumber)
@@ -236,6 +240,18 @@ namespace AslaveCare.Service.Services.v1
             var users = await _repository.GetByParameters(parameters, cancellation);
             if (users == null) return new NoContentResponse();
             return new OkResponse<List<UserModel>>(Mapper.Map<List<UserModel>>(users));
+        }
+
+        public async Task<IResponseBase> UpdateByMasterAsync(Guid id, UserUpdateByMasterModel model)
+        {
+            var response = await GetCompleteByIdAsync(id);
+            if (!response.IsSuccess) return new NoContentResponse();
+            var userModel = ((OkResponse<UserModel>)response).Data;
+            userModel.Disable = model.Disable;
+            userModel.LastChangeDate = DateTime.UtcNow;
+            userModel.LastPasswordChangeDate = DateTime.UtcNow;
+            userModel.Password = Encoding.UTF8.GetBytes(RSACipherHelper.EncryptString(model.Password));
+            return await UpdateAsync(userModel);
         }
     }
 }

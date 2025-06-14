@@ -2,6 +2,7 @@
 using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Models.v1.RegisterInStock;
+using AslaveCare.Domain.Models.v1.Supplier;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
@@ -16,37 +17,37 @@ namespace AslaveCare.Service.Services.v1
 {
     public class RegisterInStockService : MtMServiceBase<RegisterInStockGetRegisterInModel, RegisterInStockGetStockModel, RegisterInStockPatchModel, RegisterInStockModel, RegisterInStock, Guid, Guid>, IRegisterInStockService
     {
-        private readonly IRegisterInStockRepository _registerInStockRepository;
+        private readonly IRegisterInStockRepository _repository;
 
-        public RegisterInStockService(IRegisterInStockRepository registerInStockRepository, IServiceContext serviceContext) : base(registerInStockRepository, serviceContext)
+        public RegisterInStockService(IRegisterInStockRepository repository, IServiceContext serviceContext) : base(repository, serviceContext)
         {
-            _registerInStockRepository = registerInStockRepository;
+            _repository = repository;
         }
 
         public override async Task<IResponseBase> GetByIdsAsync(Guid segisterInId, Guid stockId, CancellationToken cancellationToken = default)
         {
-            var response = await _registerInStockRepository.GetByIdsAsync(segisterInId, stockId, cancellationToken);
+            var response = await _repository.GetByIdsAsync(segisterInId, stockId, cancellationToken);
             if (response == null) return new NoContentResponse();
             return new OkResponse<RegisterInStockModel>(Mapper.Map<RegisterInStockModel>(response));
         }
 
         public override async Task<IResponseBase> GetByStrongIdAsync(Guid registerInId, CancellationToken cancellationToken = default)
         {
-            var response = await _registerInStockRepository.GetByStrongIdAsync(registerInId, cancellationToken);
+            var response = await _repository.GetByStrongIdAsync(registerInId, cancellationToken);
             if (response == null) return new NoContentResponse();
             return new OkResponse<IEnumerable<RegisterInStockGetStockModel>>(Mapper.Map<IEnumerable<RegisterInStockGetStockModel>>(response));
         }
 
         public override async Task<IResponseBase> GetByWeakIdAsync(Guid stockId, CancellationToken cancellationToken = default)
         {
-            var response = await _registerInStockRepository.GetByWeakIdAsync(stockId, cancellationToken);
+            var response = await _repository.GetByWeakIdAsync(stockId, cancellationToken);
             if (response == null) return new NoContentResponse();
             return new OkResponse<IEnumerable<RegisterInStockGetStockModel>>(Mapper.Map<IEnumerable<RegisterInStockGetStockModel>>(response));
         }
 
         public override async Task<IResponseBase> UpdateAsync(IEnumerable<RegisterInStockModel> registerInStockModels)
         {
-            var result = await _registerInStockRepository.UpdateAsync(Mapper.Map<IEnumerable<RegisterInStock>>(registerInStockModels));
+            var result = await _repository.UpdateAsync(Mapper.Map<IEnumerable<RegisterInStock>>(registerInStockModels));
             if (result == null) return new NoContentResponse();
             return new OkResponse<IEnumerable<RegisterInStockModel>>(Mapper.Map<IEnumerable<RegisterInStockModel>>(result));
         }
@@ -60,11 +61,17 @@ namespace AslaveCare.Service.Services.v1
         public async Task<IResponseBase> AddAsync(Guid registerInId, RegisterInStockPatchModel model)
         {
             model.RegisterInId = registerInId;
-            var RegisterInStocks = await _registerInStockRepository.GetByStrongIdAsync(registerInId);
+            var RegisterInStocks = await _repository.GetByStrongIdAsync(registerInId);
             if (RegisterInStocks.Any(x => x.RegisterInId == model.RegisterInId && x.StockId == model.StockId)) return new ConflictResponse(ConstantMessages.CRUD_CONFLICT);
             var models = Mapper.Map<List<RegisterInStockPatchModel>>(RegisterInStocks);
             models.Add(model);
             return await base.AddOrDeleteAsync(registerInId, models);
+        }
+        public async Task<IResponseBase> GetDonationsReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation)
+        {
+            var registersInStocks = await _repository.GetDonationsReportAsync(initialDate, finalDate, cancellation);
+            if (registersInStocks == null || !registersInStocks.Any()) return new NoContentResponse();
+            return new OkResponse<List<RegisterInStockGetDonationReportModel>>(Mapper.Map<List<RegisterInStockGetDonationReportModel>>(registersInStocks));
         }
     }
 }

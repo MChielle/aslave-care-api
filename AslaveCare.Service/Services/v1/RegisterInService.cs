@@ -52,7 +52,7 @@ namespace AslaveCare.Service.Services.v1
         {
             var entities = await _repository.GetToListAsync(cancellation);
             if (entities == null) return new NoContentResponse();
-            return new OkResponse<IList<RegisterInGetModel>>(Mapper.Map<IList<RegisterInGetModel>>(entities));
+            return new OkResponse<IEnumerable<RegisterInGetModel>>(Mapper.Map<IEnumerable<RegisterInGetModel>>(entities));
         }
 
         public async Task<IResponseBase> GetByIdToUpdateAsync(Guid id, CancellationToken cancellation)

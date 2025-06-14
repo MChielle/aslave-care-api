@@ -57,5 +57,24 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             await _context.SaveChangesAsync();
             return entitiesMtM;
         }
+
+        public async Task<List<RegisterInStock>> GetDonationsReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation)
+        {
+            return await _context.RegisterInStocks
+                    .Include(x => x.Stock)
+                    .Include(x => x.RegisterIn)
+                .Where(x => x.RegisterIn.Apply)
+                .Where(x => x.RegisterIn.Donation)
+                .Where(x => x.RegisterIn.DeletionDate == null)
+                .Where(x => x.RegisterIn.ApplyDate >= initialDate && x.RegisterIn.ApplyDate <= finalDate)
+                .GroupBy(x => x.StockId)
+                .Select(x => new RegisterInStock
+                {
+                    Stock = x.FirstOrDefault().Stock,
+                    Quantity = x.Sum(x => x.Quantity),
+                })
+                .AsNoTracking()
+                .ToListAsync(cancellation);
+        }
     }
 }

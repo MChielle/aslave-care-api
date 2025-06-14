@@ -1,10 +1,11 @@
 ﻿using AslaveCare.Api.Controllers.Base;
+using AslaveCare.Domain.Entities.Constants;
 using AslaveCare.Domain.Interfaces.Services.v1;
-using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Domain.Models.v1.User;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Domain.Responses.Messages;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -135,6 +136,25 @@ namespace AslaveCare.Api.Controllers.v1
         public async Task<IResponseBase> GetByParams([FromQuery] UserGetByParametersModel parameters)
         {
             return await _service.GetByParameters(parameters);
+        }
+
+        /// <summary>
+        /// [Authenticated] User Controller route to update User.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        [ApiExplorerSettings(IgnoreApi = true)]
+        [Authorize(Roles = UserType.Master)]
+        [HttpPut("{id}/change-data")]
+        [ProducesResponseType(typeof(OkResponse<UserGetModel>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(ConflictResponse), (int)HttpStatusCode.Conflict)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> UpdateByMasterAsync([FromRoute] Guid id, [FromBody] UserUpdateByMasterModel model)
+        {
+            return await _service.UpdateByMasterAsync(id, model);
         }
     }
 }

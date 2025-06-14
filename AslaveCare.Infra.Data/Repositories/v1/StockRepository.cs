@@ -82,5 +82,15 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                                     || !x.RegisterInStocks.Any()))
                 .ToListAsync(cancellation);
         }
+
+        public async Task<List<Stock>> GetStockReportAsync(CancellationToken cancellation)
+        {
+            return await _context.Stocks
+                .AsNoTracking()
+                .Include(x => x.RegisterInStocks)
+                .Where(x => x.Quantity > 0)
+                .Where(x => !x.Disable)
+                .ToListAsync(cancellation);
+        }
     }
 }

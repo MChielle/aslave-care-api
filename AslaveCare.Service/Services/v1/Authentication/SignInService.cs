@@ -136,16 +136,20 @@ namespace AslaveCare.Service.Services.v1.Authentication
             return new OkResponse<object>(null);
         }
 
-        public async Task<IResponseBase> ChangePasswordAsync(string jwtToken, SignInChangePasswordModel signInChangePasswordModel)
+        public async Task<IResponseBase> ChangePasswordAsync(string jwtToken, SignInChangePasswordModel signInChangePasswordModel, bool checkOldPassword = true)
         {
             var userId = _jwtService.GetUserIdFromToken(jwtToken);
             var response = await _userService.GetCompleteByIdAsync(userId);
             if (!response.IsSuccess) return new NoContentResponse();
             var user = ((OkResponse<UserModel>)response).Data;
+            
+            if(checkOldPassword && !RSACipherHelper.ValidateEncryptedData(signInChangePasswordModel.OldPassword, Encoding.UTF8.GetString(user.Password))) 
+                return new UnauthorizedResponse();
+
             user.LastChangeDate = DateTime.UtcNow;
             user.LastPasswordChangeDate = DateTime.UtcNow;
-            user.Password = Encoding.UTF8.GetBytes(RSACipherHelper.EncryptString(signInChangePasswordModel.Password));
-            return await _userService.ChangePassword(user);
+            user.Password = Encoding.UTF8.GetBytes(RSACipherHelper.EncryptString(signInChangePasswordModel.NewPassword));
+            return await _userService.UpdateAsync(user);
         }
 
         public async Task<IResponseBase> ResendConfirmationCodeSmsAsync(string phoneNumber)

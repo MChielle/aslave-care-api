@@ -88,5 +88,12 @@ namespace AslaveCare.Service.Services.v1
             if (entities == null) return new NoContentResponse();
             return new OkResponse<IEnumerable<StockGetRestockReportModel>>(Mapper.Map<IEnumerable<StockGetRestockReportModel>>(entities));
         }
+
+        public async Task<IResponseBase> GetStockReportAsync(CancellationToken cancellation)
+        {
+            var entities = await _repository.GetStockReportAsync(cancellation);
+            if (entities == null) return new NoContentResponse();
+            return new OkResponse<IEnumerable<StockGetRestockReportModel>>(Mapper.Map<IEnumerable<StockGetRestockReportModel>>(entities));
+        }
     }
 }

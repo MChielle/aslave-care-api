@@ -15,7 +15,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
 
         Task<IResponseBase> ValidateRecoverPasswordConfirmationCodeAsync(SignInEmailConfirmationCodeModel signInEmailConfirmationCodeModel);
 
-        Task<IResponseBase> ChangePasswordAsync(string jwtToken, SignInChangePasswordModel signInChangePasswordModel);
+        Task<IResponseBase> ChangePasswordAsync(string jwtToken, SignInChangePasswordModel signInChangePasswordModel, bool checkOldPassword = true);
 
         Task<IResponseBase> ValidatePhoneNumberConfirmationCodeAsync(SignInPhoneNumberConfirmationCodeModel signInPhoneNumberConfirmationCodeModel);
 
