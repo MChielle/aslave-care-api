@@ -72,6 +72,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 {
                     Stock = x.FirstOrDefault().Stock,
                     Quantity = x.Sum(x => x.Quantity),
+                    Price = x.Sum(x => x.Price * x.Quantity),
                 })
                 .AsNoTracking()
                 .ToListAsync(cancellation);

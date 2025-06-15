@@ -8,7 +8,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
     public interface IReportService
     {
         Task<IResponseBase> GetDonationsReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation);
-        Task<IResponseBase> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation);
+        Task<IResponseBase> GetMonthTopDonorsReportAsync(CancellationToken cancellation);
         Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation);
         Task<IResponseBase> GetStockReportAsync(CancellationToken cancellation);
     }

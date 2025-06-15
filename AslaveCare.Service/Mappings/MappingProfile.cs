@@ -86,7 +86,8 @@ namespace AslaveCare.Service.Mappings
 
             CreateMap<RegisterInStock, RegisterInStockGetDonationReportModel>()
                 .ForMember(dest => dest.StockName, opt => opt.MapFrom(src => src.Stock.Name))
-                .ForMember(dest => dest.StockTypeId, opt => opt.MapFrom(src => src.Stock.StockTypeId));
+                .ForMember(dest => dest.StockTypeId, opt => opt.MapFrom(src => src.Stock.StockTypeId))
+                .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Price));
         }
 
         private void RegisterInMappings()
