@@ -53,15 +53,15 @@ namespace AslaveCare.Api.Controllers.v1
         /// <summary>
         /// [Authenticated] Report Controller route to get month top donors report.
         /// </summary>
-        [HttpGet("month-top-donors-report/{top}")]
+        [HttpGet("month-top-donors-report")]
         [ProducesResponseType(typeof(OkResponse<IEnumerable<SupplierGetDonorModel>>), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
         [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
         [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
         [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IResponseBase> GetMonthTopDonorsReportAsync([FromRoute] int top, CancellationToken cancellation)
+        public async Task<IResponseBase> GetMonthTopDonorsReportAsync(CancellationToken cancellation)
         {
-            return await _service.GetMonthTopDonorsReportAsync(top, cancellation);
+            return await _service.GetMonthTopDonorsReportAsync(cancellation);
         }
 
         /// <summary>

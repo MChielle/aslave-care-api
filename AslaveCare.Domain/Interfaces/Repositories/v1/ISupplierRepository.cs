@@ -13,7 +13,7 @@ namespace AslaveCare.Domain.Interfaces.Repositories.v1
         Task<Supplier> GetByEmailAsync(string email, CancellationToken cancellation = default);
 
         Task<List<Supplier>> GetByParameters(SupplierGetByParametersModel parameters, CancellationToken cancellation = default);
-        Task<List<Supplier>> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation);
+        Task<List<Supplier>> GetMonthTopDonorsReportAsync(CancellationToken cancellation = default);
         Task<List<Supplier>> GetToListAsync(CancellationToken cancellation = default);
     }
 }

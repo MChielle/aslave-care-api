@@ -24,9 +24,9 @@ namespace AslaveCare.Service.Services.v1
             return await _registerInStockService.GetDonationsReportAsync(initialDate, finalDate, cancellation);
         }
 
-        public async Task<IResponseBase> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation)
+        public async Task<IResponseBase> GetMonthTopDonorsReportAsync(CancellationToken cancellation)
         {
-            return await _supplierService.GetMonthTopDonorsReportAsync(top, cancellation);
+            return await _supplierService.GetMonthTopDonorsReportAsync(cancellation);
         }
 
         public async Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation)

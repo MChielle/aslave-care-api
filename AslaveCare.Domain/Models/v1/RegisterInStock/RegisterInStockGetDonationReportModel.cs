@@ -8,5 +8,6 @@ namespace AslaveCare.Domain.Models.v1.RegisterInStock
         public string StockName { get; set; }
         public string StockTypeId { get; set; }
         public decimal Quantity { get; set; }
+        public decimal Total { get; set; }
     }
 }

@@ -52,16 +52,17 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .ToListAsync(cancellation);
         }
 
-        public async Task<List<Supplier>> GetMonthTopDonorsReportAsync(int top, CancellationToken cancellation)
+        public async Task<List<Supplier>> GetMonthTopDonorsReportAsync(CancellationToken cancellation)
         {
             return await _context.RegisterInStocks
+                .AsNoTracking()
                 .Include(x => x.Stock)
                 .Include(x => x.RegisterIn)
                     .ThenInclude(x => x.Supplier)
                 .Where(x => x.RegisterIn.Apply)
                 .Where(x => x.RegisterIn.DeletionDate == null)
                 .Where(x => x.RegisterIn.Donation)
-                .Where(x => x.RegisterIn.ApplyDate.Value.Month == DateTime.UtcNow.Month).AsNoTracking()
+                .Where(x => x.RegisterIn.ApplyDate.Value.Month == DateTime.UtcNow.Month)
                 .GroupBy(x => x.RegisterIn.SupplierId)
                 .Select(x => new Supplier
                 {
@@ -80,7 +81,6 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                         }
                     }
                 })
-                .AsNoTracking()
                 .ToListAsync(cancellation);
         }
     }
