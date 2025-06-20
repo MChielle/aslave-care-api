@@ -1,4 +1,4 @@
-﻿using AslaveCare.Domain.Enums;
+﻿using AslaveCare.Domain.Entities.Enums;
 using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
