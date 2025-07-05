@@ -45,7 +45,7 @@ namespace AslaveCare.Service.Mappings
         {
             CreateMap<TaskNote, TaskNoteModel>().ReverseMap();
             CreateMap<TaskNote, TaskNoteAddModel>().ReverseMap();
-            CreateMap<TaskNote, TaskNoteGetModel>().ReverseMap();
+            CreateMap<TaskNote, TaskNoteGetModel>();
             CreateMap<TaskNote, TaskNotePatchModel>().ReverseMap();
             CreateMap<TaskNote, TaskNoteUpdateModel>().ReverseMap();
         }
@@ -54,7 +54,7 @@ namespace AslaveCare.Service.Mappings
         {
             CreateMap<StockType, StockTypeModel>().ReverseMap();
             CreateMap<StockType, StockTypeAddModel>().ReverseMap();
-            CreateMap<StockType, StockTypeGetModel>().ReverseMap();
+            CreateMap<StockType, StockTypeGetModel>();
             CreateMap<StockType, StockTypePatchModel>().ReverseMap();
             CreateMap<StockType, StockTypeUpdateModel>().ReverseMap();
         }
@@ -62,7 +62,7 @@ namespace AslaveCare.Service.Mappings
         private void RegisterOutStockMappings()
         {
             CreateMap<RegisterOutStock, RegisterOutStockGetRegisterOutModel>().ReverseMap();
-            CreateMap<RegisterOutStock, RegisterOutStockGetStockModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockGetStockModel>();
             CreateMap<RegisterOutStock, RegisterOutStockPatchModel>().ReverseMap();
             CreateMap<RegisterOutStock, RegisterOutStockModel>().ReverseMap();
         }
@@ -71,16 +71,16 @@ namespace AslaveCare.Service.Mappings
         {
             CreateMap<RegisterOut, RegisterOutModel>().ReverseMap();
             CreateMap<RegisterOut, RegisterOutAddModel>().ReverseMap();
-            CreateMap<RegisterOut, RegisterOutGetModel>().ReverseMap();
+            CreateMap<RegisterOut, RegisterOutGetModel>();
             CreateMap<RegisterOut, RegisterOutPatchModel>().ReverseMap();
             CreateMap<RegisterOut, RegisterOutUpdateModel>().ReverseMap();
         }
 
         private void RegisterInStockMappings()
         {
-            CreateMap<RegisterInStock, RegisterInStockGetRegisterInRestockReportModel>().ReverseMap();
-            CreateMap<RegisterInStock, RegisterInStockGetRegisterInModel>().ReverseMap();
-            CreateMap<RegisterInStock, RegisterInStockGetStockModel>().ReverseMap();
+            CreateMap<RegisterInStock, RegisterInStockGetRegisterInRestockReportModel>();
+            CreateMap<RegisterInStock, RegisterInStockGetRegisterInModel>();
+            CreateMap<RegisterInStock, RegisterInStockGetStockModel>();
             CreateMap<RegisterInStock, RegisterInStockPatchModel>().ReverseMap();
             CreateMap<RegisterInStock, RegisterInStockModel>().ReverseMap();
 
@@ -94,8 +94,8 @@ namespace AslaveCare.Service.Mappings
         {
             CreateMap<RegisterIn, RegisterInModel>().ReverseMap();
             CreateMap<RegisterIn, RegisterInAddModel>().ReverseMap();
-            CreateMap<RegisterIn, RegisterInGetModel>().ReverseMap();
-            CreateMap<RegisterIn, RegisterInGetRestockReportModel>().ReverseMap();
+            CreateMap<RegisterIn, RegisterInGetModel>();
+            CreateMap<RegisterIn, RegisterInGetRestockReportModel>();
             CreateMap<RegisterIn, RegisterInPatchModel>().ReverseMap();
             CreateMap<RegisterIn, RegisterInUpdateModel>().ReverseMap();
         }
@@ -104,17 +104,19 @@ namespace AslaveCare.Service.Mappings
         {
             CreateMap<Stock, StockModel>().ReverseMap();
             CreateMap<Stock, StockAddModel>().ReverseMap();
-            CreateMap<Stock, StockGetModel>().ReverseMap();
+            CreateMap<Stock, StockGetModel>()
+                .ForMember(dest => dest.RegisterInStocks, opt => opt.Ignore())
+                .ForMember(dest => dest.RegisterOutStocks, opt => opt.Ignore());
             CreateMap<Stock, StockPatchModel>().ReverseMap();
             CreateMap<Stock, StockUpdateModel>().ReverseMap();
-            CreateMap<Stock, StockGetRestockReportModel>().ReverseMap();
+            CreateMap<Stock, StockGetRestockReportModel>();
         }
 
         private void SupplierMappings()
         {
             CreateMap<Supplier, SupplierModel>().ReverseMap();
             CreateMap<Supplier, SupplierAddModel>().ReverseMap();
-            CreateMap<Supplier, SupplierGetModel>().ReverseMap();
+            CreateMap<Supplier, SupplierGetModel>();
             CreateMap<Supplier, SupplierPatchModel>().ReverseMap();
             CreateMap<Supplier, SupplierUpdateModel>().ReverseMap();
 
@@ -128,52 +130,52 @@ namespace AslaveCare.Service.Mappings
         {
             CreateMap<Employee, EmployeeModel>().ReverseMap();
             CreateMap<Employee, EmployeeAddModel>().ReverseMap();
-            CreateMap<Employee, EmployeeGetModel>().ReverseMap();
+            CreateMap<Employee, EmployeeGetModel>();
             CreateMap<Employee, EmployeePatchModel>().ReverseMap();
             CreateMap<Employee, EmployeeUpdateModel>().ReverseMap();
-            CreateMap<Employee, GenericUserProfileGetWithoutSensitiveDataModel>().ReverseMap();
-            CreateMap<Employee, EmployeeGetWithoutSensitiveDataModel>().ReverseMap();
+            CreateMap<Employee, GenericUserProfileGetWithoutSensitiveDataModel>();
+            CreateMap<Employee, EmployeeGetWithoutSensitiveDataModel>();
         }
 
         private void ManagerMappings()
         {
             CreateMap<Manager, ManagerModel>().ReverseMap();
             CreateMap<Manager, ManagerAddModel>().ReverseMap();
-            CreateMap<Manager, ManagerGetModel>().ReverseMap();
+            CreateMap<Manager, ManagerGetModel>();
             CreateMap<Manager, ManagerUpdateModel>().ReverseMap();
-            CreateMap<Manager, GenericUserProfileGetWithoutSensitiveDataModel>().ReverseMap();
-            CreateMap<Manager, ManagerGetWithoutSensitiveDataModel>().ReverseMap();
+            CreateMap<Manager, GenericUserProfileGetWithoutSensitiveDataModel>();
+            CreateMap<Manager, ManagerGetWithoutSensitiveDataModel>();
         }
 
         private void UserValidationMappings()
         {
             CreateMap<UserValidation, UserValidationModel>().ReverseMap();
             CreateMap<UserValidation, UserValidationAddModel>().ReverseMap();
-            CreateMap<UserValidation, UserValidationGetModel>().ReverseMap();
-            CreateMap<UserValidation, UserValidationGetModel>().ReverseMap();
+            CreateMap<UserValidation, UserValidationGetModel>();
+            CreateMap<UserValidation, UserValidationGetModel>();
             CreateMap<UserValidation, UserValidationUpdateModel>().ReverseMap();
-            CreateMap<UserValidation, UserValidationGetWithoutSensitiveDataModel>().ReverseMap();
-            CreateMap<UserValidationModel, UserValidationGetWithoutSensitiveDataModel>().ReverseMap();
+            CreateMap<UserValidation, UserValidationGetWithoutSensitiveDataModel>();
+            CreateMap<UserValidationModel, UserValidationGetWithoutSensitiveDataModel>();
         }
 
         private void RoleMappings()
         {
             CreateMap<Role, RoleModel>().ReverseMap();
             CreateMap<Role, RoleAddModel>().ReverseMap();
-            CreateMap<Role, RoleGetModel>().ReverseMap();
+            CreateMap<Role, RoleGetModel>();
             CreateMap<Role, RoleUpdateModel>().ReverseMap();
         }
 
         private void UserRoleMappings()
         {
             CreateMap<UserRole, UserRoleModel>().ReverseMap();
-            CreateMap<UserRole, UserRoleGetRoleModel>().ReverseMap();
+            CreateMap<UserRole, UserRoleGetRoleModel>();
         }
 
         private void UserMappings()
         {
             CreateMap<User, UserModel>().ReverseMap();
-            CreateMap<User, UserGetModel>().ReverseMap();
+            CreateMap<User, UserGetModel>();
             CreateMap<User, UserAddModel>();
             CreateMap<User, UserUpdateModel>();
             CreateMap<UserModel, UserUpdateModel>();
