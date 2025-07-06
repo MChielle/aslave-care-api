@@ -9,6 +9,7 @@ namespace AslaveCare.Domain.Models.v1.RegisterOut
     {
         public string Description { get; set; }
         public bool Apply { get; set; }
+        public DateTime? ApplyDate { get; set; }
         public List<RegisterOutStockPatchModel> RegisterOutStocks { get; set; }
     }
 }

@@ -37,7 +37,6 @@ namespace AslaveCare.Infra.Data.Repositories.v1
         {
             var lastNumber = await GetLastNumber();
             entity.Number = lastNumber + 1;
-            if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             return await base.AddAsync(entity);
         }
 
@@ -46,7 +45,6 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             var entityfromdb = _context.RegistersIn.Find(entity.Id);
             if (entityfromdb == default) return null;
 
-            if (entity.Apply) entity.ApplyDate = DateTime.UtcNow;
             entity.LastChangeDate = DateTime.UtcNow;
             entity.CreationDate = entityfromdb.CreationDate;
             entity.Number = entityfromdb.Number;
