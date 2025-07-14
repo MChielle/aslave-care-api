@@ -115,18 +115,29 @@ namespace AslaveCare.Api.Helpers
         {
             services.AddSwaggerGen(c =>
             {
+                var title = $"LAR - ILPI Software ({EnvironmentHelper.GetShortEnvironmentName()})";
+                var description = "API REST made with .NET C#";
+                var contact = new OpenApiContact
+                {
+                    Name = "Matheus Chielle",
+                    Url = new Uri("https://github.com/MChielle"),
+                    Email = "matheuschielle@gmail.com"
+                };
+
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "SlaveCare API",
-                    Description = $"API {EnvironmentHelper.GetShortEnvironmentName()}."
+                    Title = title,
+                    Description = description,
+                    Contact = contact
                 });
 
-                c.SwaggerDoc("v1.1", new OpenApiInfo
+                c.SwaggerDoc("v2", new OpenApiInfo
                 {
-                    Version = "v1.1",
-                    Title = "SlaveCare API",
-                    Description = $"API {EnvironmentHelper.GetShortEnvironmentName()}."
+                    Version = "v2",
+                    Title = title,
+                    Description = description,
+                    Contact = contact
                 });
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
