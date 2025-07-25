@@ -65,6 +65,9 @@ namespace AslaveCare.Service.Mappings
             CreateMap<RegisterOutStock, RegisterOutStockGetStockModel>();
             CreateMap<RegisterOutStock, RegisterOutStockPatchModel>().ReverseMap();
             CreateMap<RegisterOutStock, RegisterOutStockModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockGetConsumptionReportModel>()
+                .ForMember(dest => dest.StockName, opt => opt.MapFrom(src => src.Stock.Name))
+                .ForMember(dest => dest.StockTypeId, opt => opt.MapFrom(src => src.Stock.StockTypeId));
         }
 
         private void RegisterOutMappings()

@@ -45,6 +45,24 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .ToListAsync(cancellationToken);
         }
 
+        public async Task<IEnumerable<RegisterOutStock>> GetConsumptionReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation)
+        {
+            return await _context.RegisterOutStocks
+                .Include(x => x.Stock)
+                .Include(x => x.RegisterOut)
+                .Where(x => x.RegisterOut.Apply)
+                .Where(x => x.RegisterOut.DeletionDate == null)
+                .Where(x => x.RegisterOut.ApplyDate >= initialDate && x.RegisterOut.ApplyDate <= finalDate)
+                .GroupBy(x => x.StockId)
+                .Select(x => new RegisterOutStock
+                {
+                    Stock = x.FirstOrDefault().Stock,
+                    Quantity = x.Sum(x => x.Quantity),
+                })
+                .AsNoTracking()
+                .ToListAsync(cancellation);
+        }
+
         public override async Task<IEnumerable<RegisterOutStock>> UpdateAsync(IEnumerable<RegisterOutStock> entitiesMtM)
         {
             foreach (var entityMtM in entitiesMtM)
