@@ -77,5 +77,19 @@ namespace AslaveCare.Api.Controllers.v1
         {
             return await _service.GetStockReportAsync(cancellation);
         }
+
+        /// <summary>
+        /// [Authenticated] Report Controller route to get consumption report.
+        /// </summary>
+        [HttpGet("consumptions-report/{initialDate}/{finalDate}")]
+        [ProducesResponseType(typeof(OkResponse<IEnumerable<RegisterOutStockGetConsumptionReportModel>>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> GetConsumptionReportAsync([FromRoute] DateTime initialDate, [FromRoute] DateTime finalDate, CancellationToken cancellation)
+        {
+            return await _service.GetConsumptionReportAsync(initialDate, finalDate, cancellation);
+        }
     }
 }
