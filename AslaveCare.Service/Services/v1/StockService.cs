@@ -52,7 +52,7 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<StocksQuantityWarningModel>(new StocksQuantityWarningModel(totalStocksQuantityWarning));
         }
 
-        public async System.Threading.Tasks.Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
+        public async Task<IResponseBase> UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
         {
             foreach (var stockToUpdate in registerInStocks)
             {
@@ -65,9 +65,11 @@ namespace AslaveCare.Service.Services.v1
 
                 await _repository.UpdateAsync(stock);
             }
+
+            return new OkResponse<bool>(true);
         }
 
-        public async System.Threading.Tasks.Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
+        public async Task<IResponseBase> UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
         {
             foreach (var stockToUpdate in registerOutStocks)
             {
@@ -80,6 +82,8 @@ namespace AslaveCare.Service.Services.v1
 
                 await _repository.UpdateAsync(stock);
             }
+
+            return new OkResponse<bool>(true);
         }
 
         public async Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation)

@@ -21,8 +21,8 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
 
         Task<IResponseBase> GetTotalStocksQuantityWarning(CancellationToken cancellationToken);
 
-        Task UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply);
+        Task<IResponseBase> UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply);
 
-        Task UpdateStockQuantity(List<RegisterOutStockPatchModel> registerInStocks, bool apply);
+        Task<IResponseBase> UpdateStockQuantity(List<RegisterOutStockPatchModel> registerInStocks, bool apply);
     }
 }
