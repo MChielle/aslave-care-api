@@ -23,6 +23,7 @@ using AslaveCare.Integration.SmsMessage.SmsDev.Interfaces;
 using AslaveCare.Integration.SmsMessage.SmsDev.Services;
 using AslaveCare.Service.Mappings;
 using AutoMapper;
+using AutoMapper.Internal;
 using FirebaseAdmin;
 using FluentValidation.AspNetCore;
 using Google.Apis.Auth.OAuth2;
@@ -201,6 +202,7 @@ namespace AslaveCare.Api.Helpers
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
+                config.Internal().RecursiveQueriesMaxDepth = 3;
                 config.AddProfile(new MappingProfile());
             });
             IMapper mapper = mappingConfig.CreateMapper();
