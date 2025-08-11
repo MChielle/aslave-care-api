@@ -1,0 +1,16 @@
+﻿@AslaveCare.Api_HostAddress = https://localhost:5001
+
+@Id=00000000-0000-0000-0000-000000000001
+@Quantity=10
+PUT {{AslaveCare.Api_HostAddress}}/api/v1/stock/recount
+Content-Type: application/json
+
+
+{
+  [
+      Id = "{{Id}}",
+      Quantity = {{Quantity}},
+  ]
+}
+
+###

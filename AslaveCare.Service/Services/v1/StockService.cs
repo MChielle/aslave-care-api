@@ -10,6 +10,7 @@ using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services.Base;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -98,6 +99,12 @@ namespace AslaveCare.Service.Services.v1
             var entities = await _repository.GetStockReportAsync(cancellation);
             if (entities == null) return new NoContentResponse();
             return new OkResponse<IEnumerable<StockGetRestockReportModel>>(Mapper.Map<IEnumerable<StockGetRestockReportModel>>(entities));
+        }
+
+        public async Task<IResponseBase> RecountAsync(List<StockRecountModel> request, CancellationToken cancellationToken = default)
+        {
+            var stock = await _repository.RecountAsync(Mapper.Map<List<Stock>>(request), cancellationToken);
+            return new OkResponse<bool>(stock);
         }
     }
 }

@@ -77,5 +77,16 @@ namespace AslaveCare.Api.Controllers.v1
         {
             return await _service.GetTotalStocksQuantityWarning(cancellationToken);
         }
+
+        [HttpPut("recount")]
+        [ProducesResponseType(typeof(OkResponse<bool>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> RecountAsync([FromBody] List<StockRecountModel> request, CancellationToken cancellationToken)
+        {
+            return await _service.RecountAsync(request, cancellationToken);
+        }
     }
 }

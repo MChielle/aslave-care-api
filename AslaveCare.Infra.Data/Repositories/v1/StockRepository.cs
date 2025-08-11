@@ -1,15 +1,15 @@
-﻿using AslaveCare.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Models.v1.Stock;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
 using AslaveCare.Infra.Data.Repositories.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace AslaveCare.Infra.Data.Repositories.v1
 {
@@ -63,7 +63,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             return await _context.Stocks
                 .AsNoTracking()
                 .Where(x => x.Quantity < x.QuantityLowWarning)
-                .Where(x => x.Disable != true 
+                .Where(x => x.Disable != true
                                 && x.DeletionDate.Equals(null))
                 .CountAsync(cancellation);
         }
@@ -91,6 +91,38 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .Where(x => x.Quantity >= 0)
                 .Where(x => !x.Disable)
                 .ToListAsync(cancellation);
+        }
+
+        public async Task<bool> RecountAsync(List<Stock> stocksToRecount, CancellationToken cancellationToken = default)
+        {
+            var stocks = await _context.Stocks
+                .Include(x => x.RegisterInStocks)
+                    .ThenInclude(x => x.RegisterIn)
+                .Include(x => x.RegisterOutStocks)
+                    .ThenInclude(x => x.RegisterOut)
+                .Where(x => stocksToRecount.Any(y => y.Id.Equals(x.Id)) && x.DeletionDate.Equals(null))
+                .Select(x => new KeyValuePair<Guid, decimal>(x.Id,
+                    x.RegisterInStocks.Where(x => x.RegisterIn.DeletionDate.Equals(null) && x.RegisterIn.Apply).Sum(x => x.Quantity)
+                    -
+                    x.RegisterOutStocks.Where(x => x.RegisterOut.DeletionDate.Equals(null) && x.RegisterOut.Apply).Sum(x => x.Quantity))
+                )
+                .Where(x => x.Value != 0)
+                .ToListAsync(cancellationToken);
+
+            return true;
+
+            //await _context.Database.BeginTransactionAsync(cancellationToken);
+
+            //Receber a lista de itens a serem recalculados com seus saldos atuais. OK
+            //Ver se o saldo calculado esta acima ou abaixo. OK
+            //Criar registro de entrada para os itens com saldo acima.
+
+            //Criar registro de saida para os itens com saldo abaixo.
+            
+            
+            //await _context.SaveChangesAsync(cancellationToken);
+
+            //await _context.Database.CommitTransactionAsync(cancellationToken);
         }
     }
 }

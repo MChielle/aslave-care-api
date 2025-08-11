@@ -113,6 +113,8 @@ namespace AslaveCare.Service.Mappings
             CreateMap<Stock, StockPatchModel>().ReverseMap();
             CreateMap<Stock, StockUpdateModel>().ReverseMap();
             CreateMap<Stock, StockGetRestockReportModel>();
+
+            CreateMap<StockRecountModel, Stock>();
         }
 
         private void SupplierMappings()
