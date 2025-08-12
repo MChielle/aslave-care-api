@@ -41,14 +41,6 @@ namespace AslaveCare.Infra.Data.Migrations
                 nullable: false,
                 oldClrType: typeof(decimal),
                 oldType: "numeric(8,2)");
-
-            migrationBuilder.AlterColumn<decimal>(
-                name: "Price",
-                table: "RegisterInStocks",
-                type: "numeric(8,3)",
-                nullable: false,
-                oldClrType: typeof(decimal),
-                oldType: "numeric(8,2)");
         }
 
         /// <inheritdoc />
@@ -80,14 +72,6 @@ namespace AslaveCare.Infra.Data.Migrations
 
             migrationBuilder.AlterColumn<decimal>(
                 name: "Quantity",
-                table: "RegisterInStocks",
-                type: "numeric(8,2)",
-                nullable: false,
-                oldClrType: typeof(decimal),
-                oldType: "numeric(8,3)");
-
-            migrationBuilder.AlterColumn<decimal>(
-                name: "Price",
                 table: "RegisterInStocks",
                 type: "numeric(8,2)",
                 nullable: false,

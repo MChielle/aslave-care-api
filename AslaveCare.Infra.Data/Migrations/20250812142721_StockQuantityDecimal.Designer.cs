@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AslaveCare.Infra.Data.Migrations
 {
     [DbContext(typeof(BaseContext))]
-    [Migration("20250811232906_StockQuantityDecimal")]
+    [Migration("20250812142721_StockQuantityDecimal")]
     partial class StockQuantityDecimal
     {
         /// <inheritdoc />
@@ -148,7 +148,7 @@ namespace AslaveCare.Infra.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(8, 3)");
+                        .HasColumnType("decimal(8, 2)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(8, 3)");

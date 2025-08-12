@@ -145,7 +145,7 @@ namespace AslaveCare.Infra.Data.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(8, 3)");
+                        .HasColumnType("decimal(8, 2)");
 
                     b.Property<decimal>("Quantity")
                         .HasColumnType("decimal(8, 3)");
