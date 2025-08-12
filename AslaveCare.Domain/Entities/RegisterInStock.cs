@@ -12,10 +12,10 @@ namespace AslaveCare.Domain.Entities
         public Guid StockId { get; set; }
         public Stock Stock { get; set; }
 
-        [Column(TypeName = PropertyType.Decimal_8_2)]
+        [Column(TypeName = PropertyType.Decimal_8_3)]
         public decimal Quantity { get; set; }
 
-        [Column(TypeName = PropertyType.Decimal_8_2)]
+        [Column(TypeName = PropertyType.Decimal_8_3)]
         public decimal Price { get; set; }
 
         public override bool Equals(object obj)
