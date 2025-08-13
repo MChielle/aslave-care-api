@@ -15,12 +15,12 @@ namespace AslaveCare.Domain.Entities
         [MaxLength(PropertyLength.Description)]
         public string Description { get; set; }
 
-        [Column(TypeName = PropertyType.Decimal_8_2)]
+        [Column(TypeName = PropertyType.Decimal_8_3)]
         public decimal Quantity { get; set; }
 
         public bool Disable { get; set; }
 
-        [Column(TypeName = PropertyType.Decimal_8_2)]
+        [Column(TypeName = PropertyType.Decimal_8_3)]
         public decimal QuantityLowWarning { get; set; }
 
         [MaxLength(PropertyLength.GenericShortName)]
