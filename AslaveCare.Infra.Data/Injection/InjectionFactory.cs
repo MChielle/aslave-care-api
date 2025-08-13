@@ -21,6 +21,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Linq;
 
 namespace AslaveCare.Infra.Data.Injection
 {
@@ -43,6 +44,7 @@ namespace AslaveCare.Infra.Data.Injection
 
             ConfigureDbContext();
             LoadServicesAndRepositories();
+            EnsureMigrationsApplied();
         }
 
         private static void ConfigureDbContext()
@@ -158,6 +160,18 @@ namespace AslaveCare.Infra.Data.Injection
             _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
             #endregion Repositories
+        }
+
+        private static void EnsureMigrationsApplied()
+        {
+            using (var scope = _services.BuildServiceProvider().CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<BaseContext>();
+                if (context.Database.IsRelational() && context.Database.GetPendingMigrations().Any())
+                {
+                    context.Database.Migrate();
+                }
+            }
         }
     }
 }
