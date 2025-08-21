@@ -390,7 +390,7 @@ namespace AslaveCare.Api.Helpers
             _logger.LogInformation(string.Concat("Configure Integration Google OAuth2".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureOpenTelemetry(IServiceCollection services, ILogger logger)
+        internal static void ConfigureOpenTelemetry(IServiceCollection services, ILogger _logger)
         {
             services.AddOpenTelemetry().WithTracing(builder =>
             {
@@ -400,6 +400,7 @@ namespace AslaveCare.Api.Helpers
                 // Configure OpenTelemetry Protocol (OTLP) Exporter
                 .AddOtlpExporter();
             });
+            _logger.LogInformation(string.Concat("Configure OpenTelemetry".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
     }
 }
