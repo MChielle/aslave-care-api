@@ -37,6 +37,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using OpenTelemetry.Trace;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -387,6 +388,18 @@ namespace AslaveCare.Api.Helpers
             services.AddSingleton(googleOAuth2Configuration);
             services.AddSingleton<IGoogleOAuth2Service, GoogleOAuth2Service>();
             _logger.LogInformation(string.Concat("Configure Integration Google OAuth2".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
+        }
+
+        internal static void ConfigureOpenTelemetry(IServiceCollection services, ILogger logger)
+        {
+            services.AddOpenTelemetry().WithTracing(builder =>
+            {
+                builder
+                // Configure ASP.NET Core Instrumentation
+                .AddAspNetCoreInstrumentation()
+                // Configure OpenTelemetry Protocol (OTLP) Exporter
+                .AddOtlpExporter();
+            });
         }
     }
 }

@@ -63,6 +63,8 @@ namespace AslaveCare.Api
 
             StartupHelper.ConfigureSwagger(services, _logger);
 
+            StartupHelper.ConfigureOpenTelemetry(services, _logger);
+
             services.ConfigureProblemDetailsModelState(_logger);
         }
 
