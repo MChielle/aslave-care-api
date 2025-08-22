@@ -1,1 +1,0 @@
-`RJE:\src\pds\aslavecare\aslave-care-api\AslaveCare.Api\AslaveCare.Api.csproj¢net8.0òCSharp12

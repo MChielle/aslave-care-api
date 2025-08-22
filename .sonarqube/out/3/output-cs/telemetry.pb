@@ -1,1 +1,0 @@
-nRXE:\src\pds\aslavecare\aslave-care-api\AslaveCare.Infra.Data\AslaveCare.Infra.Data.csproj¢net8.0òCSharp12

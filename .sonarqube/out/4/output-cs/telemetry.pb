@@ -1,1 +1,0 @@
-tR^E:\src\pds\aslavecare\aslave-care-api\AslaveCare.Api.UnitTests\AslaveCare.Api.UnitTests.csproj¢net8.0òCSharp12

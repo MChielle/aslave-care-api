@@ -1,1 +1,0 @@
-fRPE:\src\pds\aslavecare\aslave-care-api\AslaveCare.Domain\AslaveCare.Domain.csproj¢net8.0òCSharp12
