@@ -60,8 +60,6 @@ namespace AslaveCare.Service.Services.v1
 
                 if (apply)
                     stock.Quantity += stockToUpdate.Quantity;
-                else
-                    stock.Quantity -= stockToUpdate.Quantity;
 
                 await _repository.UpdateAsync(stock);
             }
@@ -77,8 +75,6 @@ namespace AslaveCare.Service.Services.v1
 
                 if (apply)
                     stock.Quantity -= stockToUpdate.Quantity;
-                else
-                    stock.Quantity += stockToUpdate.Quantity;
 
                 await _repository.UpdateAsync(stock);
             }
