@@ -1,0 +1,1 @@
+pRZE:\src\pds\aslavecare\aslave-care-api\AslaveCare.Integration\AslaveCare.Integration.csproj¢net8.0òCSharp12

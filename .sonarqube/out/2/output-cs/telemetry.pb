@@ -1,0 +1,1 @@
+hRRE:\src\pds\aslavecare\aslave-care-api\AslaveCare.Service\AslaveCare.Service.csproj¢net8.0òCSharp12

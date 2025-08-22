@@ -1,8 +1,11 @@
-﻿using AslaveCare.Domain.Entities.Core;
+﻿using AslaveCare.Domain.Constants;
+using AslaveCare.Domain.Entities.Core;
+using AslaveCare.Domain.Exceptions;
 using AslaveCare.Domain.Interfaces.Repositories.Core;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -23,35 +26,56 @@ namespace AslaveCare.Infra.Data.Repositories.Base
 
         private async Task AddAsync(IEnumerable<TEntityMtM> entities, IEnumerable<TEntityMtM> oldEntities)
         {
-            var ToAdd = entities.Except(oldEntities);
-
-            foreach (var item in ToAdd)
+            try
             {
-                _context.Entry(item).State = EntityState.Added;
-            }
+                var ToAdd = entities.Except(oldEntities);
 
-            await _context.SaveChangesAsync();
+                foreach (var item in ToAdd)
+                {
+                    _context.Entry(item).State = EntityState.Added;
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_CREATE_FAIL, ex);
+            }
         }
 
         private async Task DeleteAsync(IEnumerable<TEntityMtM> entities, IEnumerable<TEntityMtM> oldEntities)
         {
-            var ToDelete = oldEntities.Except(entities);
-
-            foreach (var item in ToDelete)
+            try
             {
-                _context.Entry(item).State = EntityState.Deleted;
-            }
+                var ToDelete = oldEntities.Except(entities);
 
-            await _context.SaveChangesAsync();
+                foreach (var item in ToDelete)
+                {
+                    _context.Entry(item).State = EntityState.Deleted;
+                }
+
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_CREATE_FAIL, ex);
+            }
         }
 
         public async Task<IEnumerable<TEntityMtM>> AddOrDeleteAsync(IEnumerable<TEntityMtM> entities, IEnumerable<TEntityMtM> oldEntities)
         {
-            await DeleteAsync(entities, oldEntities);
+            try
+            {
+                await DeleteAsync(entities, oldEntities);
 
-            await AddAsync(entities, oldEntities);
+                await AddAsync(entities, oldEntities);
 
-            return entities;
+                return entities;
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_CREATE_FAIL, ex);
+            }
         }
 
         public abstract Task<IEnumerable<TEntityMtM>> UpdateAsync(IEnumerable<TEntityMtM> entitiesMtM);

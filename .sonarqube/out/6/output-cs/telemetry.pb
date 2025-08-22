@@ -1,0 +1,1 @@
+‚RlE:\src\pds\aslavecare\aslave-care-api\AslaveCare.Api.IntegrationTests\AslaveCare.Api.IntegrationTests.csproj¢net8.0òCSharp12
