@@ -43,13 +43,13 @@ namespace AslaveCare.Api
 
             services.Configure<AppSettings>(appSettingsSection);
 
-            StartupHelper.ConfigureMvcAndFluentValidation(services, _logger);
-            StartupHelper.ConfigureNewtonsoft(services, _logger);
-            StartupHelper.ConfigureAutoMapper(services, _logger);
+            services.AddMvcServices();
+            services.AddAutoMapperServices();
 
             StartupHelper.ConfigureAuthentication(services, _logger);
             StartupHelper.ConfigureAuthorization(services, _logger);
-            StartupHelper.ConfigureRedis(services, _logger);
+
+            services.AddRedisCacheService();
 
             //TODO: buscar outras soluções, independente de configuração de build sempre ocorre "Object reference not set to an instance of an object" durante a migration.
             //StartupHelper.ConfigureFirebase(services, _logger);
@@ -65,7 +65,7 @@ namespace AslaveCare.Api
 
             StartupHelper.ConfigureOpenTelemetry(services, _logger);
 
-            services.ConfigureProblemDetailsModelState(_logger);
+            //services.ConfigureProblemDetailsModelState(_logger);
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
@@ -94,7 +94,7 @@ namespace AslaveCare.Api
 
             StartupHelper.ConfigureRewriter(app);
 
-            app.UseProblemDetailsExceptionHandler(loggerFactory);
+            //app.UseProblemDetailsExceptionHandler(loggerFactory);
 
             app.UseEndpoints(endpoints =>
             {

@@ -37,6 +37,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
 using StackExchange.Redis;
 using System;
@@ -392,14 +393,23 @@ namespace AslaveCare.Api.Helpers
 
         internal static void ConfigureOpenTelemetry(IServiceCollection services, ILogger _logger)
         {
-            services.AddOpenTelemetry().WithTracing(builder =>
-            {
-                builder
-                // Configure ASP.NET Core Instrumentation
-                .AddAspNetCoreInstrumentation()
-                // Configure OpenTelemetry Protocol (OTLP) Exporter
-                .AddOtlpExporter();
-            });
+            services.AddOpenTelemetry()
+                .WithTracing(builder =>
+                {
+                    builder
+                    .AddAspNetCoreInstrumentation()
+                    .AddEntityFrameworkCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddOtlpExporter();
+                })
+                .WithMetrics(metrics =>
+                {
+                    metrics
+                    .AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddOtlpExporter();
+                });
+
             _logger.LogInformation(string.Concat("Configure OpenTelemetry".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
     }

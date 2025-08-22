@@ -61,7 +61,8 @@ namespace AslaveCare.Service.Mappings
 
         private void RegisterOutStockMappings()
         {
-            CreateMap<RegisterOutStock, RegisterOutStockGetRegisterOutModel>().ReverseMap();
+            CreateMap<RegisterOutStock, RegisterOutStockGetRegisterOutModel>()
+                .ForMember(dest => dest.RegisterOut, opt => opt.Ignore());
             CreateMap<RegisterOutStock, RegisterOutStockGetStockModel>();
             CreateMap<RegisterOutStock, RegisterOutStockPatchModel>().ReverseMap();
             CreateMap<RegisterOutStock, RegisterOutStockModel>().ReverseMap();

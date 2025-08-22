@@ -61,21 +61,25 @@ namespace AslaveCare.Api.Filters
         {
             if (context.Exception != null)
             {
-                Log(context);
+                //Generate log to OpenTelemetry with exception Details
+                BuildExceptionLog(context);
+
+                //Generate response with friendly exception message
                 context.Result = new ObjectResult(context.Exception?.Message) { StatusCode = 500 };
 
                 context.ExceptionHandled = true;
             }
             else if (context.Result is ObjectResult result)
             {
+                //Process the result and convert it to IActionResult
                 context.Result = HttpActionResult(result, context.HttpContext.TraceIdentifier);
             }
         }
 
-        private static void Log(ActionExecutedContext context)
+        private static void BuildExceptionLog(ActionExecutedContext context)
         {
             var logger = context.HttpContext.RequestServices.GetService(typeof(ILogger<ApplicationControllerBase>)) as ILogger;
-            logger.LogError(context.Exception, context.Exception.Message);
+            logger.LogError(context.Exception, context.Exception.ToString());
         }
 
         private IActionResult HttpActionResult(ObjectResult result, string requestId)

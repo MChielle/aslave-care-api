@@ -82,13 +82,20 @@ namespace AslaveCare.Infra.Data.Repositories.Base
 
         public async Task UpdateAsync(IEnumerable<TEntity> entities)
         {
-            _context.Set<TEntity>().UpdateRange(entities);
-            entities.ToList().ForEach(entity =>
+            try
             {
-                entity.LastChangeDate = DateTime.UtcNow;
-                _context.Entry(entity).Property(x => x.CreationDate).IsModified = false;
-            });
-            await _context.SaveChangesAsync();
+                _context.Set<TEntity>().UpdateRange(entities);
+                entities.ToList().ForEach(entity =>
+                {
+                    entity.LastChangeDate = DateTime.UtcNow;
+                    _context.Entry(entity).Property(x => x.CreationDate).IsModified = false;
+                });
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_UPDATE_FAIL, ex);
+            }
         }
 
         public virtual async Task<TEntity> AddOrUpdateAsync(TEntity entity)
@@ -120,29 +127,43 @@ namespace AslaveCare.Infra.Data.Repositories.Base
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null, CancellationToken cancellationToken = default)
         {
-            var query = _context.Set<TEntity>().AsQueryable();
+            try
+            {
+                var query = _context.Set<TEntity>().AsQueryable();
 
-            if (predicate != null)
-                query = query.Where(predicate);
+                if (predicate != null)
+                    query = query.Where(predicate);
 
-            foreach (var property in _context.Model.FindEntityType(typeof(TEntity)).GetNavigations())
-                query = query.Include(property.Name);
+                foreach (var property in _context.Model.FindEntityType(typeof(TEntity)).GetNavigations())
+                    query = query.Include(property.Name);
 
-            var retorno = await query.AsNoTracking().ToListAsync(cancellationToken);
+                var entities = await query.AsNoTracking().ToListAsync(cancellationToken);
 
-            return retorno;
+                return entities;
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_READ_FAIL, ex);
+            }
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllPagedAsync(int? page = null, int? pageSize = null, CancellationToken cancellationToken = default)
         {
-            var query = _context.Set<TEntity>().AsQueryable();
+            try
+            {
+                var query = _context.Set<TEntity>().AsQueryable();
 
-            if (page.HasValue && pageSize.HasValue)
-                query = query.Skip(page.Value * pageSize.Value)
-                             .Take(pageSize.Value);
+                if (page.HasValue && pageSize.HasValue)
+                    query = query.Skip(page.Value * pageSize.Value)
+                                 .Take(pageSize.Value);
 
-            return await query.AsNoTracking()
-                              .ToListAsync(cancellationToken);
+                return await query.AsNoTracking()
+                                  .ToListAsync(cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_READ_FAIL, ex);
+            }
         }
 
         public IQueryable<TEntity> InsertAllIncludes(IQueryable<TEntity> query)
@@ -155,81 +176,116 @@ namespace AslaveCare.Infra.Data.Repositories.Base
 
         public virtual async Task<TEntity> GetByIdAsync(TKey id, CancellationToken cancellationToken = default)
         {
-            var entity = await _context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
+            try
+            {
+                var entity = await _context.Set<TEntity>().FindAsync(new object[] { id }, cancellationToken);
 
-            return entity;
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_READ_FAIL, ex);
+            }
         }
 
         public virtual void Delete(TEntity entity)
         {
-            if (entity is IPhysicallyDeletable)
-                _context.Set<TEntity>().Remove(entity);
-            else
+            try
             {
-                entity = _context.Set<TEntity>().Where(x => x.Id.Equals(entity.Id)).FirstOrDefault();
-                if (entity == null) return;
-                entity.DeletionDate = DateTime.UtcNow;
-                _context.Set<TEntity>().Update(entity);
-            }
+                if (entity is IPhysicallyDeletable)
+                    _context.Set<TEntity>().Remove(entity);
+                else
+                {
+                    entity = _context.Set<TEntity>().Where(x => x.Id.Equals(entity.Id)).FirstOrDefault();
+                    if (entity == null) return;
+                    entity.DeletionDate = DateTime.UtcNow;
+                    _context.Set<TEntity>().Update(entity);
+                }
 
-            _context.SaveChanges();
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_DELETE_FAIL, ex);
+            }
         }
 
         public virtual void Delete(IEnumerable<TEntity> entities)
         {
-            var trackedEntities = new List<TEntity>();
-
-            if (entities.FirstOrDefault() is IPhysicallyDeletable)
-                _context.Set<TEntity>().RemoveRange(entities);
-            else
+            try
             {
-                entities.ToList().ForEach(e =>
+                var trackedEntities = new List<TEntity>();
+
+                if (entities.FirstOrDefault() is IPhysicallyDeletable)
+                    _context.Set<TEntity>().RemoveRange(entities);
+                else
                 {
-                    var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(e.Id)).FirstOrDefault();
+                    entities.ToList().ForEach(e =>
+                    {
+                        var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(e.Id)).FirstOrDefault();
+                        if (entity == null) return;
+                        entity.DeletionDate = DateTime.UtcNow;
+                        trackedEntities.Add(entity);
+                    });
+
+                    if (!trackedEntities.Any()) _context.Set<TEntity>().UpdateRange(trackedEntities);
+                }
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_DELETE_FAIL, ex);
+            }
+        }
+
+        public virtual void Delete(TKey id)
+        {
+            try
+            {
+                var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(id)).FirstOrDefault();
+                if (entity == null) return;
+                entity.DeletionDate = DateTime.UtcNow;
+
+                if (entity is IPhysicallyDeletable)
+                    _context.Set<TEntity>().Remove(entity);
+                else
+                    _context.Set<TEntity>().Update(entity);
+
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new DefaultException(ConstantMessages.CRUD_DELETE_FAIL, ex);
+            }
+        }
+
+        public virtual void Delete(IEnumerable<TKey> ids)
+        {
+            try
+            {
+                var trackedEntities = new List<TEntity>();
+                ids.ToList().ForEach(id =>
+                {
+                    var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(id)).FirstOrDefault();
                     if (entity == null) return;
                     entity.DeletionDate = DateTime.UtcNow;
                     trackedEntities.Add(entity);
                 });
 
-                if (!trackedEntities.Any()) _context.Set<TEntity>().UpdateRange(trackedEntities);
+                if (!trackedEntities.Any()) return;
+
+                if (trackedEntities.FirstOrDefault() is IPhysicallyDeletable)
+                    _context.Set<TEntity>().RemoveRange(trackedEntities);
+                else
+                    _context.Set<TEntity>().UpdateRange(trackedEntities);
+
+                _context.SaveChanges();
             }
-
-            _context.SaveChanges();
-        }
-
-        public virtual void Delete(TKey id)
-        {
-            var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(id)).FirstOrDefault();
-            if (entity == null) return;
-            entity.DeletionDate = DateTime.UtcNow;
-
-            if (entity is IPhysicallyDeletable)
-                _context.Set<TEntity>().Remove(entity);
-            else
-                _context.Set<TEntity>().Update(entity);
-
-            _context.SaveChanges();
-        }
-
-        public virtual void Delete(IEnumerable<TKey> ids)
-        {
-            var trackedEntities = new List<TEntity>();
-            ids.ToList().ForEach(id =>
+            catch (Exception ex)
             {
-                var entity = _context.Set<TEntity>().Where(x => x.Id.Equals(id)).FirstOrDefault();
-                if (entity == null) return;
-                entity.DeletionDate = DateTime.UtcNow;
-                trackedEntities.Add(entity);
-            });
-
-            if (!trackedEntities.Any()) return;
-
-            if (trackedEntities.FirstOrDefault() is IPhysicallyDeletable)
-                _context.Set<TEntity>().RemoveRange(trackedEntities);
-            else
-                _context.Set<TEntity>().UpdateRange(trackedEntities);
-
-            _context.SaveChanges();
+                throw new DefaultException(ConstantMessages.CRUD_DELETE_FAIL, ex);
+            }
         }
 
         public Task<bool> HasAny(TKey id)
