@@ -1,4 +1,5 @@
 ﻿using AslaveCare.Domain.Exceptions;
+using Microsoft.Extensions.Configuration;
 using Org.BouncyCastle.Crypto;
 using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.OpenSsl;
@@ -12,15 +13,16 @@ namespace AslaveCare.Domain.Helpers
 {
     public static class RSACipherHelper
     {
-        private static string PRIVATE_PEM_CONTENT = System.Environment.GetEnvironmentVariable("PRIVATE_PEM_CONTENT");
+        private static string PRIVATE_PEM_CONTENT;
+
+        public static void SetHash(IConfiguration configuration)
+        {
+            PRIVATE_PEM_CONTENT = configuration.GetValue<string>("PRIVATE_PEM_CONTENT");
+            ImportKeys();
+        }
 
         private static RSAParameters privateKey;
         private static RSAParameters publicKey;
-
-        static RSACipherHelper()
-        {
-            ImportKeys();
-        }
 
         public static string EncryptString(string data)
         {

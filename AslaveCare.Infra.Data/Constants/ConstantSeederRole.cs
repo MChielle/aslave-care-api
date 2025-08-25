@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace AslaveCare.Infra.Data.Constants
 {
-    internal static class ConstantSeederRole
+    public static class ConstantSeederRole
     {
-        internal static List<(int Index, Guid Id, string Name, UserType Type)> Roles =>
+        public static List<(int Index, Guid Id, string Name, UserType Type)> Roles =>
             new()
             {
                 new(1, Guid.Parse("E589A9E9-1BA9-46E8-8487-EC68B2F9EF76"), UserType.Master.GetDescription(), UserType.Master),

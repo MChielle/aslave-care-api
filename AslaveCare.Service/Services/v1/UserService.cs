@@ -28,15 +28,16 @@ namespace AslaveCare.Service.Services.v1
         private readonly IOAuthService _oAuthService;
         private readonly IUserRepository _repository;
         private readonly IUserValidationService _userValidationService;
-        private readonly INotificationService _notificationService;
+        //private readonly INotificationService _notificationService;
 
-        public UserService(IUserRepository repository, INotificationService notificationService,
+        public UserService(IUserRepository repository, 
+            //INotificationService notificationService,
             IUserValidationService userValidationService, IJwtService jwtService,
             IServiceContext serviceContext, IOAuthService oAuthService)
             : base(repository, serviceContext)
         {
             _repository = repository;
-            _notificationService = notificationService;
+            //_notificationService = notificationService;
             _userValidationService = userValidationService;
             _jwtService = jwtService;
             _oAuthService = oAuthService;

@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace AslaveCare.Infra.Data.Constants.SeederDev
 {
-    internal static class ConstantSeederUserRole
+    public static class ConstantSeederUserRole
     {
-        internal static List<UserRole> MasterUserRoles() =>
+        public static List<UserRole> MasterUserRoles() =>
             new()
             {
                 new()
@@ -17,7 +17,7 @@ namespace AslaveCare.Infra.Data.Constants.SeederDev
                 }
             };
 
-        internal static List<UserRole> ManagerUserRoles() =>
+        public static List<UserRole> ManagerUserRoles() =>
             new()
             {
                 new()
@@ -27,7 +27,7 @@ namespace AslaveCare.Infra.Data.Constants.SeederDev
                 }
             };
 
-        internal static List<UserRole> EmployeeUserRoles() =>
+        public static List<UserRole> EmployeeUserRoles() =>
             new()
             {
                         new()

@@ -1,15 +1,14 @@
 ﻿using AslaveCare.Api;
 using AslaveCare.Infra.Data.Context;
+using AslaveCare.Integration.Test.Seed;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using AslaveCare.IntegrationTests.Seed;
-using System.Linq;
 
-namespace AslaveCare.IntegrationTests.Configuration
+namespace AslaveCare.Integration.Test.Configuration
 {
     public class TestStartup : Startup
     {
@@ -30,6 +29,9 @@ namespace AslaveCare.IntegrationTests.Configuration
         public override void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             base.Configure(app, env);
+
+            using var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            _ = serviceScope.ServiceProvider.GetService<TestDataSeeder>();
         }
 
         private static void EnsureMigrationsApplied(IServiceCollection services)
@@ -37,8 +39,10 @@ namespace AslaveCare.IntegrationTests.Configuration
             using (var scope = services.BuildServiceProvider().CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<BaseContext>();
-                context.Database.Migrate();
-                TestDataSeeder.Seed(context).Wait();
+                if (context.Database.IsRelational() && context.Database.GetPendingMigrations().Any())
+                {
+                    context.Database.Migrate();
+                }
             }
         }
     }

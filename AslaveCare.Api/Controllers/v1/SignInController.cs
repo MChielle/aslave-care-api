@@ -151,17 +151,17 @@ namespace AslaveCare.Api.Controllers.v1
             return await _service.ResendConfirmationCodeEmailAsync(email);
         }
 
-        [AllowAnonymous]
-        [HttpPost("social-media")]
-        [ProducesResponseType(typeof(OkResponse<object>), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
-        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
-        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
-        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
-        public async Task<IResponseBase> SignUpSocialMediaAsync([FromBody] SignInSocialMediaModel signUpSocialMediaModel)
-        {
-            return await _service.SignInSignUpSocialMediaAsync(signUpSocialMediaModel);
-        }
+        //[AllowAnonymous]
+        //[HttpPost("social-media")]
+        //[ProducesResponseType(typeof(OkResponse<object>), (int)HttpStatusCode.OK)]
+        //[ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        //[ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        //[ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        //[ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        //public async Task<IResponseBase> SignUpSocialMediaAsync([FromBody] SignInSocialMediaModel signUpSocialMediaModel)
+        //{
+        //    return await _service.SignInSignUpSocialMediaAsync(signUpSocialMediaModel);
+        //}
 
         /// <summary>
         /// [Authenticated] SignIn Controller - id from token to Get User Entity.

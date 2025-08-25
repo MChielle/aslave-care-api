@@ -31,8 +31,9 @@ namespace AslaveCare.Service.Services.v1
         public override async Task<IResponseBase> AddAsync(RegisterInAddModel model)
         {
             var response = await base.AddAsync(model);
+
             if (response.IsSuccess && model.Apply)
-                response = await _stockService.UpdateStockQuantity(model.RegisterInStocks, model.Apply);
+                response = await _stockService.IncreaseStockQuantity(model.RegisterInStocks);
 
             return response;
         }
@@ -44,8 +45,8 @@ namespace AslaveCare.Service.Services.v1
             if(response.IsSuccess)
                 response = await _registerInStockService.AddOrDeleteAsync(model.Id, model.RegisterInStocks);
 
-            if(response.IsSuccess)
-                response = await _stockService.UpdateStockQuantity(model.RegisterInStocks, model.Apply);
+            if(response.IsSuccess && model.Apply)
+                response = await _stockService.IncreaseStockQuantity(model.RegisterInStocks);
 
             return response;
         }

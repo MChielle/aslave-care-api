@@ -37,8 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Docs]", "[Docs]", "{29CCAB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Docker]", "[Docker]", "{A81D7808-73E3-4CF5-8CF4-7A0D6144CE05}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
 		docker-aslave-care-api.sh = docker-aslave-care-api.sh
+		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
@@ -54,9 +54,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.Integration", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.Infra.Data", "AslaveCare.Infra.Data\AslaveCare.Infra.Data.csproj", "{A2C84A4D-1F44-3B18-582F-DEC583142946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.Api.IntegrationTests", "AslaveCare.Api.IntegrationTests\AslaveCare.Api.IntegrationTests.csproj", "{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.IntegrationTests", "AslaveCare.Api.IntegrationTests\AslaveCare.IntegrationTests.csproj", "{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.Api.UnitTests", "AslaveCare.Api.UnitTests\AslaveCare.Api.UnitTests.csproj", "{DC876756-6E41-493D-D452-D9A1826CA3BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.UnitTests", "AslaveCare.Api.UnitTests\AslaveCare.UnitTests.csproj", "{DC876756-6E41-493D-D452-D9A1826CA3BB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Debug.props = Directory.Debug.props
+		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
