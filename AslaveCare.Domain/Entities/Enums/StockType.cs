@@ -14,6 +14,12 @@ namespace AslaveCare.Domain.Entities.Enums
         Cleaning,
 
         [Description("Medicamento")]
-        Medicine
+        Medicine,
+
+        [Description("Hortifruti")]
+        FruitsAndVegetables,
+
+        [Description("Proteína")]
+        Protein,
     }
 }

@@ -1,10 +1,7 @@
-﻿using AslaveCare.Domain.Constants;
-using AslaveCare.Domain.Extensions;
-using AslaveCare.Domain.Helpers;
+﻿using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
-using AslaveCare.Domain.Interfaces.Services.v1.Notification;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
 using AslaveCare.Infra.Data.Repositories;
@@ -15,12 +12,10 @@ using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services;
 using AslaveCare.Service.Services.v1;
 using AslaveCare.Service.Services.v1.Authentication;
-using AslaveCare.Service.Services.v1.Notification;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
@@ -38,10 +33,10 @@ namespace AslaveCare.Infra.Data.Injection
             _configuration = configuration;
 
             if (!BuildEnvironment.IsTest())
-            {
                 ConfigureDbContext();
+
+            if(BuildEnvironment.IsProduction())
                 EnsureMigrationsApplied();
-            }
 
             LoadServicesAndRepositories();
         }
