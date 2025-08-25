@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -85,7 +84,7 @@ namespace AslaveCare.IntegrationTests.Controllers
             var content = new StringContent(JsonConvert.SerializeObject(newStock), Encoding.UTF8, "application/json");
             var response = await client.PostAsync("/api/v1/stock", content);
             Assert.True(
-                response.StatusCode == HttpStatusCode.OK ||
+                response.StatusCode == HttpStatusCode.Created ||
                 response.StatusCode == HttpStatusCode.BadRequest ||
                 response.StatusCode == HttpStatusCode.Conflict
             );
