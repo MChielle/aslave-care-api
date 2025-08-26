@@ -19,7 +19,6 @@ namespace AslaveCare.Api
         public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             _configuration = configuration;
-            BuildEnvironment.SetEnvironment(Enum.Parse<EnvironmentType>(environment.EnvironmentName));
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
@@ -55,8 +54,9 @@ namespace AslaveCare.Api
                 StartupHelper.ConfigureDevino(services, _configuration);
                 StartupHelper.ConfigureSmsDev(services, _configuration);
                 StartupHelper.ConfigureSwagger(services);
-                StartupHelper.ConfigureOpenTelemetry(services);
             }
+            
+            if(BuildEnvironment.IsProduction()) StartupHelper.ConfigureOpenTelemetry(services);
         }
 
         public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)

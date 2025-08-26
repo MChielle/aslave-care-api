@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore;
+﻿using AslaveCare.Domain.Helpers;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OpenTelemetry.Logs;
 using System;
@@ -18,14 +20,22 @@ namespace AslaveCare.Api
 
         public static IWebHost BuildWebHost(string[] args)
         {
-            var currentEnvironment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+            BuildEnvironment.SetEnvironment(Enum.Parse<EnvironmentType>(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")));
+
+
+            if (BuildEnvironment.IsProduction())
+                return WebHost.CreateDefaultBuilder(args)
+                .UseKestrel(opt => opt.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(DEFAULT_KESTREL_TIMEOUT))
+                .UseStartup<Startup>()
+                .ConfigureLogging((context, builder) =>
+                {
+                    builder.AddOpenTelemetry(logging => logging.AddOtlpExporter());
+                })
+                .Build();
+
             return WebHost.CreateDefaultBuilder(args)
             .UseKestrel(opt => opt.Limits.KeepAliveTimeout = TimeSpan.FromMinutes(DEFAULT_KESTREL_TIMEOUT))
             .UseStartup<Startup>()
-            .ConfigureLogging((context, builder) =>
-            {
-                builder.AddOpenTelemetry(logging => logging.AddOtlpExporter());
-            })
             .Build();
         }
     }
