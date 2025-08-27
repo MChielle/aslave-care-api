@@ -4,9 +4,12 @@ using AslaveCare.Domain.Responses.Interfaces;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-
-public interface IRegisterInStockService : IMtMServiceBase<RegisterInStockGetRegisterInModel, RegisterInStockGetStockModel, RegisterInStockPatchModel, RegisterInStockModel, Guid, Guid>
+namespace AslaveCare.Domain.Interfaces.Services.v1
 {
-    Task<IResponseBase> AddAsync(Guid registerInId, RegisterInStockPatchModel model);
-    Task<IResponseBase> GetDonationsReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation);
+    public interface IRegisterInStockService : IMtMServiceBase<RegisterInStockGetRegisterInModel, RegisterInStockGetStockModel, RegisterInStockPatchModel, RegisterInStockModel, Guid, Guid>
+    {
+        Task<IResponseBase> AddAsync(Guid registerInId, RegisterInStockPatchModel model);
+        Task<IResponseBase> GetDonationsReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation);
+        Task<IResponseBase> GetStockHistoryReportAsync(Guid stockId, CancellationToken cancellation);
+    }
 }

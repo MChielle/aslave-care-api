@@ -10,13 +10,12 @@ namespace AslaveCare.Domain.Interfaces.Repositories.v1
 {
     public interface IStockRepository : IRepositoryBase<Stock, Guid>
     {
-        Task<List<Stock>> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellation = default);
+        Task<List<Stock>> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellationToken = default);
 
-        Task<List<Stock>> GetLowerStocks(int number, CancellationToken cancellation);
-        Task<List<Stock>> GetRestockReportAsync(CancellationToken cancellation);
-        Task<List<Stock>> GetStockReportAsync(CancellationToken cancellation);
-        Task<List<Stock>> GetToListAsync(CancellationToken cancellation = default);
-
+        Task<List<Stock>> GetLowerStocks(int number, CancellationToken cancellationToken);
+        Task<List<Stock>> GetRestockReportAsync(CancellationToken cancellationToken);
+        Task<List<Stock>> GetStockReportAsync(CancellationToken cancellationToken);
+        Task<List<Stock>> GetToListAsync(CancellationToken cancellationToken = default);
         Task<int> GetTotalStocksQuantityWarning(CancellationToken cancellationToken);
     }
 }

@@ -11,5 +11,6 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
     {
         Task<IResponseBase> AddAsync(Guid registerOutId, RegisterOutStockPatchModel model);
         Task<IResponseBase> GetConsumptionReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation);
+        Task<IResponseBase> GetStockHistoryReportAsync(Guid stockId, CancellationToken cancellation);
     }
 }

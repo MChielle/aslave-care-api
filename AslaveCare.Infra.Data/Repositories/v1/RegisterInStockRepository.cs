@@ -77,5 +77,16 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .AsNoTracking()
                 .ToListAsync(cancellation);
         }
+
+        public async Task<List<RegisterInStock>> GetStockHistoryReportAsync(Guid stockId, CancellationToken cancellation)
+        {
+            return await _context.RegisterInStocks
+                    .Include(x => x.RegisterIn)
+                .Where(x => x.RegisterIn.Apply)
+                .Where(x => x.RegisterIn.DeletionDate == null)
+                .Where(x => x.StockId == stockId)
+                .AsNoTracking()
+                .ToListAsync(cancellation);
+        }
     }
 }

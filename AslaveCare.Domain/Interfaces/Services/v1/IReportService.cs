@@ -11,6 +11,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> GetDonationsReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation);
         Task<IResponseBase> GetMonthTopDonorsReportAsync(CancellationToken cancellation);
         Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation);
+        Task<IResponseBase> GetStockHistoryReportAsync(Guid stockId, CancellationToken cancellation);
         Task<IResponseBase> GetStockReportAsync(CancellationToken cancellation);
     }
 }

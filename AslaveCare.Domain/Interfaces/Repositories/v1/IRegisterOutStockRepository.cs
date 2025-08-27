@@ -10,5 +10,6 @@ namespace AslaveCare.Domain.Interfaces.Repositories.v1
     public interface IRegisterOutStockRepository : IMtMRepositoryBase<RegisterOutStock, Guid, Guid>
     {
         Task<IEnumerable<RegisterOutStock>> GetConsumptionReportAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellation);
+        Task<List<RegisterOutStock>> GetStockHistoryReportAsync(Guid stockId, CancellationToken cancellation);
     }
 }

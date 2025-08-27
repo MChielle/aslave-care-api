@@ -4,6 +4,7 @@ using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.RegisterInStock;
 using AslaveCare.Domain.Models.v1.RegisterOutStock;
+using AslaveCare.Domain.Models.v1.Stock.GetHistoryReport;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
 using AslaveCare.Service.ServiceContext;
@@ -74,6 +75,13 @@ namespace AslaveCare.Service.Services.v1
             var registersInStocks = await _repository.GetConsumptionReportAsync(initialDate, finalDate, cancellation);
             if (registersInStocks == null || !registersInStocks.Any()) return new NoContentResponse();
             return new OkResponse<List<RegisterOutStockGetConsumptionReportModel>>(Mapper.Map<List<RegisterOutStockGetConsumptionReportModel>>(registersInStocks));
+        }
+
+        public async Task<IResponseBase> GetStockHistoryReportAsync(Guid stockId, CancellationToken cancellation)
+        {
+            var registersOutStocks = await _repository.GetStockHistoryReportAsync(stockId, cancellation);
+            if (registersOutStocks == null || !registersOutStocks.Any()) return new NoContentResponse();
+            return new OkResponse<List<StockGetRegisterHistoryReportModel>>(Mapper.Map<List<StockGetRegisterHistoryReportModel>>(registersOutStocks));
         }
     }
 }
