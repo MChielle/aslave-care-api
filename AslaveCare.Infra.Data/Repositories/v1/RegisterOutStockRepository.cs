@@ -75,5 +75,16 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             await _context.SaveChangesAsync();
             return entitiesMtM;
         }
+
+        public async Task<List<RegisterOutStock>> GetStockHistoryReportAsync(Guid stockId, CancellationToken cancellation)
+        {
+            return await _context.RegisterOutStocks
+                    .Include(x => x.RegisterOut)
+                .Where(x => x.RegisterOut.Apply)
+                .Where(x => x.RegisterOut.DeletionDate == null)
+                .Where(x => x.StockId == stockId)
+                .AsNoTracking()
+                .ToListAsync(cancellation);
+        }
     }
 }

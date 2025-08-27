@@ -38,7 +38,7 @@ namespace AslaveCare.Infra.Data.Repositories.v1
             return await GetByIdAsync(id, cancellationToken);
         }
 
-        public async Task<List<Stock>> GetLowerStocks(int number, CancellationToken cancellation)
+        public async Task<List<Stock>> GetLowerStocks(int number, CancellationToken cancellationToken)
         {
             return await _context.Stocks
                 .AsNoTracking()
@@ -47,50 +47,50 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .Where(x => x.DeletionDate.Equals(null))
                 .OrderBy(x => x.Quantity)
                 .Take(number)
-                .ToListAsync(cancellation);
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<List<Stock>> GetToListAsync(CancellationToken cancellation = default)
+        public async Task<List<Stock>> GetToListAsync(CancellationToken cancellationToken = default)
         {
             return await _context.Stocks
                 .AsNoTracking()
                 .Where(x => x.DeletionDate.Equals(null))
-                .ToListAsync(cancellation);
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<int> GetTotalStocksQuantityWarning(CancellationToken cancellation)
+        public async Task<int> GetTotalStocksQuantityWarning(CancellationToken cancellationToken)
         {
             return await _context.Stocks
                 .AsNoTracking()
                 .Where(x => x.Quantity < x.QuantityLowWarning)
-                .Where(x => x.Disable != true 
-                                && x.DeletionDate.Equals(null))
-                .CountAsync(cancellation);
+                .Where(x => x.Disable != true)
+                .Where(x => x.DeletionDate.Equals(null))
+                .CountAsync(cancellationToken);
         }
 
-        public async Task<List<Stock>> GetRestockReportAsync(CancellationToken cancellation)
+        public async Task<List<Stock>> GetRestockReportAsync(CancellationToken cancellationToken)
         {
             return await _context.Stocks
                 .AsNoTracking()
                 .Include(x => x.RegisterInStocks)
                     .ThenInclude(x => x.RegisterIn)
                         .ThenInclude(x => x.Supplier)
-                .Where(x => x.Quantity < x.QuantityLowWarning
-                                && x.Disable != true
-                                && x.DeletionDate.Equals(null)
-                                && (x.RegisterInStocks.OrderBy(y => y.Price).Take(1).Any()
-                                    || !x.RegisterInStocks.Any()))
-                .ToListAsync(cancellation);
+                .Where(x => x.Quantity < x.QuantityLowWarning)
+                .Where(x => x.Disable != true)
+                .Where(x => x.DeletionDate.Equals(null))
+                .Where(x => (x.RegisterInStocks.OrderBy(y => y.Price).Take(1).Any() || !x.RegisterInStocks.Any()))
+                .ToListAsync(cancellationToken);
         }
 
-        public async Task<List<Stock>> GetStockReportAsync(CancellationToken cancellation)
+        public async Task<List<Stock>> GetStockReportAsync(CancellationToken cancellationToken)
         {
             return await _context.Stocks
                 .AsNoTracking()
                 .Include(x => x.RegisterInStocks)
                 .Where(x => x.Quantity >= 0)
                 .Where(x => !x.Disable)
-                .ToListAsync(cancellation);
+                .Where(x => x.DeletionDate.Equals(null))
+                .ToListAsync(cancellationToken);
         }
     }
 }

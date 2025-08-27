@@ -37,8 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Docs]", "[Docs]", "{29CCAB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Docker]", "[Docker]", "{A81D7808-73E3-4CF5-8CF4-7A0D6144CE05}"
 	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
 		docker-aslave-care-api.sh = docker-aslave-care-api.sh
+		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
@@ -117,8 +117,6 @@ Global
 		{921BB8FF-B259-08E1-0ED0-A1BDC8890D7C} = {1B2F8487-9A21-4EA4-AA93-C56783090B17}
 		{97E574FF-E7F6-DE51-E946-555385E8D6B8} = {4C5148BB-0CAD-49EC-9127-EE8227A9A60E}
 		{A2C84A4D-1F44-3B18-582F-DEC583142946} = {52F26077-1B54-4962-ABB4-D673645C5432}
-		{D548EF23-AB89-A566-9A0D-D038D3FDCC5A} = {65A82AF0-CC7C-47B7-A680-DDA57941A23B}
-		{DC876756-6E41-493D-D452-D9A1826CA3BB} = {65A82AF0-CC7C-47B7-A680-DDA57941A23B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC639E8D-A1FF-49B2-8CC9-ACCFCB93C69D}

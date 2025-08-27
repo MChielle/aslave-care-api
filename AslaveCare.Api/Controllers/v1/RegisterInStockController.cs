@@ -1,4 +1,5 @@
 ﻿using AslaveCare.Api.Controllers.Base;
+using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Models.v1.RegisterInStock;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;

@@ -9,6 +9,7 @@ using AslaveCare.Domain.Models.v1.RegisterOutStock;
 using AslaveCare.Domain.Models.v1.Role;
 using AslaveCare.Domain.Models.v1.SignIn;
 using AslaveCare.Domain.Models.v1.Stock;
+using AslaveCare.Domain.Models.v1.Stock.GetHistoryReport;
 using AslaveCare.Domain.Models.v1.StockType;
 using AslaveCare.Domain.Models.v1.Supplier;
 using AslaveCare.Domain.Models.v1.TaskNote;
@@ -69,6 +70,13 @@ namespace AslaveCare.Service.Mappings
             CreateMap<RegisterOutStock, RegisterOutStockGetConsumptionReportModel>()
                 .ForMember(dest => dest.StockName, opt => opt.MapFrom(src => src.Stock.Name))
                 .ForMember(dest => dest.StockTypeId, opt => opt.MapFrom(src => src.Stock.StockTypeId));
+
+            CreateMap<RegisterOutStock, StockGetRegisterHistoryReportModel>()
+                .ForMember(dest => dest.RegisterType, opt => opt.MapFrom(src => "Consumo"))
+                .ForMember(dest => dest.RegisterApplyDate, opt => opt.MapFrom(src => src.RegisterOut.ApplyDate.Value))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RegisterOut.Id))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.RegisterNumber, opt => opt.MapFrom(src => src.RegisterOut.Number));
         }
 
         private void RegisterOutMappings()
@@ -92,6 +100,13 @@ namespace AslaveCare.Service.Mappings
                 .ForMember(dest => dest.StockName, opt => opt.MapFrom(src => src.Stock.Name))
                 .ForMember(dest => dest.StockTypeId, opt => opt.MapFrom(src => src.Stock.StockTypeId))
                 .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Price));
+
+            CreateMap<RegisterInStock, StockGetRegisterHistoryReportModel>()
+                .ForMember(dest => dest.RegisterType, opt => opt.MapFrom(src => "Aquisição"))
+                .ForMember(dest => dest.RegisterApplyDate, opt => opt.MapFrom(src => src.RegisterIn.ApplyDate.Value))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.RegisterIn.Id))
+                .ForMember(dest => dest.Quantity, opt => opt.MapFrom(src => src.Quantity))
+                .ForMember(dest => dest.RegisterNumber, opt => opt.MapFrom(src => src.RegisterIn.Number));
         }
 
         private void RegisterInMappings()
