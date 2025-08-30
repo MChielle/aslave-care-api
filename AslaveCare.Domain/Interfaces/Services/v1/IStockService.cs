@@ -27,5 +27,8 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> DecreaseStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks);
 
         Task<IResponseBase> IncreaseStockQuantity(List<RegisterInStockPatchModel> registerInStocks);
+
+        Task<IResponseBase> RevertStockQuantity(List<RegisterInStockPatchModel> registerInStocks);
+        Task<IResponseBase> RevertStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks);
     }
 }

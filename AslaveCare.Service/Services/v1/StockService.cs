@@ -93,5 +93,33 @@ namespace AslaveCare.Service.Services.v1
             if (entities == null) return new NoContentResponse();
             return new OkResponse<IEnumerable<StockGetRestockReportModel>>(Mapper.Map<IEnumerable<StockGetRestockReportModel>>(entities));
         }
+
+        public async Task<IResponseBase> RevertStockQuantity(List<RegisterInStockPatchModel> registerInStocks)
+        {
+            foreach (var stockToUpdate in registerInStocks)
+            {
+                var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
+
+                stock.Quantity -= stockToUpdate.Quantity;
+
+                await _repository.UpdateAsync(stock);
+            }
+
+            return new OkResponse<bool>(true);
+        }
+
+        public async Task<IResponseBase> RevertStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks)
+        {
+            foreach (var stockToUpdate in registerOutStocks)
+            {
+                var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
+
+                stock.Quantity += stockToUpdate.Quantity;
+
+                await _repository.UpdateAsync(stock);
+            }
+
+            return new OkResponse<bool>(true);
+        }
     }
 }
