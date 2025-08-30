@@ -1,8 +1,6 @@
 ﻿using AslaveCare.Api.Configurations;
 using AslaveCare.Api.Filters;
 using AslaveCare.Domain.Configurations;
-using AslaveCare.Domain.Constants;
-using AslaveCare.Domain.Extensions;
 using AslaveCare.Domain.Helpers;
 using AslaveCare.Integration.Amazon.S3.Configurations;
 using AslaveCare.Integration.Amazon.S3.Interfaces;
@@ -31,6 +29,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
@@ -88,7 +87,7 @@ namespace AslaveCare.Api.Helpers
             return Task.CompletedTask;
         }
 
-        internal static void ConfigureRedis(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureRedis(IServiceCollection services)
         {
             var redisContainerIP = System.Environment.GetEnvironmentVariable("REDIS_CONTAINER_HOST");
             if (string.IsNullOrEmpty(redisContainerIP))
@@ -102,8 +101,6 @@ namespace AslaveCare.Api.Helpers
 
             IConnectionMultiplexer redis = ConnectionMultiplexer.Connect(options);
             services.AddScoped(x => redis.GetDatabase());
-
-            _logger.LogInformation(string.Concat("Configure Redis".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
         internal static void UseSwagger(IApplicationBuilder app)
@@ -115,11 +112,11 @@ namespace AslaveCare.Api.Helpers
             });
         }
 
-        internal static void ConfigureSwagger(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureSwagger(IServiceCollection services)
         {
             services.AddSwaggerGen(c =>
             {
-                var title = $"LAR - ILPI Software ({EnvironmentHelper.GetShortEnvironmentName()})";
+                var title = $"LAR - ILPI Software ({BuildEnvironment.GetShortEnvironmentName()})";
                 var description = "API REST made with .NET C#";
                 var contact = new OpenApiContact
                 {
@@ -169,11 +166,9 @@ namespace AslaveCare.Api.Helpers
                 var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
             });
-
-            _logger.LogInformation(string.Concat("Configure Swagger".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureSignalR(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureSignalR(IServiceCollection services)
         {
             services.AddSignalR(hubOpts =>
             {
@@ -183,11 +178,9 @@ namespace AslaveCare.Api.Helpers
                 hubOpts.EnableDetailedErrors = true;
 #endif
             });
-
-            _logger.LogInformation(string.Concat("Configure SignalR".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureNewtonsoft(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureNewtonsoft(IServiceCollection services)
         {
             services.AddMvc(c => c.Conventions.Add(new ApiVersionConvention()))
                     .AddNewtonsoftJson(option =>
@@ -197,11 +190,9 @@ namespace AslaveCare.Api.Helpers
                         option.SerializerSettings.DateFormatString = "yyyy-MM-dd'T'HH:mm:ss'Z'";
                         option.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                     });
-
-            _logger.LogInformation(string.Concat("Configure Newtonsoft".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureAutoMapper(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureAutoMapper(IServiceCollection services)
         {
             var mappingConfig = new MapperConfiguration(config =>
             {
@@ -210,11 +201,9 @@ namespace AslaveCare.Api.Helpers
             });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
-
-            _logger.LogInformation(string.Concat("Configure AutoMapper".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureAuthorization(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureAuthorization(IServiceCollection services)
         {
             // Ativa o uso do token como forma de autorizar o acesso a recursos deste projeto
             services.AddAuthorization(auth =>
@@ -223,21 +212,22 @@ namespace AslaveCare.Api.Helpers
                     .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
                     .RequireAuthenticatedUser().Build());
             });
-            _logger.LogInformation(string.Concat("Configure Authorization".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureAuthentication(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureAuthentication(IServiceCollection services, IConfiguration configuration)
         {
-            var signingConfigurations = new SigningConfigurations(_logger);
+            RSACipherHelper.SetHash(configuration);
+
+            var signingConfigurations = new SigningConfigurations(configuration);
 
             services.AddSingleton(signingConfigurations);
 
             var tokenConfigurations = new TokenConfigurations()
             {
-                Issuer = System.Environment.GetEnvironmentVariable("ISSUER_TOKEN"),
-                Audience = System.Environment.GetEnvironmentVariable("AUDIENCE_TOKEN"),
-                AccessTokenValidity = int.Parse(System.Environment.GetEnvironmentVariable("ACCESS_TOKEN_VALIDITY")),
-                RefreshTokenValidity = int.Parse(System.Environment.GetEnvironmentVariable("REFRESH_TOKEN_VALIDITY"))
+                Issuer = configuration.GetValue<string>("ISSUER_TOKEN"),
+                Audience = configuration.GetValue<string>("AUDIENCE_TOKEN"),
+                AccessTokenValidity = int.Parse(configuration.GetValue<string>("ACCESS_TOKEN_VALIDITY")),
+                RefreshTokenValidity = int.Parse(configuration.GetValue<string>("REFRESH_TOKEN_VALIDITY"))
             };
 
             services.AddSingleton(tokenConfigurations);
@@ -263,11 +253,9 @@ namespace AslaveCare.Api.Helpers
                     OnMessageReceived = context => HandleOnMessageReceived(context)
                 };
             });
-
-            _logger.LogInformation(string.Concat("Configure Authentication".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureMvcAndFluentValidation(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureMvcAndFluentValidation(IServiceCollection services)
         {
             services.AddMvc(options =>
             {
@@ -280,16 +268,14 @@ namespace AslaveCare.Api.Helpers
                 option.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             })
             .AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
-
-            _logger.LogInformation(string.Concat("Configure Mvc and Fluent Validation".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureHttpSms(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureHttpSms(IServiceCollection services, IConfiguration configuration)
         {
             var PhoneGateways = new Dictionary<string, string>();
             foreach (var countryId in Enum.GetNames<CountryType>())
             {
-                PhoneGateways.Add(countryId, Environment.GetEnvironmentVariable($"HTTP_SMS_GATEWAY_PHONE_NUMBER_{countryId}"));
+                PhoneGateways.Add(countryId, configuration.GetValue<string>($"HTTP_SMS_GATEWAY_PHONE_NUMBER_{countryId}"));
             }
 
             var httpSmsConfiguration = new HttpSmsConfiguration
@@ -301,97 +287,88 @@ namespace AslaveCare.Api.Helpers
 
             services.AddSingleton(httpSmsConfiguration);
             services.AddSingleton<IHttpSmsService, HttpSmsService>();
-
-            _logger.LogInformation(string.Concat("Configure HTTP SMS Integration".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureDevino(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureDevino(IServiceCollection services, IConfiguration configuration)
         {
             var devinoConfiguration = new DevinoConfiguration
                 (
-                    Environment.GetEnvironmentVariable("SMS_DEVINO_BASE_URL"),
-                    Environment.GetEnvironmentVariable("SMS_DEVINO_KEY"),
-                    Environment.GetEnvironmentVariable("APPLICATION_NAME")
+                    configuration.GetValue<string>("SMS_DEVINO_BASE_URL"),
+                    configuration.GetValue<string>("SMS_DEVINO_KEY"),
+                    configuration.GetValue<string>("APPLICATION_NAME")
 
                 );
 
             services.AddSingleton(devinoConfiguration);
             services.AddSingleton<IDevinoService, DevinoService>();
-
-            _logger.LogInformation(string.Concat("Configure Devino Integration".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureSmsDev(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureSmsDev(IServiceCollection services, IConfiguration configuration)
         {
             var smsDevConfiguration = new SmsDevConfiguration
                 (
-                    Environment.GetEnvironmentVariable("SMS_DEV_BASE_URL"),
-                    Environment.GetEnvironmentVariable("SMS_DEV_KEY")
+                    configuration.GetValue<string>("SMS_DEV_BASE_URL"),
+                    configuration.GetValue<string>("SMS_DEV_KEY")
                 );
 
             services.AddSingleton(smsDevConfiguration);
             services.AddSingleton<ISmsDevService, SmsDevService>();
-            _logger.LogInformation(string.Concat("Configure SmsDev Integration".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureIntegrationProviders(ILogger _logger)
+        internal static void ConfigureIntegrationProviders(IConfiguration configuration)
         {
-            IntegrationConfiguration.SmsProvider = Environment.GetEnvironmentVariable("SMS_SERVICE_PROVIDER");
-            _logger.LogInformation(string.Concat("Configure Integration Providers".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
+            IntegrationConfiguration.SmsProvider = configuration.GetValue<string>("SMS_SERVICE_PROVIDER");
         }
 
-        internal static void ConfigureFirebase(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureFirebase(IServiceCollection services, IConfiguration configuration)
         {
             FirebaseApp.Create(new AppOptions
             {
                 Credential = GoogleCredential.FromJson(JsonConvert.SerializeObject(new
                 {
-                    type = Environment.GetEnvironmentVariable("FIREBASE_TYPE"),
-                    project_id = Environment.GetEnvironmentVariable("FIREBASE_PROJECT_ID"),
-                    private_key_id = Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY_ID"),
-                    private_key = Environment.GetEnvironmentVariable("FIREBASE_PRIVATE_KEY"),
-                    client_email = Environment.GetEnvironmentVariable("FIREBASE_CLIENT_EMAIL"),
-                    client_id = Environment.GetEnvironmentVariable("FIREBASE_CLIENT_ID"),
-                    auth_uri = Environment.GetEnvironmentVariable("FIREBASE_AUTH_URI"),
-                    token_uri = Environment.GetEnvironmentVariable("FIREBASE_TOKEN_URI"),
-                    auth_provider_x509_cert_url = Environment.GetEnvironmentVariable("FIREBASE_AUTH_PROVIDER_X509_CERT_URL"),
-                    client_x509_cert_url = Environment.GetEnvironmentVariable("FIREBASE_CLIENT_X509_CERT_URL")
+                    type = configuration.GetValue<string>("FIREBASE_TYPE"),
+                    project_id = configuration.GetValue<string>("FIREBASE_PROJECT_ID"),
+                    private_key_id = configuration.GetValue<string>("FIREBASE_PRIVATE_KEY_ID"),
+                    private_key = configuration.GetValue<string>("FIREBASE_PRIVATE_KEY"),
+                    client_email = configuration.GetValue<string>("FIREBASE_CLIENT_EMAIL"),
+                    client_id = configuration.GetValue<string>("FIREBASE_CLIENT_ID"),
+                    auth_uri = configuration.GetValue<string>("FIREBASE_AUTH_URI"),
+                    token_uri = configuration.GetValue<string>("FIREBASE_TOKEN_URI"),
+                    auth_provider_x509_cert_url = configuration.GetValue<string>("FIREBASE_AUTH_PROVIDER_X509_CERT_URL"),
+                    client_x509_cert_url = configuration.GetValue<string>("FIREBASE_CLIENT_X509_CERT_URL")
                 }))
             });
             services.AddSingleton<IFirebaseService, FirebaseService>();
-            _logger.LogInformation(string.Concat("Configure Integration Firebase".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureAmazonS3(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureAmazonS3(IServiceCollection services, IConfiguration configuration)
         {
             var s3Configuration = new S3Configuration(
-                    Environment.GetEnvironmentVariable("AWS_ID"),
-                    Environment.GetEnvironmentVariable("AWS_SECRET"),
-                    Environment.GetEnvironmentVariable("AWS_BUCKET"),
-                    Environment.GetEnvironmentVariable("AWS_BUCKET_IMAGE"),
-                    Environment.GetEnvironmentVariable("AWS_BUCKET_IMAGE_LOGO"),
-                    Environment.GetEnvironmentVariable("AWS_BUCKET_IMAGE_PHOTO"),
-                    Environment.GetEnvironmentVariable("AWS_BUCKET_IMAGE_GALLERY"),
-                    Environment.GetEnvironmentVariable("AWS_REGION")
+            configuration.GetValue<string>("AWS_ID"),
+            configuration.GetValue<string>("AWS_SECRET"),
+            configuration.GetValue<string>("AWS_BUCKET"),
+            configuration.GetValue<string>("AWS_BUCKET_IMAGE"),
+            configuration.GetValue<string>("AWS_BUCKET_IMAGE_LOGO"),
+            configuration.GetValue<string>("AWS_BUCKET_IMAGE_PHOTO"),
+            configuration.GetValue<string>("AWS_BUCKET_IMAGE_GALLERY"),
+            configuration.GetValue<string>("AWS_REGION")
                 );
 
             services.AddSingleton(s3Configuration);
             services.AddSingleton<IS3FileService, S3FileService>();
-            _logger.LogInformation(string.Concat("Configure Integration Amazon S3".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureGoogleOAuth2(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureGoogleOAuth2(IServiceCollection services, IConfiguration configuration)
         {
             var googleOAuth2Configuration = new GoogleOAuth2Configuration(
-                    Environment.GetEnvironmentVariable("GOOGLE_OAUTH2_BASE_URL")
+                    configuration.GetValue<string>("GOOGLE_OAUTH2_BASE_URL")
                 );
 
             services.AddSingleton(googleOAuth2Configuration);
             services.AddSingleton<IGoogleOAuth2Service, GoogleOAuth2Service>();
-            _logger.LogInformation(string.Concat("Configure Integration Google OAuth2".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
 
-        internal static void ConfigureOpenTelemetry(IServiceCollection services, ILogger _logger)
+        internal static void ConfigureOpenTelemetry(IServiceCollection services)
         {
             services.AddOpenTelemetry()
                 .WithTracing(builder =>
@@ -409,8 +386,6 @@ namespace AslaveCare.Api.Helpers
                     .AddHttpClientInstrumentation()
                     .AddOtlpExporter();
                 });
-
-            _logger.LogInformation(string.Concat("Configure OpenTelemetry".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
         }
     }
 }

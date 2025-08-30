@@ -1,6 +1,7 @@
 ﻿using AslaveCare.Domain.Entities;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
+using AslaveCare.Domain.Models.v1.RegisterIn;
 using AslaveCare.Domain.Models.v1.RegisterOut;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
@@ -31,8 +32,9 @@ namespace AslaveCare.Service.Services.v1
         public override async Task<IResponseBase> AddAsync(RegisterOutAddModel model)
         {
             var response = await base.AddAsync(model);
-            if (model.Apply)
-                await _stockService.UpdateStockQuantity(model.RegisterOutStocks, model.Apply);
+
+            if (response.IsSuccess && model.Apply)
+                await _stockService.DecreaseStockQuantity(model.RegisterOutStocks);
 
             return response;
         }
@@ -41,9 +43,11 @@ namespace AslaveCare.Service.Services.v1
         {
             var response = await base.UpdateAsync(model);
 
-            await _registerOutStockService.AddOrDeleteAsync(model.Id, model.RegisterOutStocks);
+            if(response.IsSuccess)
+                response = await _registerOutStockService.AddOrDeleteAsync(model.Id, model.RegisterOutStocks);
 
-            await _stockService.UpdateStockQuantity(model.RegisterOutStocks, model.Apply);
+            if(response.IsSuccess && model.Apply)
+                await _stockService.DecreaseStockQuantity(model.RegisterOutStocks);
 
             return response;
         }
@@ -84,6 +88,25 @@ namespace AslaveCare.Service.Services.v1
             var entities = await _repository.GetByIdToUpdateAsync(id, cancellation);
             if (entities == null) return new NoContentResponse();
             return new OkResponse<RegisterOutGetModel>(Mapper.Map<RegisterOutGetModel>(entities));
+        }
+
+        public async Task<IResponseBase> RevertApplyAsync(Guid id, RegisterOutPatchModel registerOutModel, CancellationToken cancellation)
+        {
+            var exist = await _repository.CheckRegisterOutAsync(id, cancellation);
+            if (!exist) return new NoContentResponse();
+
+            var response = await _stockService.RevertStockQuantity(registerOutModel.RegisterOutStocks);
+
+            if (response.IsSuccess)
+            {
+                var registerOut = Mapper.Map<RegisterOut>(registerOutModel);
+                registerOut.Apply = false;
+                registerOut.ApplyDate = null;
+                await _repository.UpdateAsync(registerOut);
+                return new OkResponse<bool>(true);
+            }
+
+            return new BadRequestResponse("Não foi possível reverter o registro.", false);
         }
     }
 }

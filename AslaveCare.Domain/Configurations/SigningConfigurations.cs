@@ -1,8 +1,5 @@
-﻿using AslaveCare.Domain.Constants;
-using AslaveCare.Domain.Extensions;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
 using System.Text;
 
 namespace AslaveCare.Domain.Configurations
@@ -13,22 +10,13 @@ namespace AslaveCare.Domain.Configurations
         public SecurityKey Key { get; }
         public SigningCredentials SigningCredentials { get; }
 
-        public SigningConfigurations(ILogger _logger)
+        public SigningConfigurations(IConfiguration configuration)
         {
-            try
-            {
-                KeyContent = System.Environment.GetEnvironmentVariable("JWT_SECRET");
-                Key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KeyContent));
+            KeyContent = configuration.GetValue<string>("JWT_SECRET");
+            Key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KeyContent));
 
-                SigningCredentials = new SigningCredentials(
-                    Key, SecurityAlgorithms.HmacSha256Signature);
-
-                _logger.LogInformation(string.Concat("Loading JWT Secret".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException(ex.Message);
-            }
+            SigningCredentials = new SigningCredentials(
+                Key, SecurityAlgorithms.HmacSha256Signature);
         }
     }
 }

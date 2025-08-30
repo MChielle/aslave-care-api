@@ -117,25 +117,12 @@ namespace AslaveCare.Integration.Amazon.S3.Services
 
         private string GetUploadedFileFullPath(string fullPath)
         {
-            return string.Concat($"https://{GetEnvironmentFromRule()}-utizie-files.s3.{_s3Configuration.RegionEndpoint.SystemName}.amazonaws.com", "/", fullPath);
+            return string.Concat($"https://{BuildEnvironment.GetShortEnvironmentName()}-utizie-files.s3.{_s3Configuration.RegionEndpoint.SystemName}.amazonaws.com", "/", fullPath);
         }
 
         private string GetBucketEnvironmentName()
         {
-            return string.Concat(GetEnvironmentFromRule(), "-", _s3Configuration.BucketName);
-        }
-
-        private string GetEnvironmentFromRule()
-        {
-            switch (EnvironmentHelper.Environment)
-            {
-                case EnvironmentType.Production:
-                case EnvironmentType.Homologation:
-                    return EnvironmentHelper.Environment.GetDescription().ToLower();
-
-                default:
-                    return EnvironmentType.Development.GetDescription().ToLower();
-            }
+            return string.Concat(BuildEnvironment.GetShortEnvironmentName(), "-", _s3Configuration.BucketName);
         }
 
         private string GetBucketFilePath(FileType s3FileType, ImageFileType imageFileType)

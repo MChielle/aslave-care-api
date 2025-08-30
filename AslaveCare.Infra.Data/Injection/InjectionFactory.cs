@@ -1,9 +1,7 @@
-﻿using AslaveCare.Domain.Constants;
-using AslaveCare.Domain.Extensions;
+﻿using AslaveCare.Domain.Helpers;
 using AslaveCare.Domain.Interfaces.Repositories.v1;
 using AslaveCare.Domain.Interfaces.Services.v1;
 using AslaveCare.Domain.Interfaces.Services.v1.Authentication;
-using AslaveCare.Domain.Interfaces.Services.v1.Notification;
 using AslaveCare.Infra.Data.Context;
 using AslaveCare.Infra.Data.Context.RepositoryContext;
 using AslaveCare.Infra.Data.Repositories;
@@ -14,12 +12,10 @@ using AslaveCare.Service.ServiceContext;
 using AslaveCare.Service.Services;
 using AslaveCare.Service.Services.v1;
 using AslaveCare.Service.Services.v1.Authentication;
-using AslaveCare.Service.Services.v1.Notification;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Linq;
 
@@ -29,49 +25,42 @@ namespace AslaveCare.Infra.Data.Injection
     {
         private static IServiceCollection _services;
 
-        private static EnvironmentType _environmentType;
-
         private static IConfiguration _configuration;
 
-        private static ILogger _logger;
-
-        public static void Build(IServiceCollection services, IConfiguration configuration, EnvironmentType environment, ILogger logger)
+        public static void Build(IServiceCollection services, IConfiguration configuration)
         {
             _services = services;
             _configuration = configuration;
-            _environmentType = environment;
-            _logger = logger;
 
-            ConfigureDbContext();
+            if (!BuildEnvironment.IsTest())
+                ConfigureDbContext();
+
+            if(BuildEnvironment.IsProduction())
+                EnsureMigrationsApplied();
+
             LoadServicesAndRepositories();
-            EnsureMigrationsApplied();
         }
 
         private static void ConfigureDbContext()
         {
-            if (_environmentType != EnvironmentType.Test)
-            {
 #if DEBUG
-                var _connectionString = _configuration.GetConnectionString("DefaultConnection");
+            var _connectionString = _configuration.GetConnectionString("DefaultConnection");
 #else
                 var _connectionString = _configuration.GetValue<string>("DEFAULT_CONNECTION");
 #endif
-                _logger.LogInformation(string.Concat($"Configure Connection String (ConfigureDbContext)".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), (string.IsNullOrEmpty(_connectionString) ? "ERROR" : "Executed")));
-
-                _services.AddDbContext<BaseContext>(options =>
-                    options.UseNpgsql(
-                    _connectionString,
-                    postgresOptionsAction =>
-                    {
-                        postgresOptionsAction.EnableRetryOnFailure(maxRetryCount: 5,
-                            maxRetryDelay: TimeSpan.FromSeconds(15),
-                            errorCodesToAdd: null);
+            _services.AddDbContext<BaseContext>(options =>
+                options.UseNpgsql(
+                _connectionString,
+                postgresOptionsAction =>
+                {
+                    postgresOptionsAction.EnableRetryOnFailure(maxRetryCount: 5,
+                        maxRetryDelay: TimeSpan.FromSeconds(15),
+                        errorCodesToAdd: null);
 #if DEBUG
-                        options.EnableSensitiveDataLogging();
+                    options.EnableSensitiveDataLogging();
 #endif
-                    }
-                ));
-            }
+                }
+            ));
         }
 
         public BaseContext CreateDbContext(string[] args)
@@ -82,8 +71,6 @@ namespace AslaveCare.Infra.Data.Injection
 #else
             var _connectionString = _configuration.GetValue<string>("DEFAULT_CONNECTION");
 #endif
-            _logger.LogInformation(string.Concat($"Configure Connection String (CreateDbContext)".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), (string.IsNullOrEmpty(_connectionString) ? "ERROR" : "Executed")));
-
             var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
             optionsBuilder.UseNpgsql(
                 _connectionString += "CommandTimeout=600;",
@@ -110,7 +97,7 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IUserService, UserService>();
             _services.AddScoped<IManagerService, ManagerService>();
             _services.AddScoped<IEmployeeService, EmployeeService>();
-            _services.AddScoped<INotificationService, NotificationService>();
+            //_services.AddScoped<INotificationService, NotificationService>();
             _services.AddScoped<IUserValidationService, UserValidationService>();
             _services.AddScoped<IRoleService, RoleService>();
             _services.AddScoped<ISupplierService, SupplierService>();
@@ -121,8 +108,6 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IRegisterOutStockService, RegisterOutStockService>();
             _services.AddScoped<IStockTypeService, StockTypeService>();
             _services.AddScoped<ITaskNoteService, TaskNoteService>();
-
-            _logger.LogInformation(string.Concat($"Configure Injection Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
             #endregion services
 
@@ -135,8 +120,6 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IS3FileService, S3FileService>();
             _services.AddScoped<IServiceContext, ServiceContext>();
             _services.AddScoped<IReportService, ReportService>();
-
-            _logger.LogInformation(string.Concat($"Configure Injection Other Services".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
             #endregion other services
 
@@ -156,8 +139,6 @@ namespace AslaveCare.Infra.Data.Injection
             _services.AddScoped<IRegisterOutStockRepository, RegisterOutStockRepository>();
             _services.AddScoped<IStockTypeRepository, StockTypeRepository>();
             _services.AddScoped<ITaskNoteRepository, TaskNoteRepository>();
-
-            _logger.LogInformation(string.Concat($"Configure Injection Repositories".Fill('.', ConstantsGeneral.DEFAULT_FILL_LENGHT), "Executed"));
 
             #endregion Repositories
         }

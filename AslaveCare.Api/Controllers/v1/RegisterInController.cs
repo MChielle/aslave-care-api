@@ -84,5 +84,23 @@ namespace AslaveCare.Api.Controllers.v1
         {
             return await _service.GetShoppingPerMonth(cancellation);
         }
+
+        /// <summary>
+        /// [Authenticated] RegisterIn Controller route to revert Apply.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="registerIn"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpPost("{id}/revert-apply")]
+        [ProducesResponseType(typeof(OkResponse<bool>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> RevertApplyAsync([FromRoute] Guid id, [FromBody] RegisterInPatchModel registerIn, CancellationToken cancellation)
+        {
+            return await _service.RevertApplyAsync(id, registerIn, cancellation);
+        }
     }
 }

@@ -52,14 +52,13 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<StocksQuantityWarningModel>(new StocksQuantityWarningModel(totalStocksQuantityWarning));
         }
 
-        public async Task<IResponseBase> UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply)
+        public async Task<IResponseBase> IncreaseStockQuantity(List<RegisterInStockPatchModel> registerInStocks)
         {
             foreach (var stockToUpdate in registerInStocks)
             {
                 var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
 
-                if (apply)
-                    stock.Quantity += stockToUpdate.Quantity;
+                stock.Quantity += stockToUpdate.Quantity;
 
                 await _repository.UpdateAsync(stock);
             }
@@ -67,14 +66,13 @@ namespace AslaveCare.Service.Services.v1
             return new OkResponse<bool>(true);
         }
 
-        public async Task<IResponseBase> UpdateStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks, bool apply)
+        public async Task<IResponseBase> DecreaseStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks)
         {
             foreach (var stockToUpdate in registerOutStocks)
             {
                 var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
 
-                if (apply)
-                    stock.Quantity -= stockToUpdate.Quantity;
+                stock.Quantity -= stockToUpdate.Quantity;
 
                 await _repository.UpdateAsync(stock);
             }
@@ -94,6 +92,34 @@ namespace AslaveCare.Service.Services.v1
             var entities = await _repository.GetStockReportAsync(cancellation);
             if (entities == null) return new NoContentResponse();
             return new OkResponse<IEnumerable<StockGetRestockReportModel>>(Mapper.Map<IEnumerable<StockGetRestockReportModel>>(entities));
+        }
+
+        public async Task<IResponseBase> RevertStockQuantity(List<RegisterInStockPatchModel> registerInStocks)
+        {
+            foreach (var stockToUpdate in registerInStocks)
+            {
+                var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
+
+                stock.Quantity -= stockToUpdate.Quantity;
+
+                await _repository.UpdateAsync(stock);
+            }
+
+            return new OkResponse<bool>(true);
+        }
+
+        public async Task<IResponseBase> RevertStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks)
+        {
+            foreach (var stockToUpdate in registerOutStocks)
+            {
+                var stock = await _repository.GetByIdAsync(stockToUpdate.StockId);
+
+                stock.Quantity += stockToUpdate.Quantity;
+
+                await _repository.UpdateAsync(stock);
+            }
+
+            return new OkResponse<bool>(true);
         }
     }
 }

@@ -17,16 +17,16 @@ namespace AslaveCare.Service.Services.v1.Authentication
     {
         private readonly IUserService _userService;
         private readonly IOAuthService _oAuthService;
-        private readonly INotificationService _notificationService;
+        //private readonly INotificationService _notificationService;
 
         public SignUpService(IServiceContext serviceContext,
             IOAuthService oAuthService,
-            INotificationService pushNotificationService,
+            //INotificationService pushNotificationService,
             IUserService userService)
         {
             _userService = userService;
             _oAuthService = oAuthService;
-            _notificationService = pushNotificationService;
+            //_notificationService = pushNotificationService;
         }
 
         public async Task<IResponseBase> SignUpEmailAsync(SignUpEmailModel signUpEmailModel, UserType userType)

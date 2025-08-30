@@ -112,5 +112,12 @@ namespace AslaveCare.Infra.Data.Repositories.v1
                 .Select(x => x.Number)
                 .FirstOrDefaultAsync();
         }
+
+        public async Task<bool> CheckRegisterInAsync(Guid id, CancellationToken cancellationToken)
+        {
+            return await _context.RegistersIn
+                .AsNoTracking()
+                .AnyAsync(x => x.Id.Equals(id));
+        }
     }
 }

@@ -28,6 +28,16 @@ namespace AslaveCare.Infra.Data.Constants
                 {
                     Id = Domain.Entities.Enums.StockType.Medicine.GetDescription(),
                     CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
+                },
+                new()
+                {
+                    Id = Domain.Entities.Enums.StockType.FruitsAndVegetables.GetDescription(),
+                    CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
+                },
+                new()
+                {
+                    Id = Domain.Entities.Enums.StockType.Protein.GetDescription(),
+                    CreationDate = ConstantSeeder.DEFAULT_SEED_DATETIME,
                 }
             };
     }

@@ -31,16 +31,16 @@ namespace AslaveCare.Service.Services.v1.Authentication
         private readonly IEmployeeService _employeeService;
         private readonly IOAuthService _oAuthService;
         private readonly IUserValidationService _userValidationService;
-        private readonly INotificationService _notificationService;
-        private readonly IGoogleOAuth2Service _googleOAuth2Service;
+        //private readonly INotificationService _notificationService;
+        //private readonly IGoogleOAuth2Service _googleOAuth2Service;
 
         public SignInService(IServiceContext serviceContext,
             IJwtService jwtService,
             IUserService userService,
             IOAuthService oAuthService,
             IUserValidationService userValidationService,
-            INotificationService pushNotificationService,
-            IGoogleOAuth2Service googleOAuth2Service,
+            //INotificationService pushNotificationService,
+            //IGoogleOAuth2Service googleOAuth2Service,
             IEmployeeService employeeService,
             IManagerService managerService)
         {
@@ -49,8 +49,8 @@ namespace AslaveCare.Service.Services.v1.Authentication
             _oAuthService = oAuthService;
             Mapper = serviceContext.Mapper;
             _userValidationService = userValidationService;
-            _notificationService = pushNotificationService;
-            _googleOAuth2Service = googleOAuth2Service;
+            //_notificationService = pushNotificationService;
+            //_googleOAuth2Service = googleOAuth2Service;
             _employeeService = employeeService;
             _managerService = managerService;
         }
@@ -84,7 +84,7 @@ namespace AslaveCare.Service.Services.v1.Authentication
             response = await _userValidationService.AddOrUpdateAsync(user.UserValidation);
             if (!response.IsSuccess) return new BadRequestResponse(ConstantMessages.CRUD_UPDATE_FAIL, response);
             var userValidation = ((OkResponse<UserValidationModel>)response).Data;
-            await _notificationService.SendForgotPasswordNotificationEmailAsync(user.Name, user.Email, userValidation.EmailConfirmationCode);
+            //await _notificationService.SendForgotPasswordNotificationEmailAsync(user.Name, user.Email, userValidation.EmailConfirmationCode);
             return new OkResponse<object>(null);
         }
 
@@ -102,7 +102,7 @@ namespace AslaveCare.Service.Services.v1.Authentication
             user.LastChangeDate = DateTime.UtcNow;
             response = await _userValidationService.AddOrUpdateAsync(user.UserValidation);
             if (!response.IsSuccess) return response;
-            await _notificationService.SendConfirmationCodeSuccessNotificationEmail(user.Name, user.Email, user.UserValidation.EmailConfirmationCode);
+            //await _notificationService.SendConfirmationCodeSuccessNotificationEmail(user.Name, user.Email, user.UserValidation.EmailConfirmationCode);
             var authentication = await _oAuthService.CreateRecoverPasswordAuthenticationEmailAsync(user, TimeSpan.FromMinutes(5).TotalSeconds);
             return new OkResponse<SignInRecoverPasswordAuthenticationModel>(authentication);
         }
@@ -187,24 +187,24 @@ namespace AslaveCare.Service.Services.v1.Authentication
             response = await _userValidationService.AddOrUpdateAsync(user.UserValidation);
             if (!response.IsSuccess) return new BadRequestResponse(ConstantMessages.CRUD_UPDATE_FAIL, response);
             var userValidation = ((OkResponse<UserValidationModel>)response).Data;
-            await _notificationService.SendValidationCodeNotificationEmailAsync(user.Name, user.Email, userValidation.EmailConfirmationCode);
+            //await _notificationService.SendValidationCodeNotificationEmailAsync(user.Name, user.Email, userValidation.EmailConfirmationCode);
             return new OkResponse<bool>(true);
         }
 
-        public async Task<IResponseBase> SignInSignUpSocialMediaAsync(SignInSocialMediaModel signInSocialMediaModel)
-        {
-            switch (signInSocialMediaModel.SocialMediaType)
-            {
-                case AslaveCare.Domain.Enums.SocialMediaType.Google:
-                    return await SignInSignUpGoogle(signInSocialMediaModel);
+        //public async Task<IResponseBase> SignInSignUpSocialMediaAsync(SignInSocialMediaModel signInSocialMediaModel)
+        //{
+        //    switch (signInSocialMediaModel.SocialMediaType)
+        //    {
+        //        case AslaveCare.Domain.Enums.SocialMediaType.Google:
+        //            return await SignInSignUpGoogle(signInSocialMediaModel);
 
-                case AslaveCare.Domain.Enums.SocialMediaType.Apple:
-                    return await SignInSignUpApple(signInSocialMediaModel);
+        //        case AslaveCare.Domain.Enums.SocialMediaType.Apple:
+        //            return await SignInSignUpApple(signInSocialMediaModel);
 
-                default:
-                    return new UnauthorizedResponse();
-            }
-        }
+        //        default:
+        //            return new UnauthorizedResponse();
+        //    }
+        //}
 
         //TODO ver se é possivel mover gravação de usar para o contexto de customer.
         private async Task<IResponseBase> SignInSignUpApple(SignInSocialMediaModel signInSocialMediaModel)
@@ -255,51 +255,51 @@ namespace AslaveCare.Service.Services.v1.Authentication
         }
 
         //TODO ver se é possivel mover gravação de usar para o contexto de customer.
-        private async Task<IResponseBase> SignInSignUpGoogle(SignInSocialMediaModel signInSocialMediaModel)
-        {
-            UserModel user = null;
-            var response = await _googleOAuth2Service.ValidateGoogleTokenAuthentication(signInSocialMediaModel.SocialMediaToken);
+        //private async Task<IResponseBase> SignInSignUpGoogle(SignInSocialMediaModel signInSocialMediaModel)
+        //{
+        //    UserModel user = null;
+        //    var response = await _googleOAuth2Service.ValidateGoogleTokenAuthentication(signInSocialMediaModel.SocialMediaToken);
 
-            if (!response.IsSuccess) return new UnauthorizedResponse();
+        //    if (!response.IsSuccess) return new UnauthorizedResponse();
 
-            var googleTokenValitation = (GoogleOkResponse)response;
+        //    var googleTokenValitation = (GoogleOkResponse)response;
 
-            response = await _userService.GetByEmailAsync(googleTokenValitation.email);
+        //    response = await _userService.GetByEmailAsync(googleTokenValitation.email);
 
-            if (!response.IsSuccess)
-            {
-                var newUser = new UserAddModel
-                {
-                    Email = googleTokenValitation.email,
-                    Password = googleTokenValitation.user_id,
-                    Name = signInSocialMediaModel.Name,
-                };
+        //    if (!response.IsSuccess)
+        //    {
+        //        var newUser = new UserAddModel
+        //        {
+        //            Email = googleTokenValitation.email,
+        //            Password = googleTokenValitation.user_id,
+        //            Name = signInSocialMediaModel.Name,
+        //        };
 
-                newUser.UserValidation = new UserValidationAddModel
-                {
-                    EmailValidated = true,
-                    CreationDate = DateTime.UtcNow
-                };
+        //        newUser.UserValidation = new UserValidationAddModel
+        //        {
+        //            EmailValidated = true,
+        //            CreationDate = DateTime.UtcNow
+        //        };
 
-                response = await _userService.AddUserWithRoleAsync(newUser, signInSocialMediaModel.UserType);
+        //        response = await _userService.AddUserWithRoleAsync(newUser, signInSocialMediaModel.UserType);
 
-                if (!response.IsSuccess) return new UnauthorizedResponse();
+        //        if (!response.IsSuccess) return new UnauthorizedResponse();
 
-                user = ((OkResponse<UserModel>)response).Data;
+        //        user = ((OkResponse<UserModel>)response).Data;
 
-                if (!response.IsSuccess) return new UnauthorizedResponse();
-            }
-            else
-            {
-                user = ((OkResponse<UserModel>)response).Data;
-            }
+        //        if (!response.IsSuccess) return new UnauthorizedResponse();
+        //    }
+        //    else
+        //    {
+        //        user = ((OkResponse<UserModel>)response).Data;
+        //    }
 
-            var authentication = await _oAuthService.CreateSignInAuthenticationEmailAsync(user);
-            await _userService.UpdateLastLoginAsync(user.Id);
-            authentication.User = Mapper.Map<UserSignInModel>(user);
+        //    var authentication = await _oAuthService.CreateSignInAuthenticationEmailAsync(user);
+        //    await _userService.UpdateLastLoginAsync(user.Id);
+        //    authentication.User = Mapper.Map<UserSignInModel>(user);
 
-            return new OkResponse<SignInAuthenticationModel>(authentication);
-        }
+        //    return new OkResponse<SignInAuthenticationModel>(authentication);
+        //}
 
         public async Task<IResponseBase> GetByTokenAsync(string jwtToken, CancellationToken cancellationToken)
         {

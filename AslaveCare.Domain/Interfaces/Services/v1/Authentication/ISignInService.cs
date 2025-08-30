@@ -23,7 +23,7 @@ namespace AslaveCare.Domain.Interfaces.Services.v1.Authentication
 
         Task<IResponseBase> ResendConfirmationCodeEmailAsync(string email);
 
-        Task<IResponseBase> SignInSignUpSocialMediaAsync(SignInSocialMediaModel signInSocialMediaModel);
+        //Task<IResponseBase> SignInSignUpSocialMediaAsync(SignInSocialMediaModel signInSocialMediaModel);
         Task<IResponseBase> GetByTokenAsync(string stringValues, CancellationToken cancellationToken);
         Task<IResponseBase> GetAnyToListAsync(CancellationToken cancellationToken);
     }
