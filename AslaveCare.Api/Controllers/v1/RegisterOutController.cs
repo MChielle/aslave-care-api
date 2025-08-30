@@ -1,5 +1,6 @@
 using AslaveCare.Api.Controllers.Base;
 using AslaveCare.Domain.Interfaces.Services.v1;
+using AslaveCare.Domain.Models.v1.RegisterIn;
 using AslaveCare.Domain.Models.v1.RegisterOut;
 using AslaveCare.Domain.Responses;
 using AslaveCare.Domain.Responses.Interfaces;
@@ -67,6 +68,24 @@ namespace AslaveCare.Api.Controllers.v1
         public async Task<IResponseBase> GetConsumptionsPerMonth(CancellationToken cancellation)
         {
             return await _service.GetConsumptionsPerMonth(cancellation);
+        }
+
+        /// <summary>
+        /// [Authenticated] RegisterOut Controller route to revert Apply.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="registerOut"></param>
+        /// <param name="cancellation"></param>
+        /// <returns></returns>
+        [HttpPost("{id}/revert-apply")]
+        [ProducesResponseType(typeof(OkResponse<bool>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(UnauthorizedResponse), (int)HttpStatusCode.Unauthorized)]
+        [ProducesResponseType(typeof(NoContentResponse), (int)HttpStatusCode.NoContent)]
+        [ProducesResponseType(typeof(BadRequestResponse), (int)HttpStatusCode.BadRequest)]
+        [ProducesResponseType(typeof(object), (int)HttpStatusCode.InternalServerError)]
+        public async Task<IResponseBase> RevertApplyAsync([FromRoute] Guid id, [FromBody] RegisterOutPatchModel registerOut, CancellationToken cancellation)
+        {
+            return await _service.RevertApplyAsync(id, registerOut, cancellation);
         }
     }
 }

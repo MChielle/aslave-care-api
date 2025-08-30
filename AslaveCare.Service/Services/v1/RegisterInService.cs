@@ -31,8 +31,9 @@ namespace AslaveCare.Service.Services.v1
         public override async Task<IResponseBase> AddAsync(RegisterInAddModel model)
         {
             var response = await base.AddAsync(model);
+
             if (response.IsSuccess && model.Apply)
-                response = await _stockService.UpdateStockQuantity(model.RegisterInStocks, model.Apply);
+                response = await _stockService.IncreaseStockQuantity(model.RegisterInStocks);
 
             return response;
         }
@@ -41,11 +42,11 @@ namespace AslaveCare.Service.Services.v1
         {
             var response = await base.UpdateAsync(model);
 
-            if(response.IsSuccess)
+            if (response.IsSuccess)
                 response = await _registerInStockService.AddOrDeleteAsync(model.Id, model.RegisterInStocks);
 
-            if(response.IsSuccess)
-                response = await _stockService.UpdateStockQuantity(model.RegisterInStocks, model.Apply);
+            if (response.IsSuccess && model.Apply)
+                response = await _stockService.IncreaseStockQuantity(model.RegisterInStocks);
 
             return response;
         }
@@ -84,7 +85,7 @@ namespace AslaveCare.Service.Services.v1
                 searchKey = searchKey.AddMonths(-1);
             }
 
-            if (result == null) return new NoContentResponse();
+            if (result.Count == 0) return new NoContentResponse();
             return new OkResponse<object>(result);
         }
 
@@ -108,8 +109,27 @@ namespace AslaveCare.Service.Services.v1
                 searchKey = searchKey.AddMonths(-1);
             }
 
-            if (result == null) return new NoContentResponse();
+            if (result.Count == 0) return new NoContentResponse();
             return new OkResponse<object>(result);
+        }
+
+        public async Task<IResponseBase> RevertApplyAsync(Guid id, RegisterInPatchModel registerInModel, CancellationToken cancellation)
+        {
+            var exist = await _repository.CheckRegisterInAsync(id, cancellation);
+            if (!exist) return new NoContentResponse();
+
+            var response = await _stockService.RevertStockQuantity(registerInModel.RegisterInStocks);
+
+            if(response.IsSuccess)
+            {
+                var registerIn = Mapper.Map<RegisterIn>(registerInModel);
+                registerIn.Apply = false;
+                registerIn.ApplyDate = null;
+                await _repository.UpdateAsync(registerIn);
+                return new OkResponse<bool>(true);
+            }
+
+            return new BadRequestResponse("Não foi possível reverter o registro.", false);
         }
     }
 }

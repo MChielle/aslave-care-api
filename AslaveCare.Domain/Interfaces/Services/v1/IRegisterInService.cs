@@ -16,5 +16,6 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> GetShoppingPerMonth(CancellationToken cancellation);
 
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
+        Task<IResponseBase> RevertApplyAsync(Guid id, RegisterInPatchModel registerIn, CancellationToken cancellation);
     }
 }

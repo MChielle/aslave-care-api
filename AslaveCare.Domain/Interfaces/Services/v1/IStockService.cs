@@ -15,14 +15,20 @@ namespace AslaveCare.Domain.Interfaces.Services.v1
         Task<IResponseBase> GetByParameters(StockGetByParametersModel parameters, CancellationToken cancellation = default);
 
         Task<IResponseBase> GetLowerStocks(int number, CancellationToken cancellation = default);
+
         Task<IResponseBase> GetRestockReportAsync(CancellationToken cancellation);
+
         Task<IResponseBase> GetStockReportAsync(CancellationToken cancellation);
+
         Task<IResponseBase> GetToListAsync(CancellationToken cancellation = default);
 
         Task<IResponseBase> GetTotalStocksQuantityWarning(CancellationToken cancellationToken);
 
-        Task<IResponseBase> UpdateStockQuantity(List<RegisterInStockPatchModel> registerInStocks, bool apply);
+        Task<IResponseBase> DecreaseStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks);
 
-        Task<IResponseBase> UpdateStockQuantity(List<RegisterOutStockPatchModel> registerInStocks, bool apply);
+        Task<IResponseBase> IncreaseStockQuantity(List<RegisterInStockPatchModel> registerInStocks);
+
+        Task<IResponseBase> RevertStockQuantity(List<RegisterInStockPatchModel> registerInStocks);
+        Task<IResponseBase> RevertStockQuantity(List<RegisterOutStockPatchModel> registerOutStocks);
     }
 }

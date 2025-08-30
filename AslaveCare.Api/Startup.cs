@@ -9,21 +9,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System;
 
 namespace AslaveCare.Api
 {
     public class Startup
     {
-        private readonly ILogger _logger;
-        public IConfiguration Configuration { get; }
-
-        public Startup(IConfiguration configuration, IWebHostEnvironment environment, ILogger<Startup> logger)
+        private readonly IConfiguration _configuration;
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
-            Configuration = configuration;
-            EnvironmentHelper.Environment = Enum.Parse<EnvironmentType>(environment.EnvironmentName);
-            _logger = logger;
+            _configuration = configuration;
         }
 
         public virtual void ConfigureServices(IServiceCollection services)
@@ -35,44 +30,40 @@ namespace AslaveCare.Api
                     c.RegisterValidatorsFromAssemblyContaining<Startup>();
                 });
 
-            services.AddFluentValidationRulesToSwagger();
+            if (!BuildEnvironment.IsTest()) services.AddFluentValidationRulesToSwagger();
 
-            InjectionFactory.Build(services, Configuration, EnvironmentHelper.Environment, _logger);
-
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-
-            services.Configure<AppSettings>(appSettingsSection);
+            InjectionFactory.Build(services, _configuration);
 
             services.AddMvcServices();
             services.AddAutoMapperServices();
 
-            StartupHelper.ConfigureAuthentication(services, _logger);
-            StartupHelper.ConfigureAuthorization(services, _logger);
+            StartupHelper.ConfigureAuthentication(services, _configuration);
+            StartupHelper.ConfigureAuthorization(services);
 
-            services.AddRedisCacheService();
+            if (!BuildEnvironment.IsTest()) services.AddRedisCacheService();
 
             //TODO: buscar outras soluções, independente de configuração de build sempre ocorre "Object reference not set to an instance of an object" durante a migration.
             //StartupHelper.ConfigureFirebase(services, _logger);
             //StartupHelper.ConfigureAmazonS3(services, _logger);
-            StartupHelper.ConfigureGoogleOAuth2(services, _logger);
 
-            StartupHelper.ConfigureIntegrationProviders(_logger);
-            StartupHelper.ConfigureHttpSms(services, _logger);
-            StartupHelper.ConfigureDevino(services, _logger);
-            StartupHelper.ConfigureSmsDev(services, _logger);
-
-            StartupHelper.ConfigureSwagger(services, _logger);
-
-            StartupHelper.ConfigureOpenTelemetry(services, _logger);
-
-            //services.ConfigureProblemDetailsModelState(_logger);
+            if (!BuildEnvironment.IsTest())
+            {
+                StartupHelper.ConfigureGoogleOAuth2(services, _configuration);
+                StartupHelper.ConfigureIntegrationProviders(_configuration);
+                StartupHelper.ConfigureHttpSms(services, _configuration);
+                StartupHelper.ConfigureDevino(services, _configuration);
+                StartupHelper.ConfigureSmsDev(services, _configuration);
+                StartupHelper.ConfigureSwagger(services);
+            }
+            
+            if(BuildEnvironment.IsProduction()) StartupHelper.ConfigureOpenTelemetry(services);
         }
 
-        public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseForwardedHeaders();
 
-            if (EnvironmentHelper.Environment != EnvironmentType.Production)
+            if (!BuildEnvironment.IsProduction() && !BuildEnvironment.IsTest())
             {
                 app.UseDeveloperExceptionPage();
                 StartupHelper.UseSwagger(app);
@@ -93,8 +84,6 @@ namespace AslaveCare.Api
             app.UseAuthorization();
 
             StartupHelper.ConfigureRewriter(app);
-
-            //app.UseProblemDetailsExceptionHandler(loggerFactory);
 
             app.UseEndpoints(endpoints =>
             {
