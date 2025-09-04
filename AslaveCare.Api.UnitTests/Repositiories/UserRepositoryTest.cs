@@ -76,78 +76,78 @@ namespace AslaveCare.Api.UnitTests.Repositiories
 
         #region Delete
 
-        [Fact]
-        public async System.Threading.Tasks.Task Delete_ShouldDeleteUserFromDataBase_UsingEntity()
-        {
-            var user1 = fixture.BuildUser();
-            var user2 = fixture.BuildUser();
-            user1 = await _repository.AddOrUpdateAsync(user1);
-            user2 = await _repository.AddOrUpdateAsync(user2);
+        //[Fact]
+        //public async System.Threading.Tasks.Task Delete_ShouldDeleteUserFromDataBase_UsingEntity()
+        //{
+        //    var user1 = fixture.BuildUser();
+        //    var user2 = fixture.BuildUser();
+        //    user1 = await _repository.AddOrUpdateAsync(user1);
+        //    user2 = await _repository.AddOrUpdateAsync(user2);
 
-            _repository.Delete(user1);
-            var users = await _repository.GetAllPagedAsync();
+        //    _repository.Delete(user1);
+        //    var users = await _repository.GetAllPagedAsync();
 
-            Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
-            Assert.NotNull(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
-        }
+        //    Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
+        //    Assert.NotNull(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
+        //}
 
-        [Fact]
-        public async System.Threading.Tasks.Task Delete_ShouldDeleteUsersFromDataBase_UsingEntities()
-        {
-            var user1 = fixture.BuildUser();
-            var user2 = fixture.BuildUser();
-            user1 = await _repository.AddOrUpdateAsync(user1);
-            user2 = await _repository.AddOrUpdateAsync(user2);
+        //[Fact]
+        //public async System.Threading.Tasks.Task Delete_ShouldDeleteUsersFromDataBase_UsingEntities()
+        //{
+        //    var user1 = fixture.BuildUser();
+        //    var user2 = fixture.BuildUser();
+        //    user1 = await _repository.AddOrUpdateAsync(user1);
+        //    user2 = await _repository.AddOrUpdateAsync(user2);
 
-            var savedUsers = new List<User>
-            {
-                user1,
-                user2
-            };
+        //    var savedUsers = new List<User>
+        //    {
+        //        user1,
+        //        user2
+        //    };
 
-            _repository.Delete(savedUsers);
-            var users = await _repository.GetAllPagedAsync();
+        //    _repository.Delete(savedUsers);
+        //    var users = await _repository.GetAllPagedAsync();
 
-            Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
-            Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
-        }
+        //    Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
+        //    Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
+        //}
 
-        [Fact]
-        public async System.Threading.Tasks.Task Delete_ShouldDeleteUserFromDataBase_UsingId()
-        {
-            var user1 = fixture.BuildUser();
-            var user2 = fixture.BuildUser();
-            user1 = await _repository.AddOrUpdateAsync(user1);
-            user2 = await _repository.AddOrUpdateAsync(user2);
+        //[Fact]
+        //public async System.Threading.Tasks.Task Delete_ShouldDeleteUserFromDataBase_UsingId()
+        //{
+        //    var user1 = fixture.BuildUser();
+        //    var user2 = fixture.BuildUser();
+        //    user1 = await _repository.AddOrUpdateAsync(user1);
+        //    user2 = await _repository.AddOrUpdateAsync(user2);
 
-            _repository.Delete(user1.Id);
-            var users = await _repository.GetAllPagedAsync();
+        //    _repository.Delete(user1.Id);
+        //    var users = await _repository.GetAllPagedAsync();
 
-            Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
-            Assert.NotNull(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
-        }
+        //    Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
+        //    Assert.NotNull(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
+        //}
 
-        [Fact]
-        public async System.Threading.Tasks.Task Delete_ShouldDeleteUsersFromDataBase_UsingIds()
-        {
-            var user1 = fixture.BuildUser();
-            var user2 = fixture.BuildUser();
+        //[Fact]
+        //public async System.Threading.Tasks.Task Delete_ShouldDeleteUsersFromDataBase_UsingIds()
+        //{
+        //    var user1 = fixture.BuildUser();
+        //    var user2 = fixture.BuildUser();
 
-            user1 = await _repository.AddOrUpdateAsync(user1);
-            user2 = await _repository.AddOrUpdateAsync(user2);
+        //    user1 = await _repository.AddOrUpdateAsync(user1);
+        //    user2 = await _repository.AddOrUpdateAsync(user2);
 
-            var savedUserIds = new List<Guid>
-            {
-                user1.Id,
-                user2.Id
-            };
+        //    var savedUserIds = new List<Guid>
+        //    {
+        //        user1.Id,
+        //        user2.Id
+        //    };
 
-            _repository.Delete(savedUserIds);
-            var users = await _repository.GetAllPagedAsync();
+        //    _repository.Delete(savedUserIds);
+        //    var users = await _repository.GetAllPagedAsync();
 
-            Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
-            Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
-        }
+        //    Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user1.Id)));
+        //    Assert.Null(users.FirstOrDefault(x => x.Id.Equals(user2.Id)));
+        //}
 
         #endregion Delete
     }

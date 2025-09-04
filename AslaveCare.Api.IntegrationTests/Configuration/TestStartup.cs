@@ -37,7 +37,7 @@ namespace AslaveCare.IntegrationTests.Configuration
             using (var scope = services.BuildServiceProvider().CreateScope())
             {
                 var context = scope.ServiceProvider.GetRequiredService<BaseContext>();
-                context.Database.Migrate();
+                context.Database.EnsureCreatedAsync();
                 TestDataSeeder.Seed(context).Wait();
             }
         }
