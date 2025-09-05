@@ -25,6 +25,6 @@ jobs:
     - name: Build
       run: dotnet build ./Aslave-Care-Api.sln --no-restore
     - name: Integration Tests
-      run: dotnet test ./AslaveCare.Integration.Test/AslaveCare.Integration.Test.csproj --no-build --verbosity normal
+      run: dotnet test ./AslaveCare.IntegrationTest/AslaveCare.IntegrationTest.csproj --no-build --verbosity normal
     - name: Unit Tests
-      run: dotnet test ./AslaveCare.Unit.Test/AslaveCare.Unit.Test.csproj --no-build --verbosity normal
+      run: dotnet test ./AslaveCare.UnitTest/AslaveCare.UnitTest.csproj --no-build --verbosity normal
