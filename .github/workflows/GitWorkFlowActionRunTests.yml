@@ -25,13 +25,13 @@ jobs:
     - name: Build
       run: dotnet build ./Aslave-Care-Api.sln --no-restore
     - name: Integration Tests
-      run: dotnet test ./AslaveCare.IntegrationTests/AslaveCare.IntegrationTests.csproj --no-build --verbosity normal --logger "trx;LogFileName=test-results/IntegrationTests.trx"
+      run: dotnet test ./AslaveCare.IntegrationTests/AslaveCare.IntegrationTests.csproj --no-build --verbosity normal --logger "trx;LogFileName=IntegrationTests.trx"
     - name: Unit Tests
-      run: dotnet test ./AslaveCare.UnitTests/AslaveCare.UnitTests.csproj --no-build --verbosity normal --logger "trx;LogFileName=test-results/UnitTests.trx"
+      run: dotnet test ./AslaveCare.UnitTests/AslaveCare.UnitTests.csproj --no-build --verbosity normal --logger "trx;LogFileName=UnitTests.trx"
     - name: Publish Test Results
       uses: EnricoMi/publish-unit-test-result-action@v2
       if: (!cancelled())
       with:
         files: |
-            ./AslaveCare.IntegrationTests/test-results/IntegrationTests.trx
-            ./AslaveCare.UnitTests/test-results/UnitTests.trx
+            ./AslaveCare.IntegrationTests/TestResults/IntegrationTests.trx
+            ./AslaveCare.UnitTests/TestResults/UnitTests.trx
