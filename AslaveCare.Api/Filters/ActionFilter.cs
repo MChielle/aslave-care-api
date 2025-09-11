@@ -14,9 +14,6 @@ namespace AslaveCare.Api.Filters
 {
     public class ActionFilter : IActionFilter, IAuthorizationFilter
     {
-        //private IJwtService _jwtService;
-        public bool IsTestEnvironment { get; }
-
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             var _jwtService = context.HttpContext.RequestServices.GetService<IJwtService>();
@@ -24,12 +21,9 @@ namespace AslaveCare.Api.Filters
             // Refresh_token
             if (context.HttpContext.Request.Headers.Any(x => x.Value.Equals("refresh_token")) && context.HttpContext.Request.Path.Value.Contains("refresh-token"))
                 return;
-            // Se forem os testes que estejam rodando ou
-            // Rotas que tenham o annotation AllowAnonymous
-            if (IsTestEnvironment || context.Filters.Any(item => item is IAllowAnonymousFilter))
-                return;
 
-            if (context.HttpContext.Request.Headers.Any(x => x.Value.Equals("cloud_watch_notification")))
+            // Rotas que tenham o annotation AllowAnonymous
+            if (context.Filters.Any(item => item is IAllowAnonymousFilter))
                 return;
 
             var token = context.HttpContext.Request.Headers["Authorization"].ToString();

@@ -54,15 +54,20 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.Integration", "A
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.Infra.Data", "AslaveCare.Infra.Data\AslaveCare.Infra.Data.csproj", "{A2C84A4D-1F44-3B18-582F-DEC583142946}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.IntegrationTests", "AslaveCare.Api.IntegrationTests\AslaveCare.IntegrationTests.csproj", "{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.UnitTests", "AslaveCare.Api.UnitTests\AslaveCare.UnitTests.csproj", "{DC876756-6E41-493D-D452-D9A1826CA3BB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Directory.Debug.props = Directory.Debug.props
 		Directory.Packages.props = Directory.Packages.props
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.UnitTests", "AslaveCare.UnitTests\AslaveCare.UnitTests.csproj", "{964EED0C-8927-D541-D89A-B1FBA641C0F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AslaveCare.IntegrationTests", "AslaveCare.IntegrationTests\AslaveCare.IntegrationTests.csproj", "{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[GitActions]", "[GitActions]", "{E170CD26-3E99-469C-8385-FD549C09D6E1}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\GitWorkFlowActionRunTests.yml = .github\workflows\GitWorkFlowActionRunTests.yml
 	EndProjectSection
 EndProject
 Global
@@ -102,18 +107,18 @@ Global
 		{A2C84A4D-1F44-3B18-582F-DEC583142946}.Migration|Any CPU.Build.0 = Production|Any CPU
 		{A2C84A4D-1F44-3B18-582F-DEC583142946}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2C84A4D-1F44-3B18-582F-DEC583142946}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}.Migration|Any CPU.ActiveCfg = Migration|Any CPU
-		{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}.Migration|Any CPU.Build.0 = Migration|Any CPU
-		{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D548EF23-AB89-A566-9A0D-D038D3FDCC5A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC876756-6E41-493D-D452-D9A1826CA3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC876756-6E41-493D-D452-D9A1826CA3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC876756-6E41-493D-D452-D9A1826CA3BB}.Migration|Any CPU.ActiveCfg = Migration|Any CPU
-		{DC876756-6E41-493D-D452-D9A1826CA3BB}.Migration|Any CPU.Build.0 = Migration|Any CPU
-		{DC876756-6E41-493D-D452-D9A1826CA3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC876756-6E41-493D-D452-D9A1826CA3BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{964EED0C-8927-D541-D89A-B1FBA641C0F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{964EED0C-8927-D541-D89A-B1FBA641C0F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{964EED0C-8927-D541-D89A-B1FBA641C0F3}.Migration|Any CPU.ActiveCfg = Migration|Any CPU
+		{964EED0C-8927-D541-D89A-B1FBA641C0F3}.Migration|Any CPU.Build.0 = Migration|Any CPU
+		{964EED0C-8927-D541-D89A-B1FBA641C0F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{964EED0C-8927-D541-D89A-B1FBA641C0F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5}.Migration|Any CPU.ActiveCfg = Migration|Any CPU
+		{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5}.Migration|Any CPU.Build.0 = Migration|Any CPU
+		{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +129,8 @@ Global
 		{921BB8FF-B259-08E1-0ED0-A1BDC8890D7C} = {1B2F8487-9A21-4EA4-AA93-C56783090B17}
 		{97E574FF-E7F6-DE51-E946-555385E8D6B8} = {4C5148BB-0CAD-49EC-9127-EE8227A9A60E}
 		{A2C84A4D-1F44-3B18-582F-DEC583142946} = {52F26077-1B54-4962-ABB4-D673645C5432}
+		{964EED0C-8927-D541-D89A-B1FBA641C0F3} = {65A82AF0-CC7C-47B7-A680-DDA57941A23B}
+		{2F9780DA-D9F2-1BB4-B1B7-359E9490E7A5} = {65A82AF0-CC7C-47B7-A680-DDA57941A23B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CC639E8D-A1FF-49B2-8CC9-ACCFCB93C69D}

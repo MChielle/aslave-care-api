@@ -6,7 +6,8 @@
 
         static BuildEnvironment()
         {
-            _environment = EnvironmentType.Development;
+            //Default to Test if not set
+            _environment = EnvironmentType.Test;
         }
 
         public static void SetEnvironment(EnvironmentType environment) => _environment = environment;
