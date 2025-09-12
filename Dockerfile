@@ -3,8 +3,8 @@ WORKDIR /app
 
 # Copiar csproj e restaurar dependencias
 COPY ./AslaveCare.Api/*.csproj ./AslaveCare.Api/
-COPY ./AslaveCare.Api.UnitTests/*.csproj ./AslaveCare.Api.UnitTests/
-COPY ./AslaveCare.Api.IntegrationTests/*.csproj ./AslaveCare.Api.IntegrationTests/
+COPY ./AslaveCare.UnitTests/*.csproj ./AslaveCare.UnitTests/
+COPY ./AslaveCare.IntegrationTests/*.csproj ./AslaveCare.IntegrationTests/
 COPY ./AslaveCare.Domain/*.csproj ./AslaveCare.Domain/
 COPY ./AslaveCare.Infra.Data/*.csproj ./AslaveCare.Infra.Data/
 COPY ./AslaveCare.Service/*.csproj ./AslaveCare.Service/
